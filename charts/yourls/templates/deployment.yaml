@@ -1,0 +1,167 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "yourls.fullname" . }}
+  labels:
+    app: "{{ template "yourls.fullname" . }}"
+    chart: "{{ template "yourls.chart" . }}"
+    release: {{ .Release.Name | quote }}
+    heritage: {{ .Release.Service | quote }}
+spec:
+  selector:
+    matchLabels:
+      app: "{{ template "yourls.fullname" . }}"
+      release: {{ .Release.Name | quote }}
+  replicas: {{ .Values.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: "{{ template "yourls.fullname" . }}"
+        chart: "{{ template "yourls.chart" . }}"
+        release: {{ .Release.Name | quote }}
+      {{- if or .Values.podAnnotations .Values.metrics.enabled }}
+      annotations:
+      {{- if .Values.podAnnotations }}
+        {{- toYaml .Values.podAnnotations | nindent 8 }}
+      {{- end }}
+      {{- if .Values.metrics.podAnnotations }}
+        {{- toYaml .Values.metrics.podAnnotations | nindent 8 }}
+      {{- end }}
+      {{- end }}
+    spec:
+      {{- if .Values.image.pullSecrets }}
+      imagePullSecrets:
+      {{- range .Values.image.pullSecrets }}
+        - name: {{ . }}
+      {{- end }}
+      {{- end }}
+      hostAliases:
+        - ip: "127.0.0.1"
+          hostnames:
+            - "status.localhost"
+      containers:
+        - name: "{{ template "yourls.fullname" . }}"
+          image: {{ template "yourls.image" . }}
+          imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+          env:
+            - name: YOURLS_DB_HOST
+            {{- if .Values.mariadb.enabled }}
+              value: {{ template "mariadb.fullname" . }}:{{ .Values.mariadb.service.port }}
+            {{- else }}
+              value: {{ .Values.externalDatabase.host | quote }}
+            {{- end }}
+            - name: YOURLS_DB_NAME
+            {{- if .Values.mariadb.enabled }}
+              value: {{ .Values.mariadb.db.name | quote }}
+            {{- else }}
+              value: {{ .Values.externalDatabase.database | quote }}
+            {{- end }}
+            - name: YOURLS_DB_USER
+            {{- if .Values.mariadb.enabled }}
+              value: {{ .Values.mariadb.db.user | quote }}
+            {{- else }}
+              value: {{ .Values.externalDatabase.user | quote }}
+            {{- end }}
+            - name: YOURLS_DB_PASS
+              valueFrom:
+                secretKeyRef:
+                {{- if .Values.mariadb.enabled }}
+                  name: {{ template "mariadb.fullname" . }}
+                  key: mariadb-password
+                {{- else }}
+                  name: {{ printf "%s-%s" .Release.Name "externaldb" }}
+                  key: db-password
+                {{- end }}
+            - name: YOURLS_DB_PREFIX
+              value: {{ .Values.yourlsTablePrefix | quote }}
+            - name: YOURLS_SITE
+              value: {{ .Values.yourlsSite | quote }}
+            - name: YOURLS_USER
+              value: {{ .Values.yourlsUsername | quote }}
+            - name: YOURLS_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "yourls.fullname" . }}
+                  key: yourls-password
+          {{- if .Values.extraEnv }}
+            {{- toYaml .Values.extraEnv | nindent 12 }}
+          {{- end }}
+          ports:
+            - name: http
+              containerPort: 80
+            - name: https
+              containerPort: 443
+          livenessProbe:
+            httpGet:
+              path: /admin/
+            {{- if not .Values.healthcheckHttps }}
+              port: http
+            {{- else }}
+              port: https
+              scheme: HTTPS
+            {{- end }}
+            {{- toYaml .Values.livenessProbe | nindent 12 }}
+          readinessProbe:
+            httpGet:
+              path: /admin/
+            {{- if not .Values.healthcheckHttps }}
+              port: http
+            {{- else }}
+              port: https
+              scheme: HTTPS
+            {{- end }}
+            {{- toYaml .Values.readinessProbe | nindent 12 }}
+          volumeMounts:
+            - mountPath: /var/www/html
+              name: yourls-data
+          {{- if .Values.volumeMounts }}
+            {{- toYaml .Values.volumeMounts | nindent 12 }}
+          {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+{{- if .Values.metrics.enabled }}
+        - name: metrics
+          image: {{ template "metrics.image" . }}
+          imagePullPolicy: {{ .Values.metrics.image.pullPolicy | quote }}
+          command: [ '/bin/apache_exporter', '-scrape_uri', 'http://status.localhost:80/server-status/?auto']
+          ports:
+            - name: metrics
+              containerPort: 9117
+          livenessProbe:
+            httpGet:
+              path: /metrics
+              port: metrics
+            initialDelaySeconds: 15
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /metrics
+              port: metrics
+            initialDelaySeconds: 5
+            timeoutSeconds: 1
+          resources:
+            {{- toYaml .Values.metrics.resources | nindent 12 }}
+{{- end }}
+      volumes:
+        - name: yourls-data
+        {{- if .Values.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.persistence.existingClaim | default (include "yourls.fullname" .) }}
+        {{- else }}
+          emptyDir: {}
+        {{ end }}
+      {{- if .Values.volumes }}
+        {{- toYaml .Values.volumes | nindent 8 }}
+      {{- end }}
+      {{- if .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml .Values.nodeSelector | nindent 8 }}
+      {{- end -}}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}

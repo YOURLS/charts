@@ -1,0 +1,30 @@
+# https://docs.travis-ci.com/
+
+language: minimal
+services:
+  - docker
+
+script: |
+  docker run \
+    --volume "${PWD}:/src" \
+    --workdir /src \
+    --rm \
+    quay.io/helmpack/chart-testing \
+    ct lint --config .ct.yaml
+
+before_deploy: |
+  docker run \
+    --volume "${PWD}:/src" \
+    --workdir /src \
+    --rm \
+    alpine \
+    bin/package "https://charts.yourls.org/" public "https://github.com/YOURLS/charts.git"
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_API_TOKEN
+  local-dir: public/
+  fqdn: charts.yourls.org
+  on:
+    branch: master
