@@ -17,4 +17,9 @@
    ```
 
 3. **Install a chart**  
-   See [charts respective READMEs](charts).
+   See howtos on your prefered sources:
+   * [Charts docs on Helm Hub](https://hub.helm.sh/charts/yourls).
+   * [Charts respective READMEs](charts).
+   * ```
+     helm search yourls
+     ```
