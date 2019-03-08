@@ -27,4 +27,4 @@ deploy:
   local-dir: public/
   fqdn: charts.yourls.org
   on:
-    branch: master
+    tags: true
