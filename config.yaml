@@ -1,3 +1,6 @@
+owner: YOURLS
+repo: charts
+package-path: public
 remote: origin
 chart-dirs:
   - charts

@@ -1,0 +1,28 @@
+name: Charts CI
+
+on: [push, pull_request]
+
+jobs:
+  testing:
+    name: Test
+    runs-on: ubuntu-latest
+    container: quay.io/helmpack/chart-testing:latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Chart Releaser
+        run: ct lint --config config.yaml
+
+  releaser:
+    name: Release
+    needs: testing
+    runs-on: ubuntu-latest
+    container: quay.io/helmpack/chart-releaser:latest
+    steps:
+      - uses: actions/checkout@v1
+        if: github.event_name == 'push' && github.ref == 'master'
+      - name: Release
+        if: github.event_name == 'push' && github.ref == 'master'
+        run: cr upload --config config.yaml
+      - name: Index
+        if: github.event_name == 'push' && github.ref == 'master'
+        run: cr index --config config.yaml
