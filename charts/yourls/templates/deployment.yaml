@@ -112,7 +112,7 @@ spec:
               scheme: HTTPS
             {{- end }}
             {{- toYaml .Values.readinessProbe | nindent 12 }}
-          {{- end }}}
+          {{- end }}
           volumeMounts:
             - mountPath: /var/www/html
               name: yourls-data
