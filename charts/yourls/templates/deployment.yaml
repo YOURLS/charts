@@ -102,6 +102,7 @@ spec:
             {{- end }}
             {{- toYaml .Values.livenessProbe | nindent 12 }}
           readinessProbe:
+          {{- if not .Values.disableAdminPanelReadinessProbe }}
             httpGet:
               path: /admin/
             {{- if not .Values.healthcheckHttps }}
@@ -111,6 +112,7 @@ spec:
               scheme: HTTPS
             {{- end }}
             {{- toYaml .Values.readinessProbe | nindent 12 }}
+          {{- end }}
           volumeMounts:
             - mountPath: /var/www/html
               name: yourls-data
