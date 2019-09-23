@@ -127,6 +127,9 @@ service:
 ## Allow health checks to be pointed at the https port
 healthcheckHttps: false
 
+## Disables readiness probe
+disableAdminPanelReadinessProbe: false
+
 ## Configure extra options for liveness and readiness probes
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes)
 livenessProbe:
