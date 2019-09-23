@@ -80,6 +80,7 @@ The following table lists the configurable parameters of the YOURLS chart and th
 | `nodePorts.http`                 | Kubernetes http node port                  | `""`                                                    |
 | `nodePorts.https`                | Kubernetes https node port                 | `""`                                                    |
 | `healthcheckHttps`               | Use https for liveliness and readiness     | `false`                                                 |
+| `disableAdminPanelReadinessProbe`| Disable readinessProbe.httpGet to /admin/  | `false`                                                 |
 | `ingress.enabled`                | Enable ingress controller resource         | `false`                                                 |
 | `ingress.certManager`            | Add annotations for cert-manager           | `false`                                                 |
 | `ingress.annotations`            | Ingress annotations                        | `[]`                                                    |
