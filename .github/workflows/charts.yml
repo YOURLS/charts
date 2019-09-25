@@ -9,7 +9,7 @@ jobs:
     container: quay.io/helmpack/chart-testing:latest
     steps:
       - uses: actions/checkout@v1
-      - name: Chart Releaser
+      - name: Lint
         run: ct lint --config config.yaml
 
   releaser:
