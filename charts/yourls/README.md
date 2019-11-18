@@ -18,7 +18,7 @@ Charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and man
 
 ## Prerequisites
 
-- Kubernetes 1.4+ with Beta APIs enabled
+- Kubernetes 1.15+ with Beta APIs enabled
 - PV provisioner support in the underlying infrastructure
 
 ## Installing the Chart

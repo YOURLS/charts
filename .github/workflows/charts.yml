@@ -16,6 +16,7 @@ jobs:
     name: Release
     needs: testing
     runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'master'
     container: quay.io/helmpack/chart-releaser:latest
     if: github.ref == 'refs/heads/master'
     steps:
