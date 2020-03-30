@@ -3,7 +3,7 @@ name: Charts CI
 on: [push, pull_request]
 
 jobs:
-  testing:
+  test:
     name: Test
     runs-on: ubuntu-latest
     container: quay.io/helmpack/chart-testing:v2.4.0
@@ -12,15 +12,21 @@ jobs:
       - name: Lint
         run: ct lint --config config.yaml
 
-  releaser:
+  release:
     name: Release
-    needs: testing
+    needs: test
     runs-on: ubuntu-latest
-    container: quay.io/helmpack/chart-releaser:latest
     if: github.ref == 'refs/heads/master'
     steps:
-      - uses: actions/checkout@v1
-      - name: Release
-        run: cr upload --config config.yaml
-      - name: Index
-        run: cr index --config config.yaml
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Configure Git
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+      - name: Run chart-releaser
+        uses: helm/chart-releaser-action@v1.0.0-rc.1
+        with:
+          charts_repo_url: ${{ secrets.CHARTS_URL }}
+        env:
+          CR_TOKEN: "${{ secrets.CR_TOKEN }}"
