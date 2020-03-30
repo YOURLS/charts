@@ -7,3 +7,5 @@ chart-dirs:
 excluded-charts:
   - common
 helm-extra-args: --timeout 800
+chart-repos:
+  - bitnami=https://charts.bitnami.com/bitnami
