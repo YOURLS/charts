@@ -17,7 +17,7 @@ jobs:
     needs: testing
     runs-on: ubuntu-latest
     container: quay.io/helmpack/chart-releaser:latest
-    if: github.ref == 'master'
+    if: github.ref == 'refs/heads/master'
     steps:
       - uses: actions/checkout@v1
       - name: Release
