@@ -6,7 +6,7 @@ jobs:
   testing:
     name: Test
     runs-on: ubuntu-latest
-    container: quay.io/helmpack/chart-testing:latest
+    container: quay.io/helmpack/chart-testing:v2.4.0
     steps:
       - uses: actions/checkout@v1
       - name: Lint
