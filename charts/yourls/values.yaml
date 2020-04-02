@@ -79,6 +79,10 @@ mariadb:
   replication:
     enabled: false
 
+  ## Change the owner and group of the persistent volume mountpoint to runAsUser:fsGroup values from the securityContext section.
+  volumePermissions:
+    enabled: true
+
   ## Create a database and a database user
   ## ref: https://github.com/bitnami/bitnami-docker-mariadb/blob/master/README.md#creating-a-database-user-on-first-run
   ##
