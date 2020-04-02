@@ -10,6 +10,10 @@ spec:
   - name: {{ .Release.Name }}-credentials-test
     image: {{ template "yourls.image" . }}
     imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+    {{- if .Values.securityContext.enabled }}
+    securityContext:
+      runAsUser: {{ .Values.securityContext.runAsUser }}
+    {{- end }}
     env:
       - name: MARIADB_HOST
         value: {{ template "mariadb.fullname" . }}
@@ -24,6 +28,10 @@ spec:
           secretKeyRef:
             name: {{ template "mariadb.fullname" . }}
             key: mariadb-password
-    command: ["sh", "-c", "mysql --host=$YOURLS_DB_HOST --user=$YOURLS_DB_USER --password=$YOURLS_DB_PASS"]
+    command:
+      - /bin/bash
+      - -ec
+      - |
+        mysql --host=$MARIADB_HOST --port=$MARIADB_PORT --user=$YOURLS_DB_USER --password=$YOURLS_DB_PASS
   restartPolicy: Never
 {{- end }}
