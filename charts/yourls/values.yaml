@@ -253,6 +253,15 @@ affinity: {}
 ## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
 ##
 podAnnotations: {}
+
+## K8s Security Context for WordPress pods
+## https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+##
+securityContext:
+  enabled: true
+  fsGroup: 1001
+  runAsUser: 1001
+
 ## Prometheus Exporter / Metrics
 ##
 metrics:
