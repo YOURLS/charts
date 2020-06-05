@@ -8,7 +8,7 @@
 ## Getting Started
 
 1. **Install Helm**  
-   Get the latest [Helm release](https://github.com/kubernetes/helm#install).
+   Get the latest [Helm release](https://helm.sh/docs/intro/install/).
 
 2. **Add YOURLS Helm Chart repository**  
    ```console
@@ -18,8 +18,8 @@
 
 3. **Install a chart**  
    See docs on your preferred sources:
-   * [Charts docs on Helm Hub](https://hub.helm.sh/charts/yourls).
-   * [Charts respective READMEs](charts).
+   * [Charts docs on Helm Hub](https://hub.helm.sh/charts/yourls)
+   * [Charts respective READMEs](charts)
    * ```
      helm search yourls
      ```

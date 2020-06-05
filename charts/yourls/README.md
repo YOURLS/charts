@@ -18,7 +18,7 @@ Charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and man
 
 ## Prerequisites
 
-- Kubernetes 1.4+ with Beta APIs enabled
+- Kubernetes 1.15+ with Beta APIs enabled
 - PV provisioner support in the underlying infrastructure
 
 ## Installing the Chart
@@ -126,7 +126,7 @@ The above command sets the YOURLS administrator account username and password to
 Alternatively, a YAML file that specifies the values for the above parameters can be provided while installing the chart. For example,
 
 ```console
-$ helm install --name my-release -f values.yaml yourls/yourls
+$ helm install my-release -f values.yaml yourls/yourls
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)

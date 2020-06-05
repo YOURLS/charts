@@ -1,7 +1,0 @@
-dependencies:
-  - name: mariadb
-    version: 7.3.16
-    repository: https://charts.bitnami.com/bitnami
-    condition: mariadb.enabled
-    tags:
-      - yourls-database
