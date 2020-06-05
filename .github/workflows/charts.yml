@@ -31,12 +31,19 @@ jobs:
     name: Release
     needs: test
     runs-on: ubuntu-latest
-    container: quay.io/helmpack/chart-releaser:latest
     if: github.ref == 'refs/heads/master'
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Release
-        run: cr upload --config config.yaml
-      - name: Index
-        run: cr index --config config.yaml
+      - name: Fetch history
+        run: git fetch --prune --unshallow
+      - name: Configure Git
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+      - name: Run chart-releaser
+        uses: helm/chart-releaser-action@v1.0.0-rc.2
+        with:
+          charts_repo_url: ${{ secrets.CHARTS_URL }}
+        env:
+          CR_TOKEN: "${{ secrets.CR_TOKEN }}"
