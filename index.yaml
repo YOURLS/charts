@@ -1,6 +1,33 @@
 apiVersion: v1
 entries:
   yourls:
+  - apiVersion: v2
+    appVersion: 1.7.4
+    created: "2020-06-05T15:37:49.455965806Z"
+    dependencies:
+    - condition: mariadb.enabled
+      name: mariadb
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - yourls-database
+      version: 7.3.16
+    description: Your Own URL Shortener
+    digest: aef4f13c3fed5dab393f4d29f6bebc67ce1ccb11bd402946f59814056721720d
+    home: https://yourls.org
+    icon: https://yourls.org/images/yourls-logo.png
+    keywords:
+    - shortener
+    - url
+    - bitly
+    maintainers:
+    - email: yourls@yourls.org
+      name: YOURLS
+    name: yourls
+    sources:
+    - https://github.com/YOURLS/YOURLS
+    urls:
+    - https://github.com/YOURLS/charts/releases/download/yourls-1.2.0/yourls-1.2.0.tgz
+    version: 1.2.0
   - apiVersion: v1
     appVersion: 1.7.3
     created: "2020-03-30T20:23:08.909832272Z"
