@@ -34,6 +34,10 @@ yourlsUsername: user
 ##
 # yourlsPassword:
 
+## Existing secret with application password
+## If set, yourlsPassword is ignored
+# yourlsPasswordExistingSecret:
+
 ## Table prefix
 ## ref: https://hub.docker.com/_/yourls
 ##
@@ -63,6 +67,9 @@ externalDatabase:
 
   ## Database password
   password: ""
+
+  ## Use an existing secret with the database password
+  # existingSecret:
 
   ## Database name
   database: yourls
