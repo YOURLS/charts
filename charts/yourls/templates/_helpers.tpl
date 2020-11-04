@@ -4,7 +4,7 @@ Expand the name of the chart.
 */}}
 {{- define "yourls.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
+ {{- end -}}
 
 {{/*
 Create a default fully qualified app name.
@@ -61,4 +61,20 @@ Return the proper image name (for the metrics image)
 {{- $repositoryName := .Values.metrics.image.repository -}}
 {{- $tag := .Values.metrics.image.tag | toString -}}
 {{- printf "%s/%s:%s" $registryName $repositoryName $tag -}}
+{{- end -}}
+
+{{/*
+Return secret name to be used for application secrets
+*/}}
+{{- define "yourls.applicationSecret" -}}
+{{- $fullName := include "yourls.fullname" . -}}
+{{- default $fullName .Values.yourlsPasswordExistingSecret | quote -}}
+{{- end -}}
+
+{{/*
+Return secret name to be used for external db secrets
+*/}}
+{{- define "yourls.externalDatabaseSecret" -}}
+{{- $fullName := printf "%s-%s" .Chart.Name "externaldb" -}}
+{{- default $fullName .Values.externalDatabase.existingSecret | quote -}}
 {{- end -}}
