@@ -1,8 +1,8 @@
 apiVersion: v2
+version: 1.3.1
 name: yourls
 description: Your Own URL Shortener
-version: 1.3.0
-appVersion: 1.7.4
+appVersion: 1.7.9
 keywords:
   - shortener
   - url
@@ -11,9 +11,12 @@ home: https://yourls.org
 icon: https://yourls.org/images/yourls-logo.png
 sources:
   - https://github.com/YOURLS/YOURLS
+  - https://github.com/YOURLS/charts
 maintainers:
   - name: YOURLS
     email: yourls@yourls.org
+  - name: LeoColomb
+    email: git@colombaro.fr
 dependencies:
   - name: mariadb
     version: 7.3.16
@@ -21,3 +24,13 @@ dependencies:
     condition: mariadb.enabled
     tags:
       - yourls-database
+annotations:
+  artifacthub.io/license: MIT
+  artifacthub.io/images: |
+    - name: yourls
+      image: yourls:1.7.9
+  artifacthub.io/links: |
+    - name: Chart Source
+      url: https://github.com/YOURLS/charts
+    - name: Upstream Project
+      url: https://github.com/YOURLS/YOURLS
