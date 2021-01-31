@@ -1,0 +1,219 @@
+{
+  "$schema": "https://json-schema.org/schema#",
+  "title": "YOURLS Chart JSON Schema",
+  "type": "object",
+  "properties": {
+    "image": {
+      "type": "object",
+      "title": "YOURLS image version",
+      "description": "https://hub.docker.com/_/yourls?tab=tags",
+      "properties": {
+        "registry": {
+          "title": "YOURLS image registry",
+          "type": "string",
+          "default": "docker.io"
+        },
+        "repository": {
+          "title": "YOURLS image name",
+          "type": "string",
+          "default": "yourls"
+        },
+        "tag": {
+          "title": "YOURLS image tag",
+          "type": "string",
+          "default": "1.7.9"
+        },
+        "pullPolicy": {
+          "title": "Image pull policy",
+          "type": "string",
+          "default": "IfNotPresent"
+        },
+        "pullSecrets": {
+          "title": "Specify image pull secrets",
+          "description": "Secrets must be manually created in the namespace.",
+          "type": "array",
+          "default": []
+        }
+      }
+    },
+    "yourls": {
+      "type": "object",
+      "description": "https://hub.docker.com/_/yourls",
+      "properties": {
+        "site": {
+          "title": "Site of the app",
+          "description": "Short URLs site referring to the app, used to construct short URLs.",
+          "type": "string",
+          "default": "http://yourls"
+        },
+        "username": {
+          "title": "User of the application",
+          "type": "string",
+          "default": "user"
+        },
+        "password": {
+          "title": "Application password",
+          "description": "Defaults to a random 10-character alphanumeric string if not set",
+          "type": "string",
+          "default": ""
+        },
+        "passwordExistingSecret": {
+          "title": "Existing secret with application password",
+          "description": "If set, yourls.password is ignored",
+          "type": "string",
+          "default": ""
+        },
+        "tablePrefix": {
+          "title": "Table prefix",
+          "type": "string",
+          "default": "yourls_"
+        }
+      }
+    },
+    "extraEnv": {
+      "title": "Additional environment variables",
+      "description": "Extra environment variables which will be saved in a release-specific secret or retrieved via valueFrom.",
+      "type": "array",
+      "default": []
+    },
+    "replicaCount": {
+      "title": "Number of app replicas",
+      "type": "integer",
+      "default": 1
+    },
+    "db": {
+      "title": "Database configuration",
+      "description": "All of these values are only used when mysql.enabled is set to false",
+      "type": "object",
+      "properties": {
+        "database": {
+          "title": "Database name",
+          "default": "yourls",
+          "type": "string"
+        },
+        "host": {
+          "title": "Database host",
+          "default": "localhost:3306",
+          "type": "string"
+        },
+        "password": {
+          "title": "Database password",
+          "default": "",
+          "type": "string"
+        },
+        "port": {
+          "title": "Database port",
+          "default": "3306",
+          "type": "integer"
+        },
+        "user": {
+          "title": "Database user",
+          "default": "yourls",
+          "type": "string"
+        },
+        "existingSecret": {
+          "title": "Database existing secret",
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": ["database", "host", "password", "port", "user"]
+    },
+    "service": {
+      "type": "object",
+      "properties": {
+        "port": {
+          "title": "YOURLS service port",
+          "type": "integer",
+          "default": 80
+        },
+        "httpsPort": {
+          "title": "YOURLS service secure port",
+          "type": "integer",
+          "default": 443
+        },
+        "type": {
+          "title": "YOURLS service type",
+          "type": "string",
+          "default": "LoadBalancer"
+        }
+      },
+      "required": ["port", "type"]
+    },
+    "ingress": {
+      "type": "object",
+      "properties": {
+        "annotations": {
+          "title": "Hub ingress annotations",
+          "type": "object",
+          "properties": {
+            "kubernetes.io/ingress.class": {
+              "title": "Hub ingress class",
+              "type": "string",
+              "default": "nginx"
+            }
+          },
+          "required": ["kubernetes.io/ingress.class"]
+        },
+        "enabled": {
+          "title": "Enable YOURLS ingress",
+          "type": "boolean",
+          "default": false
+        },
+        "rules": {
+          "title": "YOURLS ingress rules",
+          "type": "array",
+          "items": {
+            "description": "More information here: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.19/#ingressrule-v1-networking-k8s-io",
+            "type": "object"
+          },
+          "default": []
+        },
+        "tls": {
+          "title": "YOURLS ingress tls",
+          "type": "array",
+          "items": {
+            "description": "More information here: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.19/#ingresstls-v1-networking-k8s-io",
+            "type": "object"
+          },
+          "default": []
+        }
+      },
+      "required": ["annotations", "enabled"]
+    },
+    "persistence": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "title": "Use persistent volume to store data",
+          "type": "boolean",
+          "default": false
+        },
+        "size": {
+          "title": "Size of persistent volume claim",
+          "type": "string",
+          "default": "10Gi"
+        },
+        "storageClassName": {
+          "title": "Type of persistent volume claim",
+          "type": "string",
+          "default": ""
+        }
+      },
+      "required": ["enabled"]
+    },
+    "resources": {
+      "title": "Hub pod resource requirements",
+      "description": "More information here: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.19/#resourcerequirements-v1-core",
+      "type": "object",
+      "default": {}
+    },
+    "mysql": {
+      "title": "MySQL chart configuration",
+      "description": "More information here: https://github.com/bitnami/charts/blob/master/bitnami/mysql/values.yaml",
+      "type": "object",
+      "default": {}
+    }
+  },
+  "required": []
+}

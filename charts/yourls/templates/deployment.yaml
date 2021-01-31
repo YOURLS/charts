@@ -39,45 +39,37 @@ spec:
         - ip: "127.0.0.1"
           hostnames:
             - "status.localhost"
+      {{- if .Values.initContainers }}
+      initContainers:
+        {{- toYaml .Values.initContainers | nindent 8 }}
+      {{- end }}
       containers:
         - name: "{{ template "yourls.fullname" . }}"
           image: {{ template "yourls.image" . }}
           imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
           env:
             - name: YOURLS_DB_HOST
-            {{- if .Values.mariadb.enabled }}
-              value: {{ template "mariadb.fullname" . }}:{{ .Values.mariadb.service.port }}
-            {{- else }}
-              value: {{ .Values.externalDatabase.host | quote }}
-            {{- end }}
+              value: {{ include "yourls.databaseHost" . | quote }}
             - name: YOURLS_DB_NAME
-            {{- if .Values.mariadb.enabled }}
-              value: {{ .Values.mariadb.db.name | quote }}
-            {{- else }}
-              value: {{ .Values.externalDatabase.database | quote }}
-            {{- end }}
+              value: {{ include "yourls.databaseName" . | quote }}
             - name: YOURLS_DB_USER
-            {{- if .Values.mariadb.enabled }}
-              value: {{ .Values.mariadb.db.user | quote }}
-            {{- else }}
-              value: {{ .Values.externalDatabase.user | quote }}
-            {{- end }}
+              value: {{ include "yourls.databaseUser" . | quote }}
             - name: YOURLS_DB_PASS
               valueFrom:
                 secretKeyRef:
-                {{- if .Values.mariadb.enabled }}
-                  name: {{ template "mariadb.fullname" . }}
-                  key: mariadb-password
+                {{- if .Values.mysql.enabled }}
+                  name: {{ template "yourls.mysql.fullname" . }}
+                  key: mysql-password
                 {{- else }}
-                  name: {{ template "yourls.externalDatabaseSecret" . }}
+                  name: {{ template "yourls.dbSecret" . }}
                   key: db-password
                 {{- end }}
             - name: YOURLS_DB_PREFIX
-              value: {{ .Values.yourlsTablePrefix | quote }}
+              value: {{ .Values.yourls.tablePrefix | quote }}
             - name: YOURLS_SITE
-              value: {{ .Values.yourlsSite | quote }}
+              value: {{ .Values.yourls.site | quote }}
             - name: YOURLS_USER
-              value: {{ .Values.yourlsUsername | quote }}
+              value: {{ .Values.yourls.username | quote }}
             - name: YOURLS_PASS
               valueFrom:
                 secretKeyRef:

@@ -1,4 +1,4 @@
-{{- if .Values.mariadb.enabled }}
+{{- if .Values.mysql.enabled }}
 apiVersion: v1
 kind: Pod
 metadata:
@@ -15,23 +15,23 @@ spec:
       runAsUser: {{ .Values.securityContext.runAsUser }}
     {{- end }}
     env:
-      - name: MARIADB_HOST
-        value: {{ template "mariadb.fullname" . }}
-      - name: MARIADB_PORT
-        value: {{ .Values.mariadb.service.port | quote }}
+      - name: MYSQL_HOST
+        value: {{ template "yourls.mysql.fullname" . }}
+      - name: MYSQL_PORT
+        value: "3306"
       - name: YOURLS_DB_NAME
-        value: {{ default "" .Values.mariadb.db.name | quote }}
+        value: {{ default "" .Values.mysql.auth.name | quote }}
       - name: YOURLS_DB_USER
-        value: {{ default "" .Values.mariadb.db.user | quote }}
+        value: {{ default "" .Values.mysql.auth.user | quote }}
       - name: YOURLS_DB_PASS
         valueFrom:
           secretKeyRef:
-            name: {{ template "mariadb.fullname" . }}
-            key: mariadb-password
+            name: {{ template "yourls.mysql.fullname" . }}
+            key: mysql-password
     command:
       - /bin/bash
       - -ec
       - |
-        mysql --host=$MARIADB_HOST --port=$MARIADB_PORT --user=$YOURLS_DB_USER --password=$YOURLS_DB_PASS
+        mysql --host=$MYSQL_HOST --port=$MYSQL_PORT --user=$YOURLS_DB_USER --password=$YOURLS_DB_PASS
   restartPolicy: Never
 {{- end }}

@@ -19,8 +19,8 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 */}}
-{{- define "mariadb.fullname" -}}
-{{- printf "%s-%s" .Release.Name "mariadb" | trunc 63 | trimSuffix "-" -}}
+{{- define "yourls.mysql.fullname" -}}
+{{- printf "%s-%s" .Release.Name "mysql" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*
@@ -68,13 +68,61 @@ Return secret name to be used for application secrets
 */}}
 {{- define "yourls.applicationSecret" -}}
 {{- $fullName := include "yourls.fullname" . -}}
-{{- default $fullName .Values.yourlsPasswordExistingSecret | quote -}}
+{{- default $fullName .Values.yourls.passwordExistingSecret | quote -}}
 {{- end -}}
 
 {{/*
 Return secret name to be used for external db secrets
 */}}
-{{- define "yourls.externalDatabaseSecret" -}}
+{{- define "yourls.dbSecret" -}}
 {{- $fullName := printf "%s-%s" .Chart.Name "externaldb" -}}
-{{- default $fullName .Values.externalDatabase.existingSecret | quote -}}
+{{- default $fullName .Values.db.existingSecret | quote -}}
+{{- end -}}
+
+{{/*
+Return the MySQL Hostname
+*/}}
+{{- define "yourls.databaseHost" -}}
+{{- if .Values.mysql.enabled }}
+    {{- if eq .Values.mysql.architecture "replication" }}
+        {{- printf "%s-%s" (include "yourls.mysql.fullname" .) "primary" | trunc 63 | trimSuffix "-" -}}
+    {{- else -}}
+        {{- printf "%s" (include "yourls.mysql.fullname" .) -}}
+    {{- end -}}
+{{- else -}}
+    {{- printf "%s" .Values.db.host -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Return the MySQL Port
+*/}}
+{{- define "yourls.databasePort" -}}
+{{- if .Values.mysql.enabled }}
+    {{- printf "3306" -}}
+{{- else -}}
+    {{- printf "%d" (.Values.db.port | int ) -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Return the MySQL Database Name
+*/}}
+{{- define "yourls.databaseName" -}}
+{{- if .Values.mysql.enabled }}
+    {{- printf "%s" .Values.mysql.auth.database -}}
+{{- else -}}
+    {{- printf "%s" .Values.db.database -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Return the MySQL User
+*/}}
+{{- define "yourls.databaseUser" -}}
+{{- if .Values.mysql.enabled }}
+    {{- printf "%s" .Values.mysql.auth.username -}}
+{{- else -}}
+    {{- printf "%s" .Values.db.user -}}
+{{- end -}}
 {{- end -}}

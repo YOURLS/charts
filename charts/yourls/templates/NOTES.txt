@@ -35,5 +35,5 @@
 
 2. Login with the following credentials to see your shortner
 
-  echo Username: {{ .Values.yourlsUsername }}
+  echo Username: {{ .Values.yourls.username }}
   echo Password: $(kubectl get secret --namespace {{ .Release.Namespace }} {{ template "yourls.fullname" . }} -o jsonpath="{.data.yourls-password}" | base64 --decode)

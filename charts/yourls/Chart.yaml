@@ -18,10 +18,10 @@ maintainers:
   - name: LeoColomb
     email: git@colombaro.fr
 dependencies:
-  - name: mariadb
-    version: 7.3.16
+  - condition: mysql.enabled
+    name: mysql
     repository: https://charts.bitnami.com/bitnami
-    condition: mariadb.enabled
+    version: 8.x.x
     tags:
       - yourls-database
 annotations:
