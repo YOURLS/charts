@@ -13,6 +13,46 @@ entries:
           url: https://github.com/YOURLS/YOURLS
     apiVersion: v2
     appVersion: 1.7.9
+    created: "2021-02-11T17:09:58.827196134Z"
+    dependencies:
+    - condition: mysql.enabled
+      name: mysql
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - yourls-database
+      version: 8.x.x
+    description: Your Own URL Shortener
+    digest: 823171136d952b67dcae12f1cd143bed468ec093497a6bd1453abe1730409c93
+    home: https://yourls.org
+    icon: https://yourls.org/images/yourls-logo.png
+    keywords:
+    - shortener
+    - url
+    - bitly
+    maintainers:
+    - email: yourls@yourls.org
+      name: YOURLS
+    - email: git@colombaro.fr
+      name: LeoColomb
+    name: yourls
+    sources:
+    - https://github.com/YOURLS/YOURLS
+    - https://github.com/YOURLS/charts
+    urls:
+    - https://github.com/YOURLS/charts/releases/download/yourls-2.0.0/yourls-2.0.0.tgz
+    version: 2.0.0
+  - annotations:
+      artifacthub.io/images: |
+        - name: yourls
+          image: yourls:1.7.9
+      artifacthub.io/license: MIT
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/YOURLS/charts
+        - name: Upstream Project
+          url: https://github.com/YOURLS/YOURLS
+    apiVersion: v2
+    appVersion: 1.7.9
     created: "2021-02-10T00:54:37.038472055Z"
     dependencies:
     - condition: mysql.enabled
