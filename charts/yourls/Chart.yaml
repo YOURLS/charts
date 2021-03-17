@@ -1,8 +1,8 @@
 apiVersion: v2
-version: 2.0.0
+version: 2.1.0
 name: yourls
 description: Your Own URL Shortener
-appVersion: 1.7.9
+appVersion: 1.8.1
 keywords:
   - shortener
   - url
@@ -28,7 +28,7 @@ annotations:
   artifacthub.io/license: MIT
   artifacthub.io/images: |
     - name: yourls
-      image: yourls:1.7.9
+      image: yourls:1.8.1
   artifacthub.io/links: |
     - name: Chart Source
       url: https://github.com/YOURLS/charts
