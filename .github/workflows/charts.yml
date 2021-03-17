@@ -45,6 +45,15 @@ jobs:
         run: |
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+      - name: Prepare GPG key
+        run: |
+          gpg_dir=.cr-gpg
+          mkdir "$gpg_dir"
+          keyring="$gpg_dir/secring.gpg"
+          base64 -d <<< "$GPG_KEY_BASE64" > "$keyring"
+          echo "CR_KEYRING=$keyring" >> "$GITHUB_ENV"
+        env:
+          GPG_KEY_BASE64: "${{ secrets.GPG_KEY_BASE64 }}"
       - name: Install Helm
         uses: azure/setup-helm@v1
       - name: Add Helm repos
