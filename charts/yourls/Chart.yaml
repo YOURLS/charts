@@ -34,3 +34,6 @@ annotations:
       url: https://github.com/YOURLS/charts
     - name: Upstream Project
       url: https://github.com/YOURLS/YOURLS
+  artifacthub.io/changes: |
+    - Add Helm Provenance Signature
+    - YOURLS Docker image tag now follows chart app version
