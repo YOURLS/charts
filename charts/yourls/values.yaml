@@ -117,7 +117,7 @@ ingress:
   annotations:
     kubernetes.io/ingress.class: nginx
   hosts:
-  - host: yourls.local
+  - name: yourls.local
     path: /
 
     # Set this to true in order to enable TLS on the ingress record
