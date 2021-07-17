@@ -21,7 +21,7 @@ dependencies:
   - condition: mysql.enabled
     name: mysql
     repository: https://charts.bitnami.com/bitnami
-    version: ^8.4.4
+    version: ^8.7.2
     tags:
       - yourls-database
 annotations:
@@ -39,4 +39,4 @@ annotations:
     url: https://yourls.org/.well-known/openpgpkey/hu/6e4gbtp15q1znf3unweeducn7urty4mr
   artifacthub.io/changes: |
     - kind: changed
-      description: Bump apache exporter version
+      description: Bump dependencies version
