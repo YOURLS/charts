@@ -3,7 +3,7 @@
     "config:base"
   ],
   "labels": ["dependencies"],
-  "rangeStrategy": "update-lockfile",
+  "rangeStrategy": "bump",
   "packageRules": [
     {
       "matchDatasources": ["helm"],
