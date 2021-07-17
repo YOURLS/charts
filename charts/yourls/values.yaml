@@ -116,8 +116,8 @@ ingress:
   enabled: false
   annotations:
     kubernetes.io/ingress.class: nginx
-  rules:
-  - host: yourls.local
+  hosts:
+  - name: yourls.local
     path: /
 
     # Set this to true in order to enable TLS on the ingress record
@@ -220,6 +220,6 @@ metrics:
 ##  - name: your-image-name
 ##    image: your-image
 ##    imagePullPolicy: Always
-##    command: ['sh', '-c', 'copy plugins from git and push to /var/www/user. Should work with extraVolumeMounts and extraVolumes']
+##    command: ['sh', '-c', 'copy plugins from git and push to /var/www/user. Should work with volumeMounts and volumes']
 ##
 initContainers: {}

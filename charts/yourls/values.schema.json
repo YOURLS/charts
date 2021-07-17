@@ -160,7 +160,7 @@
           "type": "boolean",
           "default": false
         },
-        "rules": {
+        "hosts": {
           "title": "YOURLS ingress rules",
           "type": "array",
           "items": {
