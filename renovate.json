@@ -1,5 +1,13 @@
 {
   "extends": [
     "config:base"
+  ],
+  "labels": ["dependencies"],
+  "rangeStrategy": "update-lockfile",
+  "packageRules": [
+    {
+      "matchDatasources": ["helm"],
+      "versioning": "npm"
+    }
   ]
 }
