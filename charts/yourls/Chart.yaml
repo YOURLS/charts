@@ -1,5 +1,5 @@
 apiVersion: v2
-version: 2.1.3
+version: 2.1.4
 name: yourls
 description: Your Own URL Shortener
 appVersion: 1.8.1
@@ -38,7 +38,5 @@ annotations:
     fingerprint: 6FCD850E18E4A4FF76DD1184A3A42A61961E423F
     url: https://yourls.org/.well-known/openpgpkey/hu/6e4gbtp15q1znf3unweeducn7urty4mr
   artifacthub.io/changes: |
-    - kind: fixed
-      description: Fix a mistmatch in `.Values.ingress.hosts`
     - kind: changed
-      description: Improve chart metadata
+      description: Bump apache exporter version
