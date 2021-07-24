@@ -7,7 +7,8 @@
   "packageRules": [
     {
       "matchDatasources": ["helm"],
-      "versioning": "npm"
+      "versioning": "npm",
+      "bumpVersion": "patch"
     }
   ]
 }
