@@ -1,3 +1,5 @@
+# https://docs.github.com/actions
+
 name: Charts CI
 
 on: [push, pull_request]
