@@ -1,6 +1,7 @@
 {
   "extends": [
-    "config:base"
+    "config:base",
+    ":disableDependencyDashboard"
   ],
   "labels": ["dependencies"],
   "rangeStrategy": "bump",
@@ -9,6 +10,14 @@
       "matchDatasources": ["helm"],
       "versioning": "npm",
       "bumpVersion": "patch"
+    },
+    {
+      "matchUpdateTypes": ["minor", "patch"],
+      "matchCurrentVersion": "!/^0/",
+      "automerge": true
     }
-  ]
+  ],
+  "github-actions": {
+    "enabled": false
+  }
 }
