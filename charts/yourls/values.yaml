@@ -1,7 +1,7 @@
 image:
   registry: docker.io
   repository: yourls
-  # tag: {{ .Chart.Version }}
+  # tag: {{ .Chart.AppVersion }}
   pullPolicy: IfNotPresent
   # pullSecrets:
   #   - myRegistrKeySecretName
