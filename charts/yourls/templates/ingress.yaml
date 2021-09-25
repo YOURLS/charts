@@ -24,8 +24,8 @@ spec:
         - path: {{ default "/" .path }}
           backend:
             serviceName: "{{ template "yourls.fullname" $ }}"
-            {{- if .Values.service }}{{ if .Values.service.port }}
-            servicePort: {{ .Values.service.port }}
+            {{- if $.Values.service }}{{ if $.Values.service.port }}
+            servicePort: {{ $.Values.service.port }}
             {{- end }}{{ else }}
             servicePort: 80
             {{- end }}
