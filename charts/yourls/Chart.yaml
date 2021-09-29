@@ -1,5 +1,5 @@
 apiVersion: v2
-version: 2.2.4
+version: 3.0.0
 name: yourls
 description: Your Own URL Shortener
 appVersion: "1.8.2"
@@ -38,5 +38,5 @@ annotations:
     fingerprint: 6FCD850E18E4A4FF76DD1184A3A42A61961E423F
     url: https://yourls.org/.well-known/openpgpkey/hu/6e4gbtp15q1znf3unweeducn7urty4mr
   artifacthub.io/changes: |
-    - kind: fixed
-      description: Service port value usage
+    - kind: changed
+      description: Kubernetes 1.22 compatibility. This breaks support for <= 1.18
