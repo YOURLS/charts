@@ -3,6 +3,52 @@ entries:
   yourls:
   - annotations:
       artifacthub.io/changes: |
+        - kind: fixed
+          description: Corrected definition of networking.k8s.io/v1 Ingress
+      artifacthub.io/images: |
+        - name: yourls
+          image: yourls:1.8.2
+      artifacthub.io/license: MIT
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/YOURLS/charts
+        - name: Upstream Project
+          url: https://github.com/YOURLS/YOURLS
+      artifacthub.io/signKey: |
+        fingerprint: 6FCD850E18E4A4FF76DD1184A3A42A61961E423F
+        url: https://yourls.org/.well-known/openpgpkey/hu/6e4gbtp15q1znf3unweeducn7urty4mr
+    apiVersion: v2
+    appVersion: 1.8.2
+    created: "2021-10-04T13:59:22.153662594Z"
+    dependencies:
+    - condition: mysql.enabled
+      name: mysql
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - yourls-database
+      version: ^8.8.8
+    description: Your Own URL Shortener
+    digest: 09ce96b4ba152c62258496f17308d2d56a68470913247c6839195659c3a246b2
+    home: https://yourls.org
+    icon: https://yourls.org/images/yourls-logo.png
+    keywords:
+    - shortener
+    - url
+    - bitly
+    maintainers:
+    - email: yourls@yourls.org
+      name: YOURLS
+    - email: git@colombaro.fr
+      name: LeoColomb
+    name: yourls
+    sources:
+    - https://github.com/YOURLS/YOURLS
+    - https://github.com/YOURLS/charts
+    urls:
+    - https://github.com/YOURLS/charts/releases/download/yourls-3.0.1/yourls-3.0.1.tgz
+    version: 3.0.1
+  - annotations:
+      artifacthub.io/changes: |
         - kind: changed
           description: Kubernetes 1.22 compatibility. This breaks support for <= 1.18
       artifacthub.io/images: |
@@ -1304,4 +1350,4 @@ entries:
     urls:
     - https://github.com/YOURLS/charts/releases/download/yourls-1.0.0/yourls-1.0.0.tgz
     version: 1.0.0
-generated: "2021-09-29T18:24:36.376198683Z"
+generated: "2021-10-04T13:59:22.154076298Z"
