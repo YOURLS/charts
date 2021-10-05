@@ -109,7 +109,10 @@ YOURLS installation, however, it is possible to have more than one
 host.  To facilitate this, the `ingress.hosts` object is an array.
 
 For each item, please indicate a `name`, `tls`, `tlsSecret`, and any
-`annotations` that you may want the ingress controller to know about.
+`annotations` that you may want the ingress controller to know about. You will
+also need `path` and `pathType`, for which you can see [the Kubernetes
+documentation](https://kubernetes.io/docs/concepts/services-networking/ingress/#path-types)
+for more information.
 
 Indicating TLS will cause YOURLS to generate HTTPS URLs, and
 YOURLS will be connected to at port 443.  The actual secret that
