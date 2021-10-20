@@ -3,6 +3,52 @@ entries:
   yourls:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: Bump dependencies
+      artifacthub.io/images: |
+        - name: yourls
+          image: yourls:1.8.2
+      artifacthub.io/license: MIT
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/YOURLS/charts
+        - name: Upstream Project
+          url: https://github.com/YOURLS/YOURLS
+      artifacthub.io/signKey: |
+        fingerprint: 6FCD850E18E4A4FF76DD1184A3A42A61961E423F
+        url: https://yourls.org/.well-known/openpgpkey/hu/6e4gbtp15q1znf3unweeducn7urty4mr
+    apiVersion: v2
+    appVersion: 1.8.2
+    created: "2021-10-20T11:26:05.012329362Z"
+    dependencies:
+    - condition: mysql.enabled
+      name: mysql
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - yourls-database
+      version: ^8.8.10
+    description: Your Own URL Shortener
+    digest: 97e8dc27f1f754d0e85f5b395d52b5b4e2ec37bf3747b2db82ad049a3b8f8677
+    home: https://yourls.org
+    icon: https://yourls.org/images/yourls-logo.png
+    keywords:
+    - shortener
+    - url
+    - bitly
+    maintainers:
+    - email: yourls@yourls.org
+      name: YOURLS
+    - email: git@colombaro.fr
+      name: LeoColomb
+    name: yourls
+    sources:
+    - https://github.com/YOURLS/YOURLS
+    - https://github.com/YOURLS/charts
+    urls:
+    - https://github.com/YOURLS/charts/releases/download/yourls-3.0.4/yourls-3.0.4.tgz
+    version: 3.0.4
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: Corrected definition of networking.k8s.io/v1 Ingress
       artifacthub.io/images: |
@@ -1442,4 +1488,4 @@ entries:
     urls:
     - https://github.com/YOURLS/charts/releases/download/yourls-1.0.0/yourls-1.0.0.tgz
     version: 1.0.0
-generated: "2021-10-19T14:20:26.516541289Z"
+generated: "2021-10-20T11:26:05.012888475Z"
