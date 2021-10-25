@@ -9,18 +9,19 @@
 ## Getting Started
 
 1. **Install Helm**  
-   Get the latest [Helm release](https://helm.sh/docs/intro/install/).
+    Get the latest [Helm release](https://helm.sh/docs/intro/install/).
 
 2. **Add YOURLS Helm Chart repository**  
-   ```console
-   helm repo add yourls https://charts.yourls.org/
-   helm repo update
-   ```
+    ```sh
+    helm repo add yourls https://charts.yourls.org/
+    helm repo update
+    ```
 
 3. **Install a chart**  
-   See docs on your preferred sources:
-   * [Charts docs on Artifact Hub](https://artifacthub.io/packages/search?org=yourls)
-   * [Charts respective READMEs](charts)
-   * ```
-     helm search yourls
-     ```
+    See docs on your preferred sources:
+    * [Charts docs on Artifact Hub](https://artifacthub.io/packages/search?org=yourls)
+    * [Charts respective READMEs](charts)
+    * [Charts discovery](https://helm.sh/docs/helm/helm_search/)
+      ```sh
+      helm search yourls
+      ```
