@@ -13,11 +13,15 @@ jobs:
         uses: actions/checkout@v2.3.5
         with:
           fetch-depth: 0
+
       - name: Set up Helm
         uses: azure/setup-helm@v1.1
+
       - uses: actions/setup-python@v2.2.2
+
       - name: Set up chart-testing
         uses: helm/chart-testing-action@v2.1.0
+
       - name: Run chart-testing (list-changed)
         id: list-changed
         run: |
@@ -25,11 +29,14 @@ jobs:
           if [[ -n "$changed" ]]; then
             echo "::set-output name=changed::true"
           fi
+
       - name: Run chart-testing (lint)
         run: ct lint --config config.yaml
+
       - name: Create kind cluster
         uses: helm/kind-action@v1.2.0
         if: steps.list-changed.outputs.changed == 'true'
+
       - name: Run chart-testing (install)
         run: ct install --config config.yaml
 
@@ -43,10 +50,12 @@ jobs:
         uses: actions/checkout@v2.3.5
         with:
           fetch-depth: 0
+
       - name: Configure Git
         run: |
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+
       - name: Prepare GPG key
         run: |
           gpg_dir=.cr-gpg
@@ -55,16 +64,18 @@ jobs:
           base64 -d <<< "$GPG_KEY_BASE64" > "$keyring"
           echo "CR_KEYRING=$keyring" >> "$GITHUB_ENV"
         env:
-          GPG_KEY_BASE64: "${{ secrets.GPG_KEY_BASE64 }}"
+          GPG_KEY_BASE64: ${{ secrets.GPG_KEY_BASE64 }}
+
       - name: Install Helm
         uses: azure/setup-helm@v1.1
+
       - name: Add Helm repos
-        run: |
-          helm repo add bitnami https://charts.bitnami.com/bitnami
+        run: helm repo add bitnami https://charts.bitnami.com/bitnami
+
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.2.1
         with:
           charts_repo_url: ${{ secrets.CHARTS_URL }}
           config: config.yaml
         env:
-          CR_TOKEN: "${{ secrets.CR_TOKEN }}"
+          CR_TOKEN: ${{ secrets.CR_TOKEN }}
