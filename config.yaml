@@ -1,6 +1,7 @@
 owner: YOURLS
 repo: charts
 remote: origin
+target-branch: main
 sign: true
 key: YOURLS Org
 chart-dirs:
