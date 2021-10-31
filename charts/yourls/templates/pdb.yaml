@@ -1,6 +1,6 @@
-{{- if not .Values.yourls.existingSecret }}
-apiVersion: v1
-kind: Secret
+{{- if .Values.pdb.create }}
+apiVersion: policy/v1
+kind: PodDisruptionBudget
 metadata:
   name: {{ template "common.names.fullname" . }}
   namespace: {{ .Release.Namespace | quote }}
@@ -11,13 +11,13 @@ metadata:
   {{- if .Values.commonAnnotations }}
   annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
   {{- end }}
-type: Opaque
-data:
-  {{- if not .Values.yourls.existingSecret }}
-  {{- if .Values.yourls.password }}
-  yourls-password: {{ .Values.yourls.password | b64enc | quote }}
-  {{- else }}
-  yourls-password: {{ randAlphaNum 10 | b64enc | quote }}
+spec:
+  {{- if .Values.pdb.minAvailable }}
+  minAvailable: {{ .Values.pdb.minAvailable }}
   {{- end }}
+  {{- if .Values.pdb.maxUnavailable }}
+  maxUnavailable: {{ .Values.pdb.maxUnavailable }}
   {{- end }}
+  selector:
+    matchLabels: {{ include "common.labels.matchLabels" . | nindent 6 }}
 {{- end }}

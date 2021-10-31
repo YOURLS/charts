@@ -1,5 +1,5 @@
 apiVersion: v2
-version: 3.0.7
+version: 4.0.0
 name: yourls
 description: Your Own URL Shortener
 appVersion: "1.8.2"
@@ -18,6 +18,11 @@ maintainers:
   - name: LeoColomb
     email: git@colombaro.fr
 dependencies:
+  - name: common
+    repository: https://charts.bitnami.com/bitnami
+    version: ^1.10.0
+    tags:
+      - bitnami-common
   - condition: mysql.enabled
     name: mysql
     repository: https://charts.bitnami.com/bitnami
