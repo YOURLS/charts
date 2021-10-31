@@ -1,77 +1,44 @@
 {{/* vim: set filetype=mustache: */}}
-{{/*
-Expand the name of the chart.
-*/}}
-{{- define "yourls.name" -}}
-{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
 
 {{/*
 Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 */}}
-{{- define "yourls.fullname" -}}
-{{- $name := default .Chart.Name .Values.nameOverride -}}
-{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
 {{- define "yourls.mysql.fullname" -}}
-{{- printf "%s-%s" .Release.Name "mysql" | trunc 63 | trimSuffix "-" -}}
+{{- include "common.names.dependency.fullname" (dict "chartName" "mysql" "chartValues" .Values.mysql "context" $) -}}
 {{- end -}}
 
 {{/*
 Return the proper YOURLS image name
 */}}
 {{- define "yourls.image" -}}
-{{- $registryName := .Values.image.registry -}}
-{{- $repositoryName := .Values.image.repository -}}
-{{- $tag := .Values.image.tag | default .Chart.AppVersion | toString -}}
-{{/*
-Helm 2.11 supports the assignment of a value to a variable defined in a different scope,
-but Helm 2.9 and 2.10 doesn't support it, so we need to implement this if-else logic.
-Also, we can't use a single if because lazy evaluation is not an option
-*/}}
-{{- if .Values.global }}
-    {{- if .Values.global.imageRegistry }}
-        {{- printf "%s/%s:%s" .Values.global.imageRegistry $repositoryName $tag -}}
-    {{- else -}}
-        {{- printf "%s/%s:%s" $registryName $repositoryName $tag -}}
-    {{- end -}}
-{{- else -}}
-    {{- printf "%s/%s:%s" $registryName $repositoryName $tag -}}
+{{- $imageRoot := .Values.image -}}
+{{- if not .Values.image.tag }}
+    {{- $tag := (dict "tag" .Chart.AppVersion) -}}
+    {{- $imageRoot := merge .Values.image $tag -}}
 {{- end -}}
-{{- end -}}
-
-{{/*
-Create chart name and version as used by the chart label.
-*/}}
-{{- define "yourls.chart" -}}
-{{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
+{{- include "common.images.image" (dict "imageRoot" $imageRoot "global" .Values.global) -}}
 {{- end -}}
 
 {{/*
 Return the proper image name (for the metrics image)
 */}}
-{{- define "metrics.image" -}}
-{{- $registryName :=  .Values.metrics.image.registry -}}
-{{- $repositoryName := .Values.metrics.image.repository -}}
-{{- $tag := .Values.metrics.image.tag | toString -}}
-{{- printf "%s/%s:%s" $registryName $repositoryName $tag -}}
+{{- define "yourls.metrics.image" -}}
+{{- include "common.images.image" (dict "imageRoot" .Values.metrics.image "global" .Values.global) -}}
 {{- end -}}
 
 {{/*
-Return secret name to be used for application secrets
+Return the proper image name (for the init container volume-permissions image)
 */}}
-{{- define "yourls.applicationSecret" -}}
-{{- $fullName := include "yourls.fullname" . -}}
-{{- default $fullName .Values.yourls.passwordExistingSecret | quote -}}
+{{- define "yourls.volumePermissions.image" -}}
+{{- include "common.images.image" ( dict "imageRoot" .Values.volumePermissions.image "global" .Values.global ) -}}
 {{- end -}}
 
 {{/*
-Return secret name to be used for external db secrets
+Return the proper Docker Image Registry Secret Names
 */}}
-{{- define "yourls.dbSecret" -}}
-{{- $fullName := printf "%s-%s" .Chart.Name "externaldb" -}}
-{{- default $fullName .Values.db.existingSecret | quote -}}
+{{- define "yourls.imagePullSecrets" -}}
+{{- include "common.images.pullSecrets" (dict "images" (list .Values.image .Values.metrics.image .Values.volumePermissions.image) "global" .Values.global) -}}
 {{- end -}}
 
 {{/*
@@ -80,12 +47,12 @@ Return the MySQL Hostname
 {{- define "yourls.databaseHost" -}}
 {{- if .Values.mysql.enabled }}
     {{- if eq .Values.mysql.architecture "replication" }}
-        {{- printf "%s-%s" (include "yourls.mysql.fullname" .) "primary" | trunc 63 | trimSuffix "-" -}}
+        {{- printf "%s-primary" (include "yourls.mysql.fullname" .) | trunc 63 | trimSuffix "-" -}}
     {{- else -}}
         {{- printf "%s" (include "yourls.mysql.fullname" .) -}}
     {{- end -}}
 {{- else -}}
-    {{- printf "%s" .Values.db.host -}}
+    {{- printf "%s" .Values.externalDatabase.host -}}
 {{- end -}}
 {{- end -}}
 
@@ -96,7 +63,7 @@ Return the MySQL Port
 {{- if .Values.mysql.enabled }}
     {{- printf "3306" -}}
 {{- else -}}
-    {{- printf "%d" (.Values.db.port | int ) -}}
+    {{- printf "%d" (.Values.externalDatabase.port | int ) -}}
 {{- end -}}
 {{- end -}}
 
@@ -107,7 +74,7 @@ Return the MySQL Database Name
 {{- if .Values.mysql.enabled }}
     {{- printf "%s" .Values.mysql.auth.database -}}
 {{- else -}}
-    {{- printf "%s" .Values.db.database -}}
+    {{- printf "%s" .Values.externalDatabase.database -}}
 {{- end -}}
 {{- end -}}
 
@@ -118,6 +85,68 @@ Return the MySQL User
 {{- if .Values.mysql.enabled }}
     {{- printf "%s" .Values.mysql.auth.username -}}
 {{- else -}}
-    {{- printf "%s" .Values.db.user -}}
+    {{- printf "%s" .Values.externalDatabase.user -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Return the MySQL Secret Name
+*/}}
+{{- define "yourls.databaseSecretName" -}}
+{{- if .Values.mysql.enabled }}
+    {{- if .Values.mysql.auth.existingSecret -}}
+        {{- printf "%s" .Values.mysql.auth.existingSecret -}}
+    {{- else -}}
+        {{- printf "%s" (include "yourls.mysql.fullname" .) -}}
+    {{- end -}}
+{{- else if .Values.externalDatabase.existingSecret -}}
+    {{- printf "%s" .Values.externalDatabase.existingSecret -}}
+{{- else -}}
+    {{- printf "%s-externaldb" (include "common.names.fullname" .) -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Return the YOURLS Site
+*/}}
+{{- define "yourls.site" -}}
+    {{- printf "%s://%s" .Values.yourls.scheme .Values.yourls.domain -}}
+{{- end -}}
+
+{{/*
+Return the YOURLS Secret Name
+*/}}
+{{- define "yourls.secretName" -}}
+{{- if .Values.yourls.existingSecret }}
+    {{- printf "%s" .Values.yourls.existingSecret -}}
+{{- else -}}
+    {{- printf "%s" (include "common.names.fullname" .) -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Compile all warnings into a single message.
+*/}}
+{{- define "yourls.validateValues" -}}
+{{- $messages := list -}}
+{{- $messages := append $messages (include "yourls.validateValues.database" .) -}}
+{{- $messages := without $messages "" -}}
+{{- $message := join "\n" $messages -}}
+{{- if $message -}}
+{{-   printf "\nVALUES VALIDATION:\n%s" $message | fail -}}
+{{- end -}}
+{{- end -}}
+
+{{/* Validate values of YOURLS - Database */}}
+{{- define "yourls.validateValues.database" -}}
+{{- if and (not .Values.mysql.enabled) (or (empty .Values.externalDatabase.host) (empty .Values.externalDatabase.port) (empty .Values.externalDatabase.database)) -}}
+yourls: database
+   You disable the MySQL installation but you did not provide the required parameters
+   to use an external database. To use an external database, please ensure you provide
+   (at least) the following values:
+
+       externalDatabase.host=DB_SERVER_HOST
+       externalDatabase.database=DB_NAME
+       externalDatabase.port=DB_SERVER_PORT
 {{- end -}}
 {{- end -}}
