@@ -4,6 +4,63 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: changed
+          description: Simplify and normalize metadata, labels and annotations usage
+        - kind: added
+          description: Support latest Kubernetes features (1.20+)
+        - kind: added
+          description: Add a significant number of chart options
+        - kind: changed
+          description: Standardization
+      artifacthub.io/images: |
+        - name: yourls
+          image: yourls:1.8.2
+      artifacthub.io/license: MIT
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/YOURLS/charts
+        - name: Upstream Project
+          url: https://github.com/YOURLS/YOURLS
+      artifacthub.io/signKey: |
+        fingerprint: 6FCD850E18E4A4FF76DD1184A3A42A61961E423F
+        url: https://yourls.org/.well-known/openpgpkey/hu/6e4gbtp15q1znf3unweeducn7urty4mr
+    apiVersion: v2
+    appVersion: 1.8.2
+    created: "2021-10-31T03:09:59.120059363Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: ^1.10.0
+    - condition: mysql.enabled
+      name: mysql
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - yourls-database
+      version: ^8.8.12
+    description: Your Own URL Shortener
+    digest: ab4ca2c338f5e8b214814c4bb9c8f10471cf8a7914034da20b641d0b83f7b723
+    home: https://yourls.org
+    icon: https://yourls.org/images/yourls-logo.png
+    keywords:
+    - shortener
+    - url
+    - bitly
+    maintainers:
+    - email: yourls@yourls.org
+      name: YOURLS
+    - email: git@colombaro.fr
+      name: LeoColomb
+    name: yourls
+    sources:
+    - https://github.com/YOURLS/YOURLS
+    - https://github.com/YOURLS/charts
+    urls:
+    - https://github.com/YOURLS/charts/releases/download/yourls-4.0.0/yourls-4.0.0.tgz
+    version: 4.0.0
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
           description: Bump dependencies
       artifacthub.io/images: |
         - name: yourls
@@ -1626,4 +1683,4 @@ entries:
     urls:
     - https://github.com/YOURLS/charts/releases/download/yourls-1.0.0/yourls-1.0.0.tgz
     version: 1.0.0
-generated: "2021-10-27T09:30:23.259950069Z"
+generated: "2021-10-31T03:09:59.120370788Z"
