@@ -1,8 +1,9 @@
 apiVersion: v2
-version: 4.0.1
+version: 4.0.2
 name: yourls
 description: Your Own URL Shortener
 appVersion: "1.8.2"
+type: application
 keywords:
   - shortener
   - url
@@ -17,6 +18,7 @@ maintainers:
     email: yourls@yourls.org
   - name: LeoColomb
     email: git@colombaro.fr
+kubeVersion: ">=1.20.0-0"
 dependencies:
   - name: common
     repository: https://charts.bitnami.com/bitnami
@@ -44,10 +46,4 @@ annotations:
     url: https://yourls.org/.well-known/openpgpkey/hu/6e4gbtp15q1znf3unweeducn7urty4mr
   artifacthub.io/changes: |
     - kind: changed
-      description: Simplify and normalize metadata, labels and annotations usage
-    - kind: added
-      description: Support latest Kubernetes features (1.20+)
-    - kind: added
-      description: Add a significant number of chart options
-    - kind: changed
-      description: Standardization
+      description: Improved documentation
