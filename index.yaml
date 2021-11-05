@@ -263,6 +263,12 @@ entries:
           description: Support latest Kubernetes features (1.20+)
         - kind: added
           description: Add a significant number of chart options
+        - `ingress.hosts` is split into `ingress.hostname` and `ingress.extraHosts`
+        - `ingress.extraHosts` follows the same format as `ingress.hosts` did, but with the addition of the main ingress configuration
+        - `yourls.passwordExistingSecret` is renamed into `yourls.existingSecret`
+        - `db` is renamed into `externalDatabase`
+        - `externalDatabase.existingSecret` requires a key of `mysql-password` instead of the previous `db-password`
+        - `yourls.site` is now assembled from `yourls.scheme` and `yourls.domain`
         - kind: changed
           description: Standardization
       artifacthub.io/images: |
