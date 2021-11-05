@@ -2,20 +2,162 @@
   "$schema": "https://json-schema.org/schema#",
   "title": "YOURLS Chart JSON Schema",
   "type": "object",
+  "$defs": {
+    "image": {
+      "title": "Container image description",
+      "type": "object",
+      "properties": {
+        "pullPolicy": {
+          "title": "Specify a imagePullPolicy",
+          "description": "Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'",
+          "type": "string",
+          "enum": [
+            "IfNotPresent",
+            "Always",
+            "Never"
+          ]
+        },
+        "pullSecrets": {
+          "title": "Optionally specify an array of imagePullSecrets",
+          "description": "https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/",
+          "type": "array"
+        },
+        "registry": {
+          "type": "string"
+        },
+        "repository": {
+          "type": "string"
+        },
+        "tag": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "repository",
+        "pullPolicy"
+      ]
+    },
+    "probe": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "failureThreshold": {
+          "type": "integer"
+        },
+        "httpGet": {
+          "type": "object",
+          "properties": {
+            "httpHeaders": {
+              "type": "array"
+            },
+            "path": {
+              "type": "string"
+            },
+            "port": {
+              "type": "string"
+            },
+            "scheme": {
+              "type": "string"
+            }
+          }
+        },
+        "initialDelaySeconds": {
+          "type": "integer"
+        },
+        "periodSeconds": {
+          "type": "integer"
+        },
+        "successThreshold": {
+          "type": "integer"
+        },
+        "timeoutSeconds": {
+          "type": "integer"
+        }
+      }
+    },
+    "resources": {
+      "type": "object",
+      "title": "Required Resources",
+      "description": "Configure resource requests",
+      "form": true,
+      "properties": {
+        "requests": {
+          "type": "object",
+          "properties": {
+            "memory": {
+              "type": "string",
+              "form": true,
+              "render": "slider",
+              "title": "Memory Request",
+              "sliderMin": 10,
+              "sliderMax": 2048,
+              "sliderUnit": "Mi"
+            },
+            "cpu": {
+              "type": "string",
+              "form": true,
+              "render": "slider",
+              "title": "CPU Request",
+              "sliderMin": 10,
+              "sliderMax": 2000,
+              "sliderUnit": "m"
+            }
+          }
+        },
+        "limits": {
+          "type": "object",
+          "properties": {
+            "memory": {
+              "type": "string",
+              "form": true,
+              "render": "slider",
+              "title": "Memory Request",
+              "sliderMin": 10,
+              "sliderMax": 2048,
+              "sliderUnit": "Mi"
+            },
+            "cpu": {
+              "type": "string",
+              "form": true,
+              "render": "slider",
+              "title": "CPU Request",
+              "sliderMin": 10,
+              "sliderMax": 2000,
+              "sliderUnit": "m"
+            }
+          }
+        }
+      }
+    }
+  },
   "properties": {
     "yourls": {
       "type": "object",
       "title": "YOURLS Configuration parameters",
+      "description": "https://hub.docker.com/_/yourls",
       "form": true,
+      "required": [
+        "domain"
+      ],
       "properties": {
         "domain": {
           "type": "string",
-          "title": "Domain",
+          "title": "Domain name for YOURLS",
+          "examples": [
+            "exemple.com"
+          ],
           "form": true
         },
         "scheme": {
           "type": "string",
-          "title": "Scheme",
+          "title": "HTTP Scheme for YOURLS",
+          "default": "http",
+          "enum": [
+            "http",
+            "https"
+          ],
           "form": true
         },
         "username": {
@@ -28,11 +170,29 @@
           "title": "Password",
           "form": true,
           "description": "Defaults to a random 10-character alphanumeric string if not set"
+        },
+        "existingSecret": {
+          "type": "string"
+        },
+        "extraConfigContent": {
+          "type": "string"
+        },
+        "plugins": {
+          "type": "string",
+          "description": "Not currently in use"
+        },
+        "skipInstall": {
+          "type": "boolean"
+        },
+        "tablePrefix": {
+          "type": "string"
         }
       }
     },
     "persistence": {
       "type": "object",
+      "title": "Persistence Parameters",
+      "description": "https://kubernetes.io/docs/user-guide/persistent-volumes/",
       "properties": {
         "size": {
           "type": "string",
@@ -42,44 +202,47 @@
           "sliderMin": 1,
           "sliderMax": 100,
           "sliderUnit": "Gi"
+        },
+        "accessMode": {
+          "type": "string"
+        },
+        "accessModes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "dataSource": {
+          "type": "object"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "existingClaim": {
+          "type": "string"
+        },
+        "storageClass": {
+          "type": "string"
         }
       }
     },
     "mysql": {
-      "type": "object",
-      "title": "MySQL Details",
-      "form": true,
-      "properties": {
-        "enabled": {
-          "type": "boolean",
-          "title": "Use a new MySQL database hosted in the cluster",
-          "form": true,
-          "description": "Whether to deploy a mysql server to satisfy the applications database requirements. To use an external database switch this off and configure the external database details"
+      "title": "MySQL chart configuration",
+      "description": "https://artifacthub.io/packages/helm/bitnami/mysql",
+      "allOf": [
+        {
+          "$ref": "https://raw.githubusercontent.com/bitnami/charts/master/bitnami/mysql/values.schema.json"
         },
-        "primary": {
-          "type": "object",
+        {
           "properties": {
-            "persistence": {
-              "type": "object",
-              "properties": {
-                "size": {
-                  "type": "string",
-                  "title": "Volume Size",
-                  "form": true,
-                  "hidden": {
-                    "value": false,
-                    "path": "mysql/enabled"
-                  },
-                  "render": "slider",
-                  "sliderMin": 1,
-                  "sliderMax": 100,
-                  "sliderUnit": "Gi"
-                }
-              }
+            "enabled": {
+              "type": "boolean",
+              "default": true,
+              "description": "Deploy a MySQL server to satisfy the application database"
             }
           }
         }
-      }
+      ]
     },
     "externalDatabase": {
       "type": "object",
@@ -116,6 +279,9 @@
           "form": true,
           "title": "Database Port",
           "hidden": "mysql/enabled"
+        },
+        "existingSecret": {
+          "type": "string"
         }
       }
     },
@@ -147,6 +313,36 @@
             "value": false,
             "path": "ingress/enabled"
           }
+        },
+        "annotations": {
+          "type": "object"
+        },
+        "apiVersion": {
+          "type": "string"
+        },
+        "extraHosts": {
+          "type": "array"
+        },
+        "extraPaths": {
+          "type": "array"
+        },
+        "extraTls": {
+          "type": "array"
+        },
+        "ingressClassName": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "pathType": {
+          "type": "string"
+        },
+        "secrets": {
+          "type": "array"
+        },
+        "selfSigned": {
+          "type": "boolean"
         }
       }
     },
@@ -160,39 +356,49 @@
           "form": true,
           "title": "Service Type",
           "description": "Allowed values: \"ClusterIP\", \"NodePort\" and \"LoadBalancer\""
+        },
+        "annotations": {
+          "type": "object"
+        },
+        "clusterIP": {
+          "type": "string"
+        },
+        "externalTrafficPolicy": {
+          "type": "string"
+        },
+        "extraPorts": {
+          "type": "array"
+        },
+        "httpsPort": {
+          "type": "integer"
+        },
+        "httpsTargetPort": {
+          "type": "string"
+        },
+        "loadBalancerIP": {
+          "type": "string"
+        },
+        "loadBalancerSourceRanges": {
+          "type": "array"
+        },
+        "nodePorts": {
+          "type": "object",
+          "properties": {
+            "http": {
+              "type": "string"
+            },
+            "https": {
+              "type": "string"
+            }
+          }
+        },
+        "port": {
+          "type": "integer"
         }
       }
     },
     "resources": {
-      "type": "object",
-      "title": "Required Resources",
-      "description": "Configure resource requests",
-      "form": true,
-      "properties": {
-        "requests": {
-          "type": "object",
-          "properties": {
-            "memory": {
-              "type": "string",
-              "form": true,
-              "render": "slider",
-              "title": "Memory Request",
-              "sliderMin": 10,
-              "sliderMax": 2048,
-              "sliderUnit": "Mi"
-            },
-            "cpu": {
-              "type": "string",
-              "form": true,
-              "render": "slider",
-              "title": "CPU Request",
-              "sliderMin": 10,
-              "sliderMax": 2000,
-              "sliderUnit": "m"
-            }
-          }
-        }
-      }
+      "$ref": "#/$defs/resources"
     },
     "volumePermissions": {
       "type": "object",
@@ -202,6 +408,20 @@
           "form": true,
           "title": "Enable Init Containers",
           "description": "Use an init container to set required folder permissions on the data volume before mounting it in the final destination"
+        },
+        "image": {
+          "$ref": "#/$defs/image"
+        },
+        "resources": {
+          "$ref": "#/$defs/resources"
+        },
+        "securityContext": {
+          "type": "object",
+          "properties": {
+            "runAsUser": {
+              "type": "integer"
+            }
+          }
         }
       }
     },
@@ -213,6 +433,331 @@
           "title": "Enable Metrics",
           "description": "Prometheus Exporter / Metrics",
           "form": true
+        },
+        "image": {
+          "$ref": "#/$defs/image"
+        },
+        "resources": {
+          "$ref": "#/$defs/resources"
+        },
+        "service": {
+          "type": "object",
+          "properties": {
+            "annotations": {
+              "type": "object",
+              "properties": {
+                "prometheus.io/port": {
+                  "type": "string"
+                },
+                "prometheus.io/scrape": {
+                  "type": "string"
+                }
+              }
+            },
+            "port": {
+              "type": "integer"
+            }
+          }
+        },
+        "serviceMonitor": {
+          "type": "object",
+          "properties": {
+            "additionalLabels": {
+              "type": "object"
+            },
+            "enabled": {
+              "type": "boolean"
+            },
+            "honorLabels": {
+              "type": "boolean"
+            },
+            "interval": {
+              "type": "string"
+            },
+            "namespace": {
+              "type": "string"
+            },
+            "relabellings": {
+              "type": "array"
+            },
+            "scrapeTimeout": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "affinity": {
+      "type": "object"
+    },
+    "allowEmptyPassword": {
+      "type": "boolean"
+    },
+    "args": {
+      "type": "array"
+    },
+    "autoscaling": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "maxReplicas": {
+          "type": "integer"
+        },
+        "minReplicas": {
+          "type": "integer"
+        },
+        "targetCPU": {
+          "type": "integer"
+        },
+        "targetMemory": {
+          "type": "integer"
+        }
+      }
+    },
+    "clusterDomain": {
+      "type": "string"
+    },
+    "command": {
+      "type": "array"
+    },
+    "commonAnnotations": {
+      "type": "object"
+    },
+    "commonLabels": {
+      "type": "object"
+    },
+    "containerPorts": {
+      "type": "object",
+      "properties": {
+        "http": {
+          "type": "integer"
+        },
+        "https": {
+          "type": "integer"
+        }
+      }
+    },
+    "containerSecurityContext": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "runAsNonRoot": {
+          "type": "boolean"
+        },
+        "runAsUser": {
+          "type": "integer"
+        }
+      }
+    },
+    "customLivenessProbe": {
+      "type": "object"
+    },
+    "customPostInitScripts": {
+      "type": "object"
+    },
+    "customReadinessProbe": {
+      "type": "object"
+    },
+    "diagnosticMode": {
+      "type": "object",
+      "properties": {
+        "args": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "command": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "enabled": {
+          "type": "boolean"
+        }
+      }
+    },
+    "extraContainerPorts": {
+      "type": "array"
+    },
+    "extraDeploy": {
+      "type": "array"
+    },
+    "extraEnvVars": {
+      "type": "array"
+    },
+    "extraEnvVarsCM": {
+      "type": "string"
+    },
+    "extraEnvVarsSecret": {
+      "type": "string"
+    },
+    "extraVolumeMounts": {
+      "type": "array"
+    },
+    "extraVolumes": {
+      "type": "array"
+    },
+    "fullnameOverride": {
+      "type": "string"
+    },
+    "global": {
+      "type": "object",
+      "properties": {
+        "imagePullSecrets": {
+          "type": "array"
+        },
+        "imageRegistry": {
+          "type": "string"
+        },
+        "storageClass": {
+          "type": "string"
+        }
+      }
+    },
+    "hostAliases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "hostnames": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "ip": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "image": {
+      "title": "YOURLS container image",
+      "allOf": [
+        {
+          "$ref": "#/$defs/image"
+        },
+        {
+          "properties": {
+            "debug": {
+              "title": "Enable image debug mode",
+              "default": false,
+              "type": "boolean"
+            },
+            "appPath": {
+              "title": "Specify app files path",
+              "default": "/var/www/html",
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "initContainers": {
+      "type": "array"
+    },
+    "kubeVersion": {
+      "type": "string"
+    },
+    "livenessProbe": {
+      "$ref": "#/$defs/probe"
+    },
+    "nameOverride": {
+      "type": "string"
+    },
+    "nodeAffinityPreset": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "values": {
+          "type": "array"
+        }
+      }
+    },
+    "nodeSelector": {
+      "type": "object"
+    },
+    "pdb": {
+      "type": "object",
+      "properties": {
+        "create": {
+          "type": "boolean"
+        },
+        "maxUnavailable": {
+          "type": "string"
+        },
+        "minAvailable": {
+          "type": "integer"
+        }
+      }
+    },
+    "podAffinityPreset": {
+      "type": "string"
+    },
+    "podAnnotations": {
+      "type": "object"
+    },
+    "podAntiAffinityPreset": {
+      "type": "string"
+    },
+    "podLabels": {
+      "type": "object"
+    },
+    "podSecurityContext": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "fsGroup": {
+          "type": "integer"
+        }
+      }
+    },
+    "readinessProbe": {
+      "$ref": "#/$defs/probe"
+    },
+    "replicaCount": {
+      "title": "Number of YOURLS replicas to deploy",
+      "type": "integer"
+    },
+    "schedulerName": {
+      "description": "https://kubernetes.io/docs/tasks/administer-cluster/configure-multiple-schedulers/",
+      "type": "string"
+    },
+    "serviceAccountName": {
+      "type": "string"
+    },
+    "sidecars": {
+      "type": "array"
+    },
+    "tolerations": {
+      "type": "array"
+    },
+    "updateStrategy": {
+      "type": "object",
+      "description": "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy",
+      "properties": {
+        "rollingUpdate": {
+          "type": "object"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "Recreate",
+            "RollingUpdate"
+          ]
         }
       }
     }
