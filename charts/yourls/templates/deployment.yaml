@@ -135,12 +135,15 @@ spec:
             - name: YOURLS_SITE
               value: {{ include "yourls.site" . | quote }}
             - name: YOURLS_USER
-              value: {{ .Values.yourls.username | quote }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "yourls.secretName" . }}
+                  key: username
             - name: YOURLS_PASS
               valueFrom:
                 secretKeyRef:
                   name: {{ include "yourls.secretName" . }}
-                  key: yourls-password
+                  key: password
             - name: YOURLS_PLUGINS
               value: {{ join "," .Values.yourls.plugins | quote }}
             - name: APACHE_HTTP_PORT_NUMBER
