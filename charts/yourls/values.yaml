@@ -332,8 +332,7 @@ livenessProbe:
   enabled: true
   httpGet:
     path: /admin/install.php
-    port: '{{ .Values.yourls.scheme }}'
-    scheme: '{{ .Values.yourls.scheme | upper }}'
+    port: http
     ## If using an HTTPS-terminating load-balancer, the probes may need to behave
     ## like the balancer to prevent HTTP 302 responses. According to the Kubernetes
     ## docs, 302 should be considered "successful", but this issue on GitHub
@@ -361,8 +360,7 @@ readinessProbe:
   enabled: true
   httpGet:
     path: /admin/install.php
-    port: '{{ .Values.yourls.scheme }}'
-    scheme: '{{ .Values.yourls.scheme | upper }}'
+    port: http
     ## If using an HTTPS-terminating load-balancer, the probes may need to behave
     ## like the balancer to prevent HTTP 302 responses. According to the Kubernetes
     ## docs, 302 should be considered "successful", but this issue on GitHub
