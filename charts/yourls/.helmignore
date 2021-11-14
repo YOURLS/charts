@@ -24,3 +24,5 @@
 OWNERS
 # example production yaml
 values-production.yaml
+# ci files
+ci/

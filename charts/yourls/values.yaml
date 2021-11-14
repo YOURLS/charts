@@ -75,7 +75,7 @@ image:
   tag: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
-  ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+  ## ref: https://kubernetes.io/docs/user-guide/images/#pre-pulling-images
   ##
   pullPolicy: IfNotPresent
   ## Optionally specify an array of imagePullSecrets.
@@ -130,7 +130,7 @@ yourls:
   plugins: none
 
 ## @param customPostInitScripts Custom post-init.d user scripts
-## ref: https://github.com/YOURLS/docker-yourls/blob/main/docker-entrypoint.sh
+## ref: https://github.com/YOURLS/docker/blob/main/docker-entrypoint.sh
 ## NOTE: supported formats are `.sh`, `.sql` or `.php`
 ## NOTE: scripts are exclusively executed during the 1st boot of the container
 ## e.g:
@@ -283,7 +283,7 @@ nodeSelector: {}
 ##
 tolerations: []
 ## YOURLS containers' resource requests and limits
-## ref: http://kubernetes.io/docs/user-guide/compute-resources/
+## ref: https://kubernetes.io/docs/user-guide/compute-resources/
 ## @param resources.limits The resources limits for the YOURLS container
 ## @param resources.requests [object] The requested resources for the YOURLS container
 ##
@@ -427,7 +427,7 @@ service:
   ##
   loadBalancerSourceRanges: []
   ## @param service.externalTrafficPolicy YOURLS service external traffic policy
-  ## ref http://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip
+  ## ref https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip
   ##
   externalTrafficPolicy: Cluster
   ## @param service.annotations Additional custom annotations for YOURLS service
@@ -534,7 +534,7 @@ ingress:
 ## @section Persistence Parameters
 
 ## Persistence Parameters
-## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
+## ref: https://kubernetes.io/docs/user-guide/persistent-volumes/
 ##
 persistence:
   ## @param persistence.enabled Enable persistence using Persistent Volume Claims
@@ -593,7 +593,7 @@ volumePermissions:
     ##
     pullSecrets: []
   ## Init container's resource requests and limits
-  ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
+  ## ref: https://kubernetes.io/docs/user-guide/compute-resources/
   ## @param volumePermissions.resources.limits The resources limits for the init container
   ## @param volumePermissions.resources.requests The requested resources for the init container
   ##
@@ -667,7 +667,7 @@ metrics:
     ##
     pullSecrets: []
   ## Prometheus exporter container's resource requests and limits
-  ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
+  ## ref: https://kubernetes.io/docs/user-guide/compute-resources/
   ## @param metrics.resources.limits The resources limits for the Prometheus exporter container
   ## @param metrics.resources.requests The requested resources for the Prometheus exporter container
   ##
@@ -718,7 +718,7 @@ metrics:
 ## ref: https://github.com/bitnami/charts/blob/master/bitnami/mysql/values.yaml
 ##
 mysql:
-  ## @param mysql.enabled Deploy a MySQL server to satisfy the applications database requirements
+  ## @param mysql.enabled Deploy a MySQL server to satisfy the application database requirements
   ## To use an external database set this to false and configure the `externalDatabase.*` parameters
   ##
   enabled: true
@@ -742,7 +742,7 @@ mysql:
   ##
   primary:
     ## MySQL Primary Persistence parameters
-    ## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
+    ## ref: https://kubernetes.io/docs/user-guide/persistent-volumes/
     ## @param mysql.primary.persistence.enabled Enable persistence on MySQL using PVC(s)
     ## @param mysql.primary.persistence.storageClass Persistent Volume storage class
     ## @param mysql.primary.persistence.accessModes [array] Persistent Volume access modes
