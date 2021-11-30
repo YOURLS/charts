@@ -1,5 +1,5 @@
 apiVersion: v2
-version: 4.0.8
+version: 4.0.9
 name: yourls
 description: Your Own URL Shortener
 appVersion: "1.8.2"
@@ -22,7 +22,7 @@ kubeVersion: ">=1.20.0-0"
 dependencies:
   - name: common
     repository: https://charts.bitnami.com/bitnami
-    version: ^1.10.1
+    version: ^1.10.3
     tags:
       - bitnami-common
   - condition: mysql.enabled
@@ -41,4 +41,4 @@ annotations:
     url: https://yourls.org/.well-known/openpgpkey/hu/6e4gbtp15q1znf3unweeducn7urty4mr
   artifacthub.io/changes: |
     - kind: changed
-      description: Improved documentation
+      description: Bump dependencies
