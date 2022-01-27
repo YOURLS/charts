@@ -39,7 +39,7 @@ jobs:
           GPG_KEY_BASE64: ${{ secrets.GPG_KEY_BASE64 }}
 
       - name: Install Helm
-        uses: azure/setup-helm@v1.1
+        uses: azure/setup-helm@v2.0
 
       - name: Add Helm repos
         run: helm repo add bitnami https://charts.bitnami.com/bitnami
