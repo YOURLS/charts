@@ -6,7 +6,7 @@ on:
   workflow_run:
     workflows: ["Charts CI"]
     branches: [main]
-    types: 
+    types:
       - completed
 
 permissions:
