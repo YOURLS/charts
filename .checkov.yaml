@@ -1,0 +1,8 @@
+directory:
+  - charts
+skip-path:
+  - charts/*/charts
+evaluate-variables: true
+framework:
+  - helm
+quiet: true
