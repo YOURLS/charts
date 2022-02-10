@@ -6,4 +6,4 @@ evaluate-variables: true
 framework:
   - helm
 quiet: true
-soft_fail: true
+soft-fail: true
