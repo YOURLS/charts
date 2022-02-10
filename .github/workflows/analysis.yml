@@ -9,6 +9,7 @@ on:
     branches: [main]
   schedule:
     - cron: '43 2 * * 6'
+  workflow_dispatch:
 
 jobs:
   checkov:
@@ -19,8 +20,7 @@ jobs:
       contents: read
       security-events: write
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
       - name: Run Checkov scanner
         id: checkov
@@ -28,6 +28,5 @@ jobs:
 
       - name: Upload scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v1
-        if: always()
         with:
           sarif_file: results.sarif
