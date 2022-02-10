@@ -6,7 +6,7 @@ on:
   workflow_run:
     workflows: ["Charts CI"]
     branches: [main]
-    types: 
+    types:
       - completed
 
 permissions:
@@ -39,15 +39,15 @@ jobs:
           GPG_KEY_BASE64: ${{ secrets.GPG_KEY_BASE64 }}
 
       - name: Install Helm
-        uses: azure/setup-helm@v1.1
+        uses: azure/setup-helm@v2.0
 
       - name: Add Helm repos
         run: helm repo add bitnami https://charts.bitnami.com/bitnami
 
       - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.2.1
+        uses: helm/chart-releaser-action@v1.3.0
         with:
           charts_repo_url: ${{ secrets.CHARTS_URL }}
           config: config.yaml
         env:
-          CR_TOKEN: ${{ secrets.CR_TOKEN }}
+          CR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
