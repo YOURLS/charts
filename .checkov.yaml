@@ -1,7 +1,7 @@
 directory:
   - charts
 skip-path:
-  - charts/*/charts
+  - /*/charts
 evaluate-variables: true
 framework:
   - helm
