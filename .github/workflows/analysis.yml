@@ -28,6 +28,7 @@ jobs:
         with:
           directory: charts/yourls
           framework: helm
+          download_external_modules: false
           quiet: true
 
       - name: Upload scan results to GitHub Security tab
