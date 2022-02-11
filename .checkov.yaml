@@ -1,5 +1,5 @@
 skip-path:
-  - /charts/yourls/charts
+  - /yourls/charts
 evaluate-variables: true
 framework:
   - helm
