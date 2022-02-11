@@ -1,0 +1,7 @@
+skip-path:
+  - /yourls/charts
+evaluate-variables: true
+framework:
+  - helm
+quiet: true
+soft-fail: true
