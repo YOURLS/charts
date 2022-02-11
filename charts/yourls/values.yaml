@@ -77,7 +77,7 @@ image:
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: https://kubernetes.io/docs/user-guide/images/#pre-pulling-images
   ##
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   ## Optionally specify an array of imagePullSecrets.
   ## Secrets must be manually created in the namespace.
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
@@ -511,9 +511,9 @@ ingress:
   ## @param ingress.secrets Custom TLS certificates as secrets
   ## NOTE: 'key' and 'certificate' are expected in PEM format
   ## NOTE: 'name' should line up with a 'secretName' set further up
-  ## If it is not set and you're using cert-manager, this is unneeded, as it will create a secret for you with valid certificates
-  ## If it is not set and you're NOT using cert-manager either, self-signed certificates will be created valid for 365 days
-  ## It is also possible to create and manage the certificates outside of this helm chart
+  ## If it is not set, and you're using cert-manager, this is unneeded, as it will create a secret for you with valid certificates
+  ## If it is not set, and you're NOT using cert-manager either, self-signed certificates will be created valid for 365 days
+  ## It is also possible to create and manage the certificates outside this helm chart
   ## Please see README.md for more information
   ## e.g:
   ## secrets:
@@ -581,7 +581,7 @@ volumePermissions:
     registry: docker.io
     repository: bitnami/bitnami-shell
     tag: 10-debian-10-r233
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
     ## Optionally specify an array of imagePullSecrets.
     ## Secrets must be manually created in the namespace.
     ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
@@ -655,7 +655,7 @@ metrics:
     registry: docker.io
     repository: bitnami/apache-exporter
     tag: 0.11.0-debian-10-r36
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
     ## Optionally specify an array of imagePullSecrets.
     ## Secrets must be manually created in the namespace.
     ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
@@ -675,7 +675,7 @@ metrics:
   ## Prometheus exporter service parameters
   ##
   service:
-    ## @param metr²ics.service.port Metrics service port
+    ## @param metrics.service.port Metrics service port
     ##
     port: 9117
     ## @param metrics.service.annotations [object] Additional custom annotations for Metrics service
@@ -726,7 +726,7 @@ mysql:
   ## MySQL Authentication parameters
   ## @param mysql.auth.rootPassword MySQL root password
   ## @param mysql.auth.database MySQL custom database
-  ## @param mysql.auth.username MySQL custom user name
+  ## @param mysql.auth.username MySQL custom username
   ## @param mysql.auth.password MySQL custom user password
   ## ref: https://github.com/bitnami/bitnami-docker-mysql#setting-the-root-password-on-first-run
   ##      https://github.com/bitnami/bitnami-docker-mysql/blob/master/README.md#creating-a-database-on-first-run
