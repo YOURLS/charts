@@ -4,9 +4,11 @@ name: Analysis
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
   pull_request:
-    branches: [main]
+    branches:
+      - main
   schedule:
     - cron: '43 2 * * 6'
   workflow_dispatch:

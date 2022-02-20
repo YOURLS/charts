@@ -1,21 +1,22 @@
 # https://docs.github.com/actions
 
-name: Charts CD
+name: CD
 
 on:
   workflow_run:
-    workflows: ["Charts CI"]
-    branches: [main]
+    workflows:
+      - CI
+    branches:
+      - main
     types:
       - completed
-
-permissions:
-  contents: write
 
 jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Checkout

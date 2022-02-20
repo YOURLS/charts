@@ -17,6 +17,18 @@
       "automerge": true
     }
   ],
+  "regexManagers": [
+    {
+      "fileMatch": ["(^|/)Chart.yaml$"],
+      "matchStrings": [
+        "name: (?<depName>.*?)\\n",
+        "appVersion: \"(?<currentValue>.*?)\""
+      ],
+      "depNameTemplate": "yourls/{{{depName}}}",
+      "registryUrlTemplate": "ghcr.io",
+      "datasourceTemplate": "docker"
+    }
+  ],
   "github-actions": {
     "enabled": false
   }
