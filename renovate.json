@@ -24,6 +24,7 @@
         "name: (?<depName>.*?)\\n",
         "appVersion: \"(?<currentValue>.*?)\""
       ],
+      "matchStringsStrategy": "combination",
       "depNameTemplate": "yourls/{{{depName}}}",
       "registryUrlTemplate": "ghcr.io",
       "datasourceTemplate": "docker"
