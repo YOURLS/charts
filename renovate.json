@@ -21,12 +21,11 @@
     {
       "fileMatch": ["(^|/)Chart.yaml$"],
       "matchStrings": [
-        "name: (?<depName>.*?)\\n",
-        "appVersion: \"(?<currentValue>.*?)\""
+        "^name: (?<depName>.*?)$",
+        "^appVersion: \"(?<currentValue>.*?)\"$"
       ],
       "matchStringsStrategy": "combination",
-      "depNameTemplate": "yourls/{{{depName}}}",
-      "registryUrlTemplate": "ghcr.io",
+      "depNameTemplate": "ghcr.io/yourls/{{{depName}}}",
       "datasourceTemplate": "docker"
     }
   ],
