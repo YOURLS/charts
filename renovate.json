@@ -21,8 +21,8 @@
     {
       "fileMatch": ["(^|/)Chart.yaml$"],
       "matchStrings": [
-        "^name: (?<depName>.*?)$",
-        "^appVersion: \"(?<currentValue>.*?)\"$"
+        "\\nname: (?<depName>.*?)\\n",
+        "\\nappVersion: \"(?<currentValue>.*?)\"\\n"
       ],
       "matchStringsStrategy": "combination",
       "depNameTemplate": "ghcr.io/yourls/{{{depName}}}",
