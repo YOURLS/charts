@@ -4,6 +4,54 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: changed
+          description: Bump dependencies
+      artifacthub.io/license: MIT
+      artifacthub.io/links: |
+        - name: Upstream Project
+          url: https://github.com/YOURLS/YOURLS
+      artifacthub.io/signKey: |
+        fingerprint: 6FCD850E18E4A4FF76DD1184A3A42A61961E423F
+        url: https://yourls.org/.well-known/openpgpkey/hu/6e4gbtp15q1znf3unweeducn7urty4mr
+    apiVersion: v2
+    appVersion: 1.8.2
+    created: "2022-02-21T15:17:18.871332097Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: ^1.11.1
+    - condition: mysql.enabled
+      name: mysql
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - yourls-database
+      version: ^8.8.25
+    description: Your Own URL Shortener
+    digest: 82647f8830583196c98a503f79756020a6ee6d623014e816a6552d1c09f8aebd
+    home: https://yourls.org
+    icon: https://yourls.org/images/yourls-logo.png
+    keywords:
+    - shortener
+    - url
+    - bitly
+    kubeVersion: '>=1.20.0-0'
+    maintainers:
+    - email: yourls@yourls.org
+      name: YOURLS
+    - email: git@colombaro.fr
+      name: LeoColomb
+    name: yourls
+    sources:
+    - https://github.com/YOURLS/YOURLS
+    - https://github.com/YOURLS/charts
+    type: application
+    urls:
+    - https://github.com/YOURLS/charts/releases/download/yourls-4.2.2/yourls-4.2.2.tgz
+    version: 4.2.2
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
           description: Use basic-auth secret for login storage
       artifacthub.io/license: MIT
       artifacthub.io/links: |
@@ -2903,4 +2951,4 @@ entries:
     urls:
     - https://github.com/YOURLS/charts/releases/download/yourls-1.0.0/yourls-1.0.0.tgz
     version: 1.0.0
-generated: "2022-02-20T19:15:50.669952298Z"
+generated: "2022-02-21T15:17:18.872084105Z"
