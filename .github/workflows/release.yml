@@ -4,6 +4,13 @@ name: Release
 
 on:
   workflow_call:
+    secrets:
+      CHARTS_URL:
+        required: true
+        description: Chart release URL
+      GPG_KEY_BASE64:
+        required: true
+        description: GPG key for signing
 
 jobs:
   publish:
