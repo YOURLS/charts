@@ -92,7 +92,7 @@ You can access Apache Prometheus metrics following the steps below:
 {{- $passwordValidationErrors := list -}}
 {{- if not .Values.yourls.existingSecret -}}
     {{- $secretName := include "yourls.secretName" . -}}
-    {{- $requiredYOURLSPassword := dict "valueKey" "yourls.password" "secret" $secretName "field" "yourls-password" "context" $ -}}
+    {{- $requiredYOURLSPassword := dict "valueKey" "yourls.password" "secret" $secretName "field" "password" "context" $ -}}
     {{- $requiredYOURLSPasswordError := include "common.validations.values.single.empty" $requiredYOURLSPassword -}}
     {{- $passwordValidationErrors = append $passwordValidationErrors $requiredYOURLSPasswordError -}}
 {{- end }}
