@@ -14,6 +14,8 @@ jobs:
   prepare:
     name: Prepare
     runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.list-changed.outputs.changed }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2.4.0
@@ -36,14 +38,9 @@ jobs:
     if: needs.prepare.outputs.changed
     needs:
       - prepare
-    uses: ./.github/workflows/ct.yml
-    strategy:
-      matrix:
-        action:
-          - lint
-          - install
+    uses: ./.github/workflows/test.yml
     with:
-      action: ${{ matrix.action }}
+      action-matrix: ${{ toJSON(['lint', 'install']) }}
 
   release:
     name: Release
