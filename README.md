@@ -8,7 +8,7 @@
 
 ## About
 
-This is the Git repo of the official Helm charts for YOURLS.
+This is the Git repository of the official Helm charts for YOURLS.
 
 ## Usage
 
