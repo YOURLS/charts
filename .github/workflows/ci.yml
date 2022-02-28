@@ -1,3 +1,4 @@
+# yamllint disable document-start
 # https://docs.github.com/actions
 
 name: CI
