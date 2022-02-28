@@ -45,65 +45,65 @@ Return the proper Docker Image Registry Secret Names
 Return the MySQL Hostname
 */}}
 {{- define "yourls.databaseHost" -}}
-{{- if .Values.mysql.enabled }}
-    {{- if eq .Values.mysql.architecture "replication" }}
-        {{- printf "%s-primary" (include "yourls.mysql.fullname" .) | trunc 63 | trimSuffix "-" -}}
+    {{- if .Values.mysql.enabled }}
+        {{- if eq .Values.mysql.architecture "replication" }}
+            {{- printf "%s-primary" (include "yourls.mysql.fullname" .) | trunc 63 | trimSuffix "-" -}}
+        {{- else -}}
+            {{- printf "%s" (include "yourls.mysql.fullname" .) -}}
+        {{- end -}}
     {{- else -}}
-        {{- printf "%s" (include "yourls.mysql.fullname" .) -}}
+        {{- printf "%s" .Values.externalDatabase.host -}}
     {{- end -}}
-{{- else -}}
-    {{- printf "%s" .Values.externalDatabase.host -}}
-{{- end -}}
 {{- end -}}
 
 {{/*
 Return the MySQL Port
 */}}
 {{- define "yourls.databasePort" -}}
-{{- if .Values.mysql.enabled }}
-    {{- printf "3306" -}}
-{{- else -}}
-    {{- printf "%d" (.Values.externalDatabase.port | int ) -}}
-{{- end -}}
+    {{- if .Values.mysql.enabled }}
+        {{- printf "3306" -}}
+    {{- else -}}
+        {{- printf "%d" (.Values.externalDatabase.port | int ) -}}
+    {{- end -}}
 {{- end -}}
 
 {{/*
 Return the MySQL Database Name
 */}}
 {{- define "yourls.databaseName" -}}
-{{- if .Values.mysql.enabled }}
-    {{- printf "%s" .Values.mysql.auth.database -}}
-{{- else -}}
-    {{- printf "%s" .Values.externalDatabase.database -}}
-{{- end -}}
+    {{- if .Values.mysql.enabled }}
+        {{- printf "%s" .Values.mysql.auth.database -}}
+    {{- else -}}
+        {{- printf "%s" .Values.externalDatabase.database -}}
+    {{- end -}}
 {{- end -}}
 
 {{/*
 Return the MySQL User
 */}}
 {{- define "yourls.databaseUser" -}}
-{{- if .Values.mysql.enabled }}
-    {{- printf "%s" .Values.mysql.auth.username -}}
-{{- else -}}
-    {{- printf "%s" .Values.externalDatabase.user -}}
-{{- end -}}
+    {{- if .Values.mysql.enabled }}
+        {{- printf "%s" .Values.mysql.auth.username -}}
+    {{- else -}}
+        {{- printf "%s" .Values.externalDatabase.user -}}
+    {{- end -}}
 {{- end -}}
 
 {{/*
 Return the MySQL Secret Name
 */}}
 {{- define "yourls.databaseSecretName" -}}
-{{- if .Values.mysql.enabled }}
-    {{- if .Values.mysql.auth.existingSecret -}}
-        {{- printf "%s" .Values.mysql.auth.existingSecret -}}
+    {{- if .Values.mysql.enabled }}
+        {{- if .Values.mysql.auth.existingSecret -}}
+            {{- printf "%s" .Values.mysql.auth.existingSecret -}}
+        {{- else -}}
+            {{- printf "%s" (include "yourls.mysql.fullname" .) -}}
+        {{- end -}}
+    {{- else if .Values.externalDatabase.existingSecret -}}
+        {{- printf "%s" .Values.externalDatabase.existingSecret -}}
     {{- else -}}
-        {{- printf "%s" (include "yourls.mysql.fullname" .) -}}
+        {{- printf "%s-externaldb" (include "common.names.fullname" .) -}}
     {{- end -}}
-{{- else if .Values.externalDatabase.existingSecret -}}
-    {{- printf "%s" .Values.externalDatabase.existingSecret -}}
-{{- else -}}
-    {{- printf "%s-externaldb" (include "common.names.fullname" .) -}}
-{{- end -}}
 {{- end -}}
 
 {{/*
@@ -117,24 +117,24 @@ Return the YOURLS Site
 Return the YOURLS Secret Name
 */}}
 {{- define "yourls.secretName" -}}
-{{- if .Values.yourls.existingSecret }}
-    {{- printf "%s" .Values.yourls.existingSecret -}}
-{{- else -}}
-    {{- printf "%s" (include "common.names.fullname" .) -}}
-{{- end -}}
+    {{- if .Values.yourls.existingSecret }}
+        {{- printf "%s" .Values.yourls.existingSecret -}}
+    {{- else -}}
+        {{- printf "%s" (include "common.names.fullname" .) -}}
+    {{- end -}}
 {{- end -}}
 
 {{/*
 Compile all warnings into a single message.
 */}}
 {{- define "yourls.validateValues" -}}
-{{- $messages := list -}}
-{{- $messages := append $messages (include "yourls.validateValues.database" .) -}}
-{{- $messages := without $messages "" -}}
-{{- $message := join "\n" $messages -}}
-{{- if $message -}}
-{{-   printf "\nVALUES VALIDATION:\n%s" $message | fail -}}
-{{- end -}}
+    {{- $messages := list -}}
+    {{- $messages := append $messages (include "yourls.validateValues.database" .) -}}
+    {{- $messages := without $messages "" -}}
+    {{- $message := join "\n" $messages -}}
+    {{- if $message -}}
+        {{- printf "\nVALUES VALIDATION:\n%s" $message | fail -}}
+    {{- end -}}
 {{- end -}}
 
 {{/* Validate values of YOURLS - Database */}}
