@@ -9,6 +9,7 @@ on:
         required: false
         default: install
         type: string
+        description: Matrix of actions to run
 
 jobs:
   ct:

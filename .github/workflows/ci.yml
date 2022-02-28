@@ -40,7 +40,7 @@ jobs:
       - prepare
     uses: ./.github/workflows/test.yml
     with:
-      action-matrix: ${{ toJSON(['lint', 'install']) }}
+      action-matrix: '{"lint", "install"}'
 
   release:
     name: Release
