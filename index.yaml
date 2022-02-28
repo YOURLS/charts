@@ -3,6 +3,54 @@ entries:
   yourls:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: Bump dependencies
+      artifacthub.io/license: MIT
+      artifacthub.io/links: |
+        - name: Upstream Project
+          url: https://github.com/YOURLS/YOURLS
+      artifacthub.io/signKey: |
+        fingerprint: 6FCD850E18E4A4FF76DD1184A3A42A61961E423F
+        url: https://yourls.org/.well-known/openpgpkey/hu/6e4gbtp15q1znf3unweeducn7urty4mr
+    apiVersion: v2
+    appVersion: 1.8.2
+    created: "2022-02-28T17:10:11.957478142Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: ^1.11.2
+    - condition: mysql.enabled
+      name: mysql
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - yourls-database
+      version: ^8.8.26
+    description: Your Own URL Shortener
+    digest: ec8e46b4446dc8dfb0965c3552a56cd2dd12d82faca5bae1ec91bdfed78996ac
+    home: https://yourls.org
+    icon: https://yourls.org/images/yourls-logo.png
+    keywords:
+    - shortener
+    - url
+    - bitly
+    kubeVersion: '>=1.20.0-0'
+    maintainers:
+    - email: yourls@yourls.org
+      name: YOURLS
+    - email: git@colombaro.fr
+      name: LeoColomb
+    name: yourls
+    sources:
+    - https://github.com/YOURLS/YOURLS
+    - https://github.com/YOURLS/charts
+    type: application
+    urls:
+    - https://github.com/YOURLS/charts/releases/download/yourls-4.2.5/yourls-4.2.5.tgz
+    version: 4.2.5
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: Bug fix for `yourls.existingSecret`
           links:
@@ -3052,4 +3100,4 @@ entries:
     urls:
     - https://github.com/YOURLS/charts/releases/download/yourls-1.0.0/yourls-1.0.0.tgz
     version: 1.0.0
-generated: "2022-02-28T00:37:04.554992229Z"
+generated: "2022-02-28T17:10:11.958197947Z"
