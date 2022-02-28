@@ -1,8 +1,8 @@
 apiVersion: v2
-version: 4.2.7
+version: 5.0.0
 name: yourls
 description: Your Own URL Shortener
-appVersion: "1.8.2"
+appVersion: "1.9.0"
 type: application
 keywords:
   - shortener
@@ -42,3 +42,7 @@ annotations:
   artifacthub.io/changes: |
     - kind: added
       description: Chart upgrade validation
+    - kind: changed
+      description: Switched to MariaDB in place of MySQL (values under namespace are compatible)
+    - kind: changed
+      description: Bump YOURLS to v1.9.0
