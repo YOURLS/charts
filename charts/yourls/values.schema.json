@@ -172,7 +172,9 @@
           "description": "Defaults to a random 10-character alphanumeric string if not set"
         },
         "existingSecret": {
-          "type": "string"
+          "type": "string",
+          "title": "Name of existing secret containing YOURLS credentials",
+          "description": "Must contain keys `username` and `password`. When it's set, the `yourls.password` and `yourls.password` parameters are ignored."
         },
         "extraConfigContent": {
           "type": "string"
