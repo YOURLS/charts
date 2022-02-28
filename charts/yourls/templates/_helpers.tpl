@@ -4,8 +4,8 @@
 Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 */}}
-{{- define "yourls.mysql.fullname" -}}
-{{- include "common.names.dependency.fullname" (dict "chartName" "mysql" "chartValues" .Values.mysql "context" $) -}}
+{{- define "yourls.mariadb.fullname" -}}
+{{- include "common.names.dependency.fullname" (dict "chartName" "mariadb" "chartValues" .Values.mariadb "context" $) -}}
 {{- end -}}
 
 {{/*
@@ -42,14 +42,14 @@ Return the proper Docker Image Registry Secret Names
 {{- end -}}
 
 {{/*
-Return the MySQL Hostname
+Return the MariaDB Hostname
 */}}
 {{- define "yourls.databaseHost" -}}
-{{- if .Values.mysql.enabled }}
-    {{- if eq .Values.mysql.architecture "replication" }}
-        {{- printf "%s-primary" (include "yourls.mysql.fullname" .) | trunc 63 | trimSuffix "-" -}}
+{{- if .Values.mariadb.enabled }}
+    {{- if eq .Values.mariadb.architecture "replication" }}
+        {{- printf "%s-primary" (include "yourls.mariadb.fullname" .) | trunc 63 | trimSuffix "-" -}}
     {{- else -}}
-        {{- printf "%s" (include "yourls.mysql.fullname" .) -}}
+        {{- printf "%s" (include "yourls.mariadb.fullname" .) -}}
     {{- end -}}
 {{- else -}}
     {{- printf "%s" .Values.externalDatabase.host -}}
@@ -57,10 +57,10 @@ Return the MySQL Hostname
 {{- end -}}
 
 {{/*
-Return the MySQL Port
+Return the MariaDB Port
 */}}
 {{- define "yourls.databasePort" -}}
-{{- if .Values.mysql.enabled }}
+{{- if .Values.mariadb.enabled }}
     {{- printf "3306" -}}
 {{- else -}}
     {{- printf "%d" (.Values.externalDatabase.port | int ) -}}
@@ -68,36 +68,36 @@ Return the MySQL Port
 {{- end -}}
 
 {{/*
-Return the MySQL Database Name
+Return the MariaDB Database Name
 */}}
 {{- define "yourls.databaseName" -}}
-{{- if .Values.mysql.enabled }}
-    {{- printf "%s" .Values.mysql.auth.database -}}
+{{- if .Values.mariadb.enabled }}
+    {{- printf "%s" .Values.mariadb.auth.database -}}
 {{- else -}}
     {{- printf "%s" .Values.externalDatabase.database -}}
 {{- end -}}
 {{- end -}}
 
 {{/*
-Return the MySQL User
+Return the MariaDB User
 */}}
 {{- define "yourls.databaseUser" -}}
-{{- if .Values.mysql.enabled }}
-    {{- printf "%s" .Values.mysql.auth.username -}}
+{{- if .Values.mariadb.enabled }}
+    {{- printf "%s" .Values.mariadb.auth.username -}}
 {{- else -}}
     {{- printf "%s" .Values.externalDatabase.user -}}
 {{- end -}}
 {{- end -}}
 
 {{/*
-Return the MySQL Secret Name
+Return the MariaDB Secret Name
 */}}
 {{- define "yourls.databaseSecretName" -}}
-{{- if .Values.mysql.enabled }}
-    {{- if .Values.mysql.auth.existingSecret -}}
-        {{- printf "%s" .Values.mysql.auth.existingSecret -}}
+{{- if .Values.mariadb.enabled }}
+    {{- if .Values.mariadb.auth.existingSecret -}}
+        {{- printf "%s" .Values.mariadb.auth.existingSecret -}}
     {{- else -}}
-        {{- printf "%s" (include "yourls.mysql.fullname" .) -}}
+        {{- printf "%s" (include "yourls.mariadb.fullname" .) -}}
     {{- end -}}
 {{- else if .Values.externalDatabase.existingSecret -}}
     {{- printf "%s" .Values.externalDatabase.existingSecret -}}
@@ -139,9 +139,9 @@ Compile all warnings into a single message.
 
 {{/* Validate values of YOURLS - Database */}}
 {{- define "yourls.validateValues.database" -}}
-{{- if and (not .Values.mysql.enabled) (or (empty .Values.externalDatabase.host) (empty .Values.externalDatabase.port) (empty .Values.externalDatabase.database)) -}}
+{{- if and (not .Values.mariadb.enabled) (or (empty .Values.externalDatabase.host) (empty .Values.externalDatabase.port) (empty .Values.externalDatabase.database)) -}}
 yourls: database
-   You disable the MySQL installation but you did not provide the required parameters
+   You disable the MariaDB installation but you did not provide the required parameters
    to use an external database. To use an external database, please ensure you provide
    (at least) the following values:
 

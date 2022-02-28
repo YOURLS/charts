@@ -4,7 +4,7 @@ service:
 yourls:
   password: "test-yourls"
 
-mysql:
+mariadb:
   auth:
     rootPassword: "test-root"
     password: "test-user"

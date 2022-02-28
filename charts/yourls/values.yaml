@@ -712,39 +712,39 @@ metrics:
 
 ## @section Database Parameters
 
-## MySQL chart configuration
-## ref: https://github.com/bitnami/charts/blob/master/bitnami/mysql/values.yaml
+## MariaDB chart configuration
+## ref: https://github.com/bitnami/charts/blob/master/bitnami/mariadb/values.yaml
 ##
-mysql:
-  ## @param mysql.enabled Deploy a MySQL server to satisfy the application database requirements
+mariadb:
+  ## @param mariadb.enabled Deploy a MariaDB server to satisfy the applications database requirements
   ## To use an external database set this to false and configure the `externalDatabase.*` parameters
   ##
   enabled: true
-  ## @param mysql.architecture MySQL architecture. Allowed values: `standalone` or `replication`
+  ## @param mariadb.architecture MariaDB architecture. Allowed values: `standalone` or `replication`
   ##
   architecture: standalone
-  ## MySQL Authentication parameters
-  ## @param mysql.auth.rootPassword MySQL root password
-  ## @param mysql.auth.database MySQL custom database
-  ## @param mysql.auth.username MySQL custom username
-  ## @param mysql.auth.password MySQL custom user password
-  ## ref: https://github.com/bitnami/bitnami-docker-mysql#setting-the-root-password-on-first-run
-  ##      https://github.com/bitnami/bitnami-docker-mysql/blob/master/README.md#creating-a-database-on-first-run
-  ##      https://github.com/bitnami/bitnami-docker-mysql/blob/master/README.md#creating-a-database-user-on-first-run
+  ## MariaDB Authentication parameters
+  ## @param mariadb.auth.rootPassword MariaDB root password
+  ## @param mariadb.auth.database MariaDB custom database
+  ## @param mariadb.auth.username MariaDB custom user name
+  ## @param mariadb.auth.password MariaDB custom user password
+  ## ref: https://github.com/bitnami/bitnami-docker-mariadb#setting-the-root-password-on-first-run
+  ##      https://github.com/bitnami/bitnami-docker-mariadb/blob/master/README.md#creating-a-database-on-first-run
+  ##      https://github.com/bitnami/bitnami-docker-mariadb/blob/master/README.md#creating-a-database-user-on-first-run
   auth:
     rootPassword: ""
     database: yourls
     username: yourls
     password: ""
-  ## MySQL Primary configuration
+  ## MariaDB Primary configuration
   ##
   primary:
-    ## MySQL Primary Persistence parameters
+    ## MariaDB Primary Persistence parameters
     ## ref: https://kubernetes.io/docs/user-guide/persistent-volumes/
-    ## @param mysql.primary.persistence.enabled Enable persistence on MySQL using PVC(s)
-    ## @param mysql.primary.persistence.storageClass Persistent Volume storage class
-    ## @param mysql.primary.persistence.accessModes [array] Persistent Volume access modes
-    ## @param mysql.primary.persistence.size Persistent Volume size
+    ## @param mariadb.primary.persistence.enabled Enable persistence on MariaDB using PVC(s)
+    ## @param mariadb.primary.persistence.storageClass Persistent Volume storage class
+    ## @param mariadb.primary.persistence.accessModes [array] Persistent Volume access modes
+    ## @param mariadb.primary.persistence.size Persistent Volume size
     ##
     persistence:
       enabled: true
@@ -753,7 +753,7 @@ mysql:
         - ReadWriteOnce
       size: 8Gi
 ## External Database Configuration
-## All of these values are only used if `mysql.enabled=false`
+## All of these values are only used if `mariadb.enabled=false`
 ##
 externalDatabase:
   ## @param externalDatabase.host External Database server host
@@ -771,8 +771,8 @@ externalDatabase:
   ## @param externalDatabase.database External Database database name
   ##
   database: yourls
-  ## @param externalDatabase.existingSecret The name of an existing secret with database credentials
-  ## NOTE: Must contain key `mysql-password`
+  ## @param externalDatabase.existingSecret The name of an existing secret with database credentials. Evaluated as a template
+  ## NOTE: Must contain key `mariadb-password`
   ## NOTE: When it's set, the `externalDatabase.password` parameter is ignored
   ##
   existingSecret: ""

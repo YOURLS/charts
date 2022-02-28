@@ -96,11 +96,9 @@ You can access Apache Prometheus metrics following the steps below:
     {{- $yourlsPasswordValidationErrors := include "common.validations.values.single.empty" $yourlsPassword -}}
     {{- $passwordValidationErrors = append $passwordValidationErrors $yourlsPasswordValidationErrors -}}
 {{- end }}
-{{- if .Values.mysql.enabled }}
-{{/* TODO: Validate MySQL
-    {{- $mysqlSecretName := include "yourls.databaseSecretName" . -}}
-    {{- $mysqlPasswordValidationErrors := include "common.validations.values.mariadb.passwords" (dict "secret" $mysqlSecretName "subchart" true "context" $) -}}
-    {{- $passwordValidationErrors = append $passwordValidationErrors $mysqlPasswordValidationErrors -}}
-*/}}
+{{- if .Values.mariadb.enabled }}
+    {{- $mariadbSecretName := include "yourls.databaseSecretName" . -}}
+    {{- $mariadbPasswordValidationErrors := include "common.validations.values.mariadb.passwords" (dict "secret" $mariadbSecretName "subchart" true "context" $) -}}
+    {{- $passwordValidationErrors = append $passwordValidationErrors $mariadbPasswordValidationErrors -}}
 {{- end }}
 {{- include "common.errors.upgrade.passwords.empty" (dict "validationErrors" $passwordValidationErrors "context" $) -}}

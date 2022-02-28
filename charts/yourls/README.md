@@ -7,8 +7,8 @@
 This chart installs the [YOURLS](https://yourls.org) app on a [Kubernetes](https://kubernetes.io) cluster
 using the [Helm](https://helm.sh) package manager.
 
-It includes the [MySQL chart](https://artifacthub.io/packages/helm/bitnami/mysql) which is required for
-bootstrapping a MySQL deployment for the database requirements of the YOURLS application.
+It includes the [MariaDB chart](https://artifacthub.io/packages/helm/bitnami/mariadb) which is required for
+bootstrapping a MariaDB deployment for the database requirements of the YOURLS application.
 
 ## Prerequisites
 
@@ -43,11 +43,11 @@ The `yourls` parameters map to the env variables defined in [YOURLS](https://hub
 
 _For more information please refer to the [YOURLS](https://hub.docker.com/_/yourls) image documentation._
 
-### MySQL
+### MariaDB
 
-The `mysql` parameters map to [MySQL sub-chart](https://artifacthub.io/packages/helm/bitnami/mysql) parameters.
+The `mariadb` parameters map to [MariaDB sub-chart](https://artifacthub.io/packages/helm/bitnami/mariadb) parameters.
 
-_For more information please refer to the [MySQL parameters](https://artifacthub.io/packages/helm/bitnami/mysql#parameters) documentation._
+_For more information please refer to the [MariaDB parameters](https://artifacthub.io/packages/helm/bitnami/mariadb#parameters) documentation._
 
 ## Persistence
 
@@ -59,14 +59,14 @@ Sometimes you may want to have YOURLS connect to an external database rather tha
 to use a managed database service, or use run a single database server for all your applications.
 
 To do this, the chart allows you to specify credentials for an external database under the `externalDatabase` parameter.
-You should also disable the MySQL installation with the `mysql.enabled` option. For example:
+You should also disable the MariaDB installation with the `mariadb.enabled` option. For example:
 
 ```console
 helm install yourls/yourls \
-  --set mysql.enabled=false,externalDatabase.host=myexternalhost,externalDatabase.user=myuser,externalDatabase.password=mypassword,externalDatabase.database=mydatabase
+  --set mariadb.enabled=false,externalDatabase.host=myexternalhost,externalDatabase.user=myuser,externalDatabase.password=mypassword,externalDatabase.database=mydatabase
 ```
 
-Note also if you disable MySQL per above you MUST supply values for the `externalDatabase` connection.
+Note also if you disable MariaDB per above you MUST supply values for the `externalDatabase` connection.
 
 ## Ingress
 

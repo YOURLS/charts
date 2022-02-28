@@ -115,9 +115,9 @@ spec:
               value: {{ ternary "true" "false" (or .Values.image.debug .Values.diagnosticMode.enabled) | quote }}
             - name: ALLOW_EMPTY_PASSWORD
               value: {{ ternary "yes" "no" .Values.allowEmptyPassword | quote }}
-            - name: MYSQL_HOST
+            - name: MARIADB_HOST
               value: {{ include "yourls.databaseHost" . | quote }}
-            - name: MYSQL_PORT_NUMBER
+            - name: MARIADB_PORT_NUMBER
               value: {{ include "yourls.databasePort" . | quote }}
             - name: YOURLS_DB_HOST
               value: {{ include "yourls.databaseHost" . | quote }}
@@ -129,7 +129,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: {{ include "yourls.databaseSecretName" . }}
-                  key: mysql-password
+                  key: mariadb-password
             - name: YOURLS_DB_PREFIX
               value: {{ .Values.yourls.tablePrefix | quote }}
             - name: YOURLS_SITE

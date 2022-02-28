@@ -25,10 +25,10 @@ dependencies:
     version: ^1.11.2
     tags:
       - bitnami-common
-  - condition: mysql.enabled
-    name: mysql
+  - condition: mariadb.enabled
+    name: mariadb
     repository: https://charts.bitnami.com/bitnami
-    version: ^8.8.26
+    version: ^10.3.7
     tags:
       - yourls-database
 annotations:
