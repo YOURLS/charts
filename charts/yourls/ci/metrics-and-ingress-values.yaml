@@ -7,3 +7,11 @@ service:
 
 metrics:
   enabled: true
+
+yourls:
+  password: "test-yourls"
+
+mysql:
+  auth:
+    rootPassword: "test-root"
+    password: "test-user"

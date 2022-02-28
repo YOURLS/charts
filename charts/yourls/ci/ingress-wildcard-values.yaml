@@ -7,3 +7,11 @@ ingress:
   extraHosts:
     - name: "*.domain.tld"
       path: /
+
+yourls:
+  password: "test-yourls"
+
+mysql:
+  auth:
+    rootPassword: "test-root"
+    password: "test-user"
