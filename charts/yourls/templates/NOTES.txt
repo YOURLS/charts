@@ -91,17 +91,16 @@ You can access Apache Prometheus metrics following the steps below:
 {{- include "common.warnings.rollingTag" .Values.volumePermissions.image }}
 {{- $passwordValidationErrors := list -}}
 {{- if not .Values.yourls.existingSecret -}}
-    {{- $secretName := include "yourls.secretName" . -}}
-    {{- $requiredYOURLSPassword := dict "valueKey" "yourls.password" "secret" $secretName "field" "password" "context" $ -}}
-    {{- $requiredYOURLSPasswordError := include "common.validations.values.single.empty" $requiredYOURLSPassword -}}
-    {{- $passwordValidationErrors = append $passwordValidationErrors $requiredYOURLSPasswordError -}}
+    {{- $yourlsSecretName := include "yourls.secretName" . -}}
+    {{- $yourlsPassword := dict "valueKey" "yourls.password" "secret" $yourlsSecretName "field" "password" "context" $ -}}
+    {{- $yourlsPasswordValidationErrors := include "common.validations.values.single.empty" $yourlsPassword -}}
+    {{- $passwordValidationErrors = append $passwordValidationErrors $yourlsPasswordValidationErrors -}}
 {{- end }}
 {{- if .Values.mysql.enabled }}
-    {{- $mysqlSecretName := include "yourls.databaseSecretName" . -}}
-    {{- $mysqlPasswordValidationErrors := "OK" -}}
 {{/* TODO: Validate MySQL
+    {{- $mysqlSecretName := include "yourls.databaseSecretName" . -}}
     {{- $mysqlPasswordValidationErrors := include "common.validations.values.mariadb.passwords" (dict "secret" $mysqlSecretName "subchart" true "context" $) -}}
-*/}}
     {{- $passwordValidationErrors = append $passwordValidationErrors $mysqlPasswordValidationErrors -}}
+*/}}
 {{- end }}
 {{- include "common.errors.upgrade.passwords.empty" (dict "validationErrors" $passwordValidationErrors "context" $) -}}
