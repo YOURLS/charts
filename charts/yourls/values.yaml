@@ -109,8 +109,8 @@ yourls:
   ## Defaults to a random 10-character alphanumeric string if not set
   ##
   password: ""
-  ## NOTE: Must contain key `yourls-password`
-  ## NOTE: When it's set, the `yourls.password` parameter is ignored
+  ## NOTE: Must contain keys `username` and `password`
+  ## NOTE: When set, the `yourls.username` and `yourls.password` parameters are ignored
   ##
   existingSecret: ""
   tablePrefix: yourls_
