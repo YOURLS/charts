@@ -19,6 +19,59 @@ entries:
         url: https://yourls.org/.well-known/openpgpkey/hu/6e4gbtp15q1znf3unweeducn7urty4mr
     apiVersion: v2
     appVersion: 1.8.2
+    created: "2022-04-05T23:33:21.928179848Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: ^1.13.0
+    - condition: mysql.enabled
+      name: mysql
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - yourls-database
+      version: ^8.8.34
+    description: Your Own URL Shortener
+    digest: 563e81a1fd756ecdf1df7fd9596dd90298da1d61d0ad4a2b011aaa2c1e401f0e
+    home: https://yourls.org
+    icon: https://yourls.org/images/yourls-logo.png
+    keywords:
+    - shortener
+    - url
+    - bitly
+    kubeVersion: '>=1.20.0-0'
+    maintainers:
+    - email: yourls@yourls.org
+      name: YOURLS
+    - email: git@colombaro.fr
+      name: LeoColomb
+    name: yourls
+    sources:
+    - https://github.com/YOURLS/YOURLS
+    - https://github.com/YOURLS/charts
+    type: application
+    urls:
+    - https://github.com/YOURLS/charts/releases/download/yourls-4.2.16/yourls-4.2.16.tgz
+    version: 4.2.16
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Bug fix for MySQL validation
+          links:
+            - name: GitHub Issue
+              url: https://github.com/YOURLS/charts/issues/120
+            - name: GitHub Pull Request
+              url: https://github.com/YOURLS/charts/pull/123
+      artifacthub.io/license: MIT
+      artifacthub.io/links: |
+        - name: Upstream Project
+          url: https://github.com/YOURLS/YOURLS
+      artifacthub.io/signKey: |
+        fingerprint: 6FCD850E18E4A4FF76DD1184A3A42A61961E423F
+        url: https://yourls.org/.well-known/openpgpkey/hu/6e4gbtp15q1znf3unweeducn7urty4mr
+    apiVersion: v2
+    appVersion: 1.8.2
     created: "2022-04-05T16:49:04.98340788Z"
     dependencies:
     - name: common
@@ -3630,4 +3683,4 @@ entries:
     urls:
     - https://github.com/YOURLS/charts/releases/download/yourls-1.0.0/yourls-1.0.0.tgz
     version: 1.0.0
-generated: "2022-04-05T16:49:04.984547297Z"
+generated: "2022-04-05T23:33:21.929042102Z"
