@@ -1,4 +1,4 @@
-# YOURLS using Helm
+# YOURLS using Helm [![Listed in Awesome YOURLS!](https://img.shields.io/badge/Awesome-YOURLS-C5A3BE)](https://github.com/YOURLS/awesome-yourls/)
 
 > The official [Helm](https://helm.sh) charts repository for [YOURLS](https://yourls.org).
 
