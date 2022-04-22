@@ -5,6 +5,7 @@
 [![Build Status](https://github.com/YOURLS/charts/workflows/Charts%20CI/badge.svg)](https://github.com/YOURLS/charts/actions)
 [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/yourls)](https://artifacthub.io/packages/search?repo=yourls)
 [![Chart Version](https://img.shields.io/badge/dynamic/yaml.svg?color=blue&label=chart&prefix=v&query=entries.yourls%5B0%5D.version&url=https%3A%2F%2Fcharts.yourls.org%2Findex.yaml)](https://artifacthub.io/packages/helm/yourls/yourls)
+[![Listed in Awesome YOURLS](https://img.shields.io/badge/Awesome-YOURLS-C5A3BE)](https://github.com/YOURLS/awesome-yourls/)
 
 ## About
 
