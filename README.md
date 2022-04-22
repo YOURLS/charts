@@ -1,4 +1,5 @@
-# YOURLS using Helm 
+# YOURLS using Helm
+
 > The official [Helm](https://helm.sh) charts repository for [YOURLS](https://yourls.org).
 
 [![Build Status](https://github.com/YOURLS/charts/workflows/Charts%20CI/badge.svg)](https://github.com/YOURLS/charts/actions)
