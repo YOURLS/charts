@@ -28,7 +28,7 @@ dependencies:
   - condition: mysql.enabled
     name: mysql
     repository: https://charts.bitnami.com/bitnami
-    version: ^8.9.2
+    version: ^8.9.4
     tags:
       - yourls-database
 annotations:
