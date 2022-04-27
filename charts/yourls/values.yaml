@@ -68,8 +68,8 @@ diagnosticMode:
 ## @param image.appPath Specify app files path
 ##
 image:
-  registry: docker.io
-  repository: yourls
+  registry: ghcr.io
+  repository: yourls/yourls
   ## Defaults to '{{ .Chart.AppVersion }}'
   ##
   tag: ""
