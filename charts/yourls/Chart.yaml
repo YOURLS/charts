@@ -1,8 +1,8 @@
 apiVersion: v2
-version: 4.2.22
+version: 4.3.0
 name: yourls
 description: Your Own URL Shortener
-appVersion: "1.8.2"
+appVersion: "1.9"
 type: application
 keywords:
   - shortener
@@ -41,4 +41,6 @@ annotations:
     url: https://yourls.org/.well-known/openpgpkey/hu/6e4gbtp15q1znf3unweeducn7urty4mr
   artifacthub.io/changes: |
     - kind: changed
-      description: Bump dependencies
+      description: Use GitHub Container Registry as default upstream registry
+    - kind: changed
+      description: Bump YOURLS to v1.9
