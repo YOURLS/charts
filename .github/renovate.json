@@ -26,7 +26,8 @@
       ],
       "matchStringsStrategy": "combination",
       "depNameTemplate": "ghcr.io/yourls/{{{depName}}}",
-      "datasourceTemplate": "docker"
+      "datasourceTemplate": "docker",
+      "versioningTemplate": "composer"
     }
   ],
   "github-actions": {
