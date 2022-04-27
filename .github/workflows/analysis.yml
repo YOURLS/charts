@@ -22,13 +22,13 @@ jobs:
       contents: read
       security-events: write
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Run Checkov scanner
         id: checkov
         uses: bridgecrewio/checkov-action@master
 
       - name: Upload scan results to GitHub Security tab
-        uses: github/codeql-action/upload-sarif@v1
+        uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: results.sarif

@@ -2,7 +2,7 @@ apiVersion: v2
 version: 5.0.0
 name: yourls
 description: Your Own URL Shortener
-appVersion: "1.9.0"
+appVersion: "1.9"
 type: application
 keywords:
   - shortener
@@ -18,17 +18,17 @@ maintainers:
     email: yourls@yourls.org
   - name: LeoColomb
     email: git@colombaro.fr
-kubeVersion: ">=1.20.0-0"
+kubeVersion: ^1.20.0
 dependencies:
   - name: common
     repository: https://charts.bitnami.com/bitnami
-    version: ^1.11.2
+    version: ^1.13.1
     tags:
       - bitnami-common
   - condition: mariadb.enabled
     name: mariadb
     repository: https://charts.bitnami.com/bitnami
-    version: ^10.3.7
+    version: ^11.0.0
     tags:
       - yourls-database
 annotations:
@@ -44,5 +44,3 @@ annotations:
       description: Chart upgrade validation
     - kind: changed
       description: Switched to MariaDB in place of MySQL (values under namespace are compatible)
-    - kind: changed
-      description: Bump YOURLS to v1.9.0
