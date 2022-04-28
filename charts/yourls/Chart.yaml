@@ -1,5 +1,5 @@
 apiVersion: v2
-version: 5.0.2
+version: 5.0.3
 name: yourls
 description: Your Own URL Shortener
 appVersion: "1.9"
@@ -40,5 +40,10 @@ annotations:
     fingerprint: 6FCD850E18E4A4FF76DD1184A3A42A61961E423F
     url: https://yourls.org/.well-known/openpgpkey/hu/6e4gbtp15q1znf3unweeducn7urty4mr
   artifacthub.io/changes: |
-    - kind: fixed
-      description: Fix chart icon with YOURLS logo
+    - kind: removed
+      description: Remove unused chart values
+      links:
+        - name: GitHub Issue
+          url: https://github.com/YOURLS/charts/issues/118
+        - name: GitHub Pull Request
+          url: https://github.com/YOURLS/charts/pull/154
