@@ -40,7 +40,14 @@ annotations:
     fingerprint: 6FCD850E18E4A4FF76DD1184A3A42A61961E423F
     url: https://yourls.org/.well-known/openpgpkey/hu/6e4gbtp15q1znf3unweeducn7urty4mr
   artifacthub.io/changes: |
+    - kind: changed
+      description: Switch to MariaDB as database engine
+      links:
+        - name: GitHub PR
+          url: https://github.com/YOURLS/charts/pull/126
+    - kind: changed
+      description: Values namespace `mysql` rename to `mariadb`
+    - kind: added
+      description: Database chart values validation
     - kind: added
       description: Chart upgrade validation
-    - kind: changed
-      description: Switched to MariaDB in place of MySQL (values under namespace are compatible)
