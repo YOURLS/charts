@@ -1,5 +1,5 @@
 apiVersion: v2
-version: 5.0.0
+version: 5.0.1
 name: yourls
 description: Your Own URL Shortener
 appVersion: "1.9"
@@ -9,7 +9,7 @@ keywords:
   - url
   - bitly
 home: https://yourls.org
-icon: https://yourls.org/images/yourls-logo.png
+icon: https://yourls.org/images/yourls-logo.svg
 sources:
   - https://github.com/YOURLS/YOURLS
   - https://github.com/YOURLS/charts
@@ -25,10 +25,10 @@ dependencies:
     version: ^1.13.1
     tags:
       - bitnami-common
-  - condition: mariadb.enabled
-    name: mariadb
+  - name: mariadb
     repository: https://charts.bitnami.com/bitnami
     version: ^11.0.0
+    condition: mariadb.enabled
     tags:
       - yourls-database
 annotations:
@@ -40,14 +40,5 @@ annotations:
     fingerprint: 6FCD850E18E4A4FF76DD1184A3A42A61961E423F
     url: https://yourls.org/.well-known/openpgpkey/hu/6e4gbtp15q1znf3unweeducn7urty4mr
   artifacthub.io/changes: |
-    - kind: changed
-      description: Switch to MariaDB as database engine
-      links:
-        - name: GitHub PR
-          url: https://github.com/YOURLS/charts/pull/126
-    - kind: changed
-      description: Values namespace `mysql` rename to `mariadb`
-    - kind: added
-      description: Database chart values validation
-    - kind: added
-      description: Chart upgrade validation
+    - kind: fixed
+      description: Fix chart icon with YOURLS logo
