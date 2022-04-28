@@ -8,7 +8,7 @@ on:
     inputs:
       action-matrix:
         required: false
-        default: install
+        default: '["install"]'
         type: string
         description: Matrix of actions to run
 
