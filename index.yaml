@@ -3,6 +3,59 @@ entries:
   yourls:
   - annotations:
       artifacthub.io/changes: |
+        - kind: removed
+          description: Remove unused chart values
+          links:
+            - name: GitHub Issue
+              url: https://github.com/YOURLS/charts/issues/118
+            - name: GitHub Pull Request
+              url: https://github.com/YOURLS/charts/pull/154
+      artifacthub.io/license: MIT
+      artifacthub.io/links: |
+        - name: Upstream Project
+          url: https://github.com/YOURLS/YOURLS
+      artifacthub.io/signKey: |
+        fingerprint: 6FCD850E18E4A4FF76DD1184A3A42A61961E423F
+        url: https://yourls.org/.well-known/openpgpkey/hu/6e4gbtp15q1znf3unweeducn7urty4mr
+    apiVersion: v2
+    appVersion: "1.9"
+    created: "2022-04-28T11:28:52.227917939Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: ^1.13.1
+    - condition: mariadb.enabled
+      name: mariadb
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - yourls-database
+      version: ^11.0.1
+    description: Your Own URL Shortener
+    digest: 61a61200c12651c4d68e9326ab143b0b5ac234ba9749c21526ab2e645b505b17
+    home: https://yourls.org
+    icon: https://yourls.org/images/yourls-logo.svg
+    keywords:
+    - shortener
+    - url
+    - bitly
+    kubeVersion: ^1.20.0
+    maintainers:
+    - email: yourls@yourls.org
+      name: YOURLS
+    - email: git@colombaro.fr
+      name: LeoColomb
+    name: yourls
+    sources:
+    - https://github.com/YOURLS/YOURLS
+    - https://github.com/YOURLS/charts
+    type: application
+    urls:
+    - https://github.com/YOURLS/charts/releases/download/yourls-5.0.3/yourls-5.0.3.tgz
+    version: 5.0.3
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: Fix chart icon with YOURLS logo
       artifacthub.io/license: MIT
@@ -4199,4 +4252,4 @@ entries:
     urls:
     - https://github.com/YOURLS/charts/releases/download/yourls-1.0.0/yourls-1.0.0.tgz
     version: 1.0.0
-generated: "2022-04-28T04:41:28.207028258Z"
+generated: "2022-04-28T11:28:52.234839176Z"
