@@ -100,8 +100,6 @@ image:
 ## @param yourls.existingSecret Name of existing secret containing YOURLS credentials
 ## @param yourls.tablePrefix Prefix to use for YOURLS database tables
 ## @param yourls.skipInstall Skip wizard installation
-## @param yourls.extraConfigContent Add extra content to the default config.php file
-## @param yourls.plugins Array of plugins to install and activate. Can be specified as `all` or `none`.
 yourls:
   domain: yourls
   scheme: http
@@ -118,16 +116,6 @@ yourls:
   ## ref: https://hub.docker.com/_/yourls
   ##
   skipInstall: false
-  ## e.g:
-  ## yourls.extraConfigContent: |
-  ##   @ini_set( 'post_max_size', '128M');
-  ##   @ini_set( 'memory_limit', '256M' );
-  ##
-  extraConfigContent: ""
-  ## NOTE: If set to all, only plugins that are already installed will be activated, and if set to none, no plugins will be activated
-  ## TODO: Support plugins
-  ##
-  plugins: none
 
 ## @param customPostInitScripts Custom post-init.d user scripts
 ## ref: https://github.com/YOURLS/docker/blob/main/docker-entrypoint.sh

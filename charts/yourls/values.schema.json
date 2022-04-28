@@ -176,13 +176,6 @@
           "title": "Name of existing secret containing YOURLS credentials",
           "description": "Must contain keys `username` and `password`. When it's set, the `yourls.password` and `yourls.password` parameters are ignored."
         },
-        "extraConfigContent": {
-          "type": "string"
-        },
-        "plugins": {
-          "type": "string",
-          "description": "Not currently in use"
-        },
         "skipInstall": {
           "type": "boolean"
         },

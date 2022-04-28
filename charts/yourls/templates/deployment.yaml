@@ -144,8 +144,6 @@ spec:
                 secretKeyRef:
                   name: {{ include "yourls.secretName" . }}
                   key: password
-            - name: YOURLS_PLUGINS
-              value: {{ join "," .Values.yourls.plugins | quote }}
             - name: APACHE_HTTP_PORT_NUMBER
               value: {{ .Values.containerPorts.http | quote }}
             - name: APACHE_HTTPS_PORT_NUMBER
