@@ -17,6 +17,7 @@ jobs:
     name: Run chart-testing
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         action: ${{ fromJSON(inputs.action-matrix) }}
     steps:

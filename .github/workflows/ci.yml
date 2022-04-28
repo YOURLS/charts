@@ -41,7 +41,7 @@ jobs:
       - prepare
     uses: ./.github/workflows/test.yml
     with:
-      action-matrix: '["lint", "install"]'
+      action-matrix: '["lint", "install", "install --upgrade"]'
 
   release:
     name: Release

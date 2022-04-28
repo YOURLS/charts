@@ -228,19 +228,19 @@
         }
       }
     },
-    "mysql": {
-      "title": "MySQL chart configuration",
-      "description": "https://artifacthub.io/packages/helm/bitnami/mysql",
+    "mariadb": {
+      "title": "MariaDB chart configuration",
+      "description": "https://artifacthub.io/packages/helm/bitnami/mariadb",
       "allOf": [
         {
-          "$ref": "https://raw.githubusercontent.com/bitnami/charts/master/bitnami/mysql/values.schema.json"
+          "$ref": "https://raw.githubusercontent.com/bitnami/charts/master/bitnami/mariadb/values.schema.json"
         },
         {
           "properties": {
             "enabled": {
               "type": "boolean",
               "default": true,
-              "description": "Deploy a MySQL server to satisfy the application database"
+              "description": "Deploy a MariaDB server to satisfy the application database"
             }
           }
         }
@@ -249,38 +249,38 @@
     "externalDatabase": {
       "type": "object",
       "title": "External Database Details",
-      "description": "If MySQL is disabled. Use this section to specify the external database details",
+      "description": "If MariaDB is disabled. Use this section to specify the external database details",
       "form": true,
       "properties": {
         "host": {
           "type": "string",
           "form": true,
           "title": "Database Host",
-          "hidden": "mysql/enabled"
+          "hidden": "mariadb/enabled"
         },
         "user": {
           "type": "string",
           "form": true,
           "title": "Database Username",
-          "hidden": "mysql/enabled"
+          "hidden": "mariadb/enabled"
         },
         "password": {
           "type": "string",
           "form": true,
           "title": "Database Password",
-          "hidden": "mysql/enabled"
+          "hidden": "mariadb/enabled"
         },
         "database": {
           "type": "string",
           "form": true,
           "title": "Database Name",
-          "hidden": "mysql/enabled"
+          "hidden": "mariadb/enabled"
         },
         "port": {
           "type": "integer",
           "form": true,
           "title": "Database Port",
-          "hidden": "mysql/enabled"
+          "hidden": "mariadb/enabled"
         },
         "existingSecret": {
           "type": "string"

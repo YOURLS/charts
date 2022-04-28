@@ -1,5 +1,5 @@
 apiVersion: v2
-version: 4.3.0
+version: 5.0.0
 name: yourls
 description: Your Own URL Shortener
 appVersion: "1.9"
@@ -18,17 +18,17 @@ maintainers:
     email: yourls@yourls.org
   - name: LeoColomb
     email: git@colombaro.fr
-kubeVersion: ">=1.20.0-0"
+kubeVersion: ^1.20.0
 dependencies:
   - name: common
     repository: https://charts.bitnami.com/bitnami
     version: ^1.13.1
     tags:
       - bitnami-common
-  - condition: mysql.enabled
-    name: mysql
+  - condition: mariadb.enabled
+    name: mariadb
     repository: https://charts.bitnami.com/bitnami
-    version: ^8.9.4
+    version: ^11.0.0
     tags:
       - yourls-database
 annotations:
@@ -41,6 +41,13 @@ annotations:
     url: https://yourls.org/.well-known/openpgpkey/hu/6e4gbtp15q1znf3unweeducn7urty4mr
   artifacthub.io/changes: |
     - kind: changed
-      description: Use GitHub Container Registry as default upstream registry
+      description: Switch to MariaDB as database engine
+      links:
+        - name: GitHub PR
+          url: https://github.com/YOURLS/charts/pull/126
     - kind: changed
-      description: Bump YOURLS to v1.9
+      description: Values namespace `mysql` rename to `mariadb`
+    - kind: added
+      description: Database chart values validation
+    - kind: added
+      description: Chart upgrade validation
