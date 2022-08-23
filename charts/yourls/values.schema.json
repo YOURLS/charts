@@ -30,6 +30,9 @@
         },
         "tag": {
           "type": "string"
+        },
+        "digest": {
+          "type": "string"
         }
       },
       "required": [
