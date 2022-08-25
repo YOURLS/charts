@@ -9,8 +9,15 @@
   "packageRules": [
     {
       "matchDatasources": ["helm"],
+      "matchUpdateTypes": ["minor", "patch"],
       "versioning": "npm",
       "bumpVersion": "patch"
+    },
+    {
+      "matchDatasources": ["helm"],
+      "matchUpdateTypes": ["major"],
+      "versioning": "npm",
+      "bumpVersion": "minor"
     },
     {
       "matchUpdateTypes": ["minor", "patch"],
