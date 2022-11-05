@@ -41,7 +41,12 @@ spec:
             {{- if eq "true" (include "common.ingress.supportsPathType" $) }}
             pathType: {{ default "ImplementationSpecific" .pathType }}
             {{- end }}
+            {{- if hasKey . "backend" }}
+            backend:
+              {{- toYaml .backend | nindent 14 }}
+            {{- else }}
             backend: {{- include "common.ingress.backend" (dict "serviceName" (include "common.names.fullname" $) "servicePort" "http" "context" $) | nindent 14 }}
+            {{- end}}
     {{- end }}
   {{- if or .Values.ingress.tls .Values.ingress.extraTls }}
   tls:

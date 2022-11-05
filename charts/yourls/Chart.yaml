@@ -1,5 +1,5 @@
 apiVersion: v2
-version: 5.2.11
+version: 5.2.12
 name: yourls
 description: Your Own URL Shortener
 appVersion: "1.9.1"
