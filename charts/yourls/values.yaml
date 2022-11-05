@@ -477,7 +477,13 @@ ingress:
   ## e.g:
   ## extraHosts:
   ##   - name: yourls.local
-  ##     path: /
+  ##     path: /foo
+  ##     pathType: Prefix # optional
+  ##     backend:         # optional
+  ##       service:
+  ##         name: response-foo
+  ##         port:
+  ##           name: use-annotation
   ##
   extraHosts: []
   ## @param ingress.extraPaths An array with additional arbitrary paths that may need to be added to the ingress under the main host
