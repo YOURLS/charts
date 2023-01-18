@@ -40,5 +40,5 @@ annotations:
     fingerprint: 6FCD850E18E4A4FF76DD1184A3A42A61961E423F
     url: https://yourls.org/.well-known/openpgpkey/hu/6e4gbtp15q1znf3unweeducn7urty4mr
   artifacthub.io/changes: |
-    - kind: added
-      description: Add diggest parameters to prepare bitnami/common v2
+    - kind: changed
+      description: Bump dependencies
