@@ -1,5 +1,5 @@
 apiVersion: v2
-version: 5.2.20
+version: 5.2.21
 name: yourls
 description: Your Own URL Shortener
 appVersion: "1.9.1"
@@ -27,7 +27,7 @@ dependencies:
       - bitnami-common
   - name: mariadb
     repository: https://charts.bitnami.com/bitnami
-    version: ^11.4.4
+    version: ^11.4.5
     condition: mariadb.enabled
     tags:
       - yourls-database
