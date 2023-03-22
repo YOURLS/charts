@@ -2,7 +2,7 @@
 
 > The official [Helm](https://helm.sh) charts repository for [YOURLS](https://yourls.org).
 
-[![Build Status](https://github.com/YOURLS/charts/workflows/Charts%20CI/badge.svg)](https://github.com/YOURLS/charts/actions)
+[![Build Status](https://github.com/YOURLS/charts/actions/workflows/ci.yml/badge.svg)](https://github.com/YOURLS/charts/actions/workflows/ci.yml)
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/yourls)](https://artifacthub.io/packages/search?repo=yourls)
 [![Awesome YOURLS](https://img.shields.io/badge/Awesome-YOURLS-C5A3BE)](https://github.com/YOURLS/awesome-yourls)
 
