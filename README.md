@@ -3,7 +3,7 @@
 > The official [Helm](https://helm.sh) charts repository for [YOURLS](https://yourls.org).
 
 [![Build Status](https://github.com/YOURLS/charts/workflows/Charts%20CI/badge.svg)](https://github.com/YOURLS/charts/actions)
-[![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/yourls)](https://artifacthub.io/packages/search?repo=yourls)
+[![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/yourls)](https://artifacthub.io/packages/search?repo=yourls)
 [![Awesome YOURLS](https://img.shields.io/badge/Awesome-YOURLS-C5A3BE)](https://github.com/YOURLS/awesome-yourls)
 
 ## About
@@ -33,3 +33,7 @@ This is the Git repository of the official Helm charts for YOURLS.
       ```sh
       helm search yourls
       ```
+
+## License
+
+This project is licensed under [MIT License](LICENSE).
