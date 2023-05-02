@@ -14,6 +14,54 @@ entries:
         url: https://yourls.org/.well-known/openpgpkey/hu/6e4gbtp15q1znf3unweeducn7urty4mr
     apiVersion: v2
     appVersion: 1.9.2
+    created: "2023-05-02T14:04:43.029522217Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: ^2.2.5
+    - condition: mariadb.enabled
+      name: mariadb
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - yourls-database
+      version: ^12.1.3
+    description: Your Own URL Shortener
+    digest: 2976fba44d537d132fbaa3edc0b5eefc86b6bc82b31a4314b91c9e666646e97e
+    home: https://yourls.org
+    icon: https://yourls.org/images/yourls-logo.svg
+    keywords:
+    - shortener
+    - url
+    - bitly
+    kubeVersion: ^1.20.0-0
+    maintainers:
+    - name: YOURLS
+      url: https://github.com/YOURLS
+    - name: LeoColomb
+      url: https://github.com/LeoColomb
+    name: yourls
+    sources:
+    - https://github.com/YOURLS/YOURLS
+    - https://github.com/YOURLS/charts
+    type: application
+    urls:
+    - https://github.com/YOURLS/charts/releases/download/yourls-5.4.4/yourls-5.4.4.tgz
+    version: 5.4.4
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: Bump dependencies
+      artifacthub.io/license: MIT
+      artifacthub.io/links: |
+        - name: Upstream Project
+          url: https://github.com/YOURLS/YOURLS
+      artifacthub.io/signKey: |
+        fingerprint: 6FCD850E18E4A4FF76DD1184A3A42A61961E423F
+        url: https://yourls.org/.well-known/openpgpkey/hu/6e4gbtp15q1znf3unweeducn7urty4mr
+    apiVersion: v2
+    appVersion: 1.9.2
     created: "2023-04-27T19:01:25.301040012Z"
     dependencies:
     - name: common
@@ -7819,4 +7867,4 @@ entries:
     urls:
     - https://github.com/YOURLS/charts/releases/download/yourls-1.0.0/yourls-1.0.0.tgz
     version: 1.0.0
-generated: "2023-04-27T19:01:25.301752027Z"
+generated: "2023-05-02T14:04:43.029975519Z"
