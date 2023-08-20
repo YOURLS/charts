@@ -4,6 +4,6 @@ dependencies:
   version: 2.8.0
 - name: mariadb
   repository: https://charts.bitnami.com/bitnami
-  version: 13.0.4
-digest: sha256:ed78d3ac89862ef8451b4dbe7a478a08dbd5fc0ff9a626bbc7c4eadf3f9d862c
-generated: "2023-08-17T23:15:55.436683108Z"
+  version: 13.0.5
+digest: sha256:ba7e97a3b206379b40e08341aec083daa55439a27a417d466e0cedbc3717c198
+generated: "2023-08-20T10:30:50.298883688Z"
