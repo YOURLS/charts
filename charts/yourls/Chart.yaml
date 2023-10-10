@@ -18,7 +18,7 @@ maintainers:
     url: https://github.com/YOURLS
   - name: LeoColomb
     url: https://github.com/LeoColomb
-kubeVersion: ^1.20.0-0
+kubeVersion: ^1.23.0-0
 dependencies:
   - name: common
     repository: https://charts.bitnami.com/bitnami
