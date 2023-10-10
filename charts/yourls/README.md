@@ -12,7 +12,7 @@ bootstrapping a MariaDB deployment for the database requirements of the YOURLS a
 
 ## Prerequisites
 
-* Kubernetes [1.20+](https://kubernetes.io/releases/)
+* Kubernetes [1.23+](https://kubernetes.io/releases/)
 * [Persistant Volumes](https://kubernetes.io/docs/concepts/storage/persistent-volumes/) provisioner support in the underlying infrastructure
 
 ## Usage
