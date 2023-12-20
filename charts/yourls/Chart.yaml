@@ -1,5 +1,5 @@
 apiVersion: v2
-version: 5.6.10
+version: 5.7.0
 name: yourls
 description: Your Own URL Shortener
 appVersion: "1.9.2"
@@ -27,7 +27,7 @@ dependencies:
       - bitnami-common
   - name: mariadb
     repository: https://charts.bitnami.com/bitnami
-    version: ^14.1.4
+    version: ^15.0.0
     condition: mariadb.enabled
     tags:
       - yourls-database
@@ -41,4 +41,4 @@ annotations:
     url: https://yourls.org/.well-known/openpgpkey/hu/6e4gbtp15q1znf3unweeducn7urty4mr
   artifacthub.io/changes: |
     - kind: changed
-      description: Bump Kubernetes version requirement
+      description: Bump dependencies
