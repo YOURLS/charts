@@ -1,0 +1,154 @@
+## @section Global parameters
+## Global Docker image parameters
+## Please, note that this will override the image parameters, including dependencies, configured to use the global value
+## Current available global Docker image parameters: imageRegistry, imagePullSecrets and storageClass
+##
+
+## @param global.imageRegistry Global Docker image registry
+## @param global.imagePullSecrets Global Docker registry secret names as an array
+## @param global.storageClass Global StorageClass for Persistent Volume(s)
+##
+global:
+  imageRegistry: ""
+  ## E.g.
+  ## imagePullSecrets:
+  ##   - myRegistryKeySecretName
+  ##
+  imagePullSecrets: []
+  storageClass: ""
+
+## @section Common parameters
+##
+
+## @param kubeVersion Override Kubernetes version
+##
+kubeVersion: ""
+## @param nameOverride String to partially override common.names.fullname
+##
+nameOverride: ""
+## @param fullnameOverride String to fully override common.names.fullname
+##
+fullnameOverride: ""
+## @param commonLabels Labels to add to all deployed objects
+##
+commonLabels: {}
+## @param commonAnnotations Annotations to add to all deployed objects
+##
+commonAnnotations: {}
+## @param clusterDomain Kubernetes cluster domain name
+##
+clusterDomain: cluster.local
+## @param extraDeploy Array of extra objects to deploy with the release
+##
+extraDeploy: []
+
+## Enable diagnostic mode in the deployment
+##
+diagnosticMode:
+  ## @param diagnosticMode.enabled Enable diagnostic mode (all probes will be disabled and the command will be overridden)
+  ##
+  enabled: false
+  ## @param diagnosticMode.command Command to override all containers in the deployment
+  ##
+  command:
+    - sleep
+  ## @param diagnosticMode.args Args to override all containers in the deployment
+  ##
+  args:
+    - infinity
+
+## @section Function container image
+##
+
+## @param image.registry Image registry
+## @param image.repository Image repository
+## @param image.tag Image tag (immutable tags are recommended)
+## @param image.pullPolicy Image pull policy
+## @param image.pullSecrets Image pull secrets
+## @param image.debug Enable image debug mode
+##
+image:
+  registry: ghcr.io
+  repository: yourls/function
+  ## Defaults to '{{ .Chart.AppVersion }}'
+  ##
+  tag: ""
+  ## Specify a imagePullPolicy
+  ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
+  ## ref: https://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+  ##
+  pullPolicy: Always
+  ## Optionally specify an array of imagePullSecrets.
+  ## Secrets must be manually created in the namespace.
+  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+  ## e.g:
+  ## pullSecrets:
+  ##   - myRegistryKeySecretName
+  ##
+  pullSecrets: []
+  ## Enable debug mode
+  ##
+  debug: false
+
+## @section Function parameters
+##
+function:
+  endpoint: ""
+  token: ""
+  existingSecret: ""
+
+## @param podAnnotations Additional pod annotations
+## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
+##
+podAnnotations: {}
+## @param podLabels Additional pod labels
+## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
+##
+podLabels: {}
+
+## @section Redis&trade; parameters
+
+## Redis&trade; chart configuration
+## https://github.com/bitnami/charts/blob/master/bitnami/redis/values.yaml
+##
+redis:
+  ## @param redis.enabled Whether to deploy a redis server to satisfy the applications requirements. To use an external redis instance set this to false and configure the externalRedis parameters
+  ##
+  enabled: true
+  ## Use password authentication
+  ## @param redis.auth.enabled Use password authentication
+  ## @param redis.auth.password Redis&trade; password (both master and replica)
+  ## @param redis.auth.existingSecret Name of an existing Kubernetes secret object containing the password
+  ## @param redis.auth.existingSecretPasswordKey Name of the key pointing to the password in your Kubernetes secret
+  ##
+  auth:
+    enabled: false
+    ## Defaults to a random 10-character alphanumeric string if not set and auth.enabled is true.
+    ## It should always be set using the password value or in the existingSecret to avoid issues
+    ## with Discourse.
+    ## The password value is ignored if existingSecret is set
+    password: ""
+    existingSecret: ""
+    existingSecretPasswordKey: 'redis-password'
+  ## @param redis.architecture Cluster settings
+  ##
+  architecture: standalone
+  ## Redis&trade; Master parameters
+  ## @param redis.master.persistence.enabled Enable database persistence using PVC
+  ##
+  master:
+    persistence:
+      enabled: true
+## External Redis&trade;
+## @param externalRedis.host Host of the external database
+## @param externalRedis.port Database port number
+## @param externalRedis.password Password for the external Redis. Ignored if existingSecret is set
+## @param externalRedis.existingSecret Name of an existing Kubernetes secret object containing the password
+## @param externalRedis.existingSecretPasswordKey Name of the key pointing to the password in your Kubernetes secret
+##
+externalDatabase:
+  host: ""
+  port: 6379
+  password: ""
+  existingSecret: ""
+  existingSecretPasswordKey: 'redis-password'
