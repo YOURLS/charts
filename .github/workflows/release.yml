@@ -1,3 +1,4 @@
+# yamllint disable rule:document-start
 # https://docs.github.com/actions
 
 name: Release
@@ -5,9 +6,6 @@ name: Release
 on:
   workflow_call:
     secrets:
-      CHARTS_URL:
-        required: true
-        description: Chart release URL
       GPG_KEY_BASE64:
         required: true
         description: GPG key for signing
@@ -40,7 +38,7 @@ jobs:
           GPG_KEY_BASE64: ${{ secrets.GPG_KEY_BASE64 }}
 
       - name: Install Helm
-        uses: azure/setup-helm@v3.5
+        uses: azure/setup-helm@v4.1.0
 
       - name: Add Helm repos
         run: helm repo add bitnami https://charts.bitnami.com/bitnami
@@ -48,7 +46,6 @@ jobs:
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.6.0
         with:
-          charts_repo_url: ${{ secrets.CHARTS_URL }}
           config: config.yaml
         env:
           CR_TOKEN: ${{ secrets.GITHUB_TOKEN }}

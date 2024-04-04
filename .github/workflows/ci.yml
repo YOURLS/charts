@@ -52,5 +52,4 @@ jobs:
     permissions:
       contents: write
     secrets:
-      CHARTS_URL: ${{ secrets.CHARTS_URL }}
       GPG_KEY_BASE64: ${{ secrets.GPG_KEY_BASE64 }}
