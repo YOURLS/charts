@@ -46,8 +46,6 @@ jobs:
   release:
     name: Release
     if: github.ref == 'refs/heads/main'
-    needs:
-      - test
     uses: ./.github/workflows/release.yml
     permissions:
       contents: write
