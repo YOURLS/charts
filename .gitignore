@@ -34,5 +34,6 @@ dist/
 
 # Chart dependencies
 *.tgz
+values-*.yaml
 .history
 /public
