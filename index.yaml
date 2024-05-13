@@ -17,6 +17,57 @@ entries:
         url: https://yourls.org/.well-known/openpgpkey/hu/6e4gbtp15q1znf3unweeducn7urty4mr
     apiVersion: v2
     appVersion: 1.9.2
+    created: "2024-05-13T09:53:19.265590409Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: ^2.19.2
+    - condition: mariadb.enabled
+      name: mariadb
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - yourls-database
+      version: ^18.0.3
+    description: Your Own URL Shortener
+    digest: 6c693dc2f8a41ce64a4440549d31fcaa91cc4de740864183d1255262b532b46e
+    home: https://yourls.org
+    icon: https://yourls.org/images/yourls-logo.svg
+    keywords:
+    - shortener
+    - url
+    - bitly
+    kubeVersion: ^1.23.0-0
+    maintainers:
+    - name: YOURLS
+      url: https://github.com/YOURLS
+    - name: LeoColomb
+      url: https://github.com/LeoColomb
+    name: yourls
+    sources:
+    - https://github.com/YOURLS/YOURLS
+    - https://github.com/YOURLS/charts
+    type: application
+    urls:
+    - https://github.com/YOURLS/charts/releases/download/yourls-5.10.3/yourls-5.10.3.tgz
+    version: 5.10.3
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: New release
+          links:
+            - name: Changelog on GitHub Releases
+              url: https://github.com/YOURLS/charts/releases?q=yourls-
+      artifacthub.io/license: MIT
+      artifacthub.io/links: |
+        - name: Upstream Project
+          url: https://github.com/YOURLS/YOURLS
+      artifacthub.io/signKey: |
+        fingerprint: 6FCD850E18E4A4FF76DD1184A3A42A61961E423F
+        url: https://yourls.org/.well-known/openpgpkey/hu/6e4gbtp15q1znf3unweeducn7urty4mr
+    apiVersion: v2
+    appVersion: 1.9.2
     created: "2024-04-30T10:34:04.905970321Z"
     dependencies:
     - name: common
@@ -11530,4 +11581,4 @@ entries:
     urls:
     - https://github.com/YOURLS/charts/releases/download/yourls-1.0.0/yourls-1.0.0.tgz
     version: 1.0.0
-generated: "2024-04-30T10:34:04.906480187Z"
+generated: "2024-05-13T09:53:19.266139405Z"
