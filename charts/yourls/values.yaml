@@ -646,7 +646,7 @@ metrics:
   image:
     registry: docker.io
     repository: bitnami/apache-exporter
-    tag: 0.11.0-debian-10-r36
+    tag: 0.13.4-debian-11-r69
     digest: ""
     pullPolicy: Always
     ## Optionally specify an array of imagePullSecrets.
