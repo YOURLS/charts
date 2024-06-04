@@ -9,7 +9,7 @@
   "rangeStrategy": "bump",
   "packageRules": [
     {
-      "matchDatasources": ["helm"],
+      "matchManagers": ["helmv3"],
       "versioning": "helm"
     },
     {
