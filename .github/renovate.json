@@ -1,12 +1,17 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base",
+    "mergeConfidence:all-badges",
+    "config:recommended",
     ":disableDependencyDashboard"
   ],
   "labels": ["dependencies"],
   "rangeStrategy": "bump",
   "packageRules": [
+    {
+      "matchDatasources": ["helm"],
+      "versioning": "helm"
+    },
     {
       "matchDatasources": ["helm"],
       "matchUpdateTypes": ["minor", "patch"],
@@ -23,8 +28,9 @@
       "automerge": true
     }
   ],
-  "regexManagers": [
+  "customManagers": [
     {
+      "customType": "regex",
       "fileMatch": ["(^|/)Chart.yaml$"],
       "matchStrings": [
         "\\nname: (?<depName>.*?)\\n",
@@ -33,7 +39,7 @@
       "matchStringsStrategy": "combination",
       "depNameTemplate": "ghcr.io/yourls/{{{depName}}}",
       "datasourceTemplate": "docker",
-      "versioningTemplate": "composer"
+      "versioningTemplate": "semver-coerced"
     }
   ],
   "github-actions": {
