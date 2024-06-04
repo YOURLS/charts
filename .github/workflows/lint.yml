@@ -10,7 +10,10 @@ on:
     branches:
       - main
 
-permissions: {}
+permissions:
+  contents: read
+  packages: read
+  statuses: write
 
 jobs:
   super-linter:
