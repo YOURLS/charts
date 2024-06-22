@@ -743,6 +743,9 @@
     "tolerations": {
       "type": "array"
     },
+    "topologySpreadConstraints": {
+      "type": "array"
+    },
     "updateStrategy": {
       "type": "object",
       "description": "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy",
