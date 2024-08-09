@@ -12,12 +12,7 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 Return the proper YOURLS image name
 */}}
 {{- define "yourls.image" -}}
-{{- $imageRoot := .Values.image -}}
-{{- if not .Values.image.tag }}
-    {{- $tag := (dict "tag" .Chart.AppVersion) -}}
-    {{- $imageRoot := merge .Values.image $tag -}}
-{{- end -}}
-{{- include "common.images.image" (dict "imageRoot" $imageRoot "global" .Values.global) -}}
+{{- include "common.images.image" (dict "imageRoot" .Values.image "global" .Values.global "chart" .Chart) -}}
 {{- end -}}
 
 {{/*
@@ -31,7 +26,7 @@ Return the proper image name (for the metrics image)
 Return the proper image name (for the init container volume-permissions image)
 */}}
 {{- define "yourls.volumePermissions.image" -}}
-{{- include "common.images.image" ( dict "imageRoot" .Values.volumePermissions.image "global" .Values.global ) -}}
+{{- include "common.images.image" (dict "imageRoot" .Values.volumePermissions.image "global" .Values.global) -}}
 {{- end -}}
 
 {{/*
