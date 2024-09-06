@@ -1,13 +1,3 @@
-ingress:
-  enabled: true
-  tls: true
-
-service:
-  type: ClusterIP
-
-metrics:
-  enabled: true
-
 yourls:
   password: "test-yourls"
 
@@ -15,3 +5,13 @@ mariadb:
   auth:
     rootPassword: "test-root"
     password: "test-user"
+
+service:
+  type: ClusterIP
+
+ingress:
+  enabled: true
+  tls: true
+
+metrics:
+  enabled: true

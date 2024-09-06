@@ -89,15 +89,9 @@ Return the MariaDB Secret Name
 */}}
 {{- define "yourls.databaseSecretName" -}}
 {{- if .Values.mariadb.enabled }}
-    {{- if .Values.mariadb.auth.existingSecret -}}
-        {{- printf "%s" .Values.mariadb.auth.existingSecret -}}
-    {{- else -}}
-        {{- printf "%s" (include "yourls.mariadb.fullname" .) -}}
-    {{- end -}}
-{{- else if .Values.externalDatabase.existingSecret -}}
-    {{- printf "%s" .Values.externalDatabase.existingSecret -}}
+    {{- include "mariadb.secretName" .Subcharts.mariadb -}}
 {{- else -}}
-    {{- printf "%s-externaldb" (include "common.names.fullname" .) -}}
+    {{- include "common.secrets.name" (dict "existingSecret" .Values.externalDatabase.existingSecret "defaultNameSuffix" "externaldb" "context" $) }}
 {{- end -}}
 {{- end -}}
 
@@ -136,12 +130,11 @@ Compile all warnings into a single message.
 {{- define "yourls.validateValues.database" -}}
 {{- if and (not .Values.mariadb.enabled) (or (empty .Values.externalDatabase.host) (empty .Values.externalDatabase.port) (empty .Values.externalDatabase.database)) -}}
 yourls: database
-   You disable the MariaDB installation but you did not provide the required parameters
-   to use an external database. To use an external database, please ensure you provide
-   (at least) the following values:
-
-       externalDatabase.host=DB_SERVER_HOST
-       externalDatabase.database=DB_NAME
-       externalDatabase.port=DB_SERVER_PORT
+    You disable the MariaDB installation but you did not provide the required parameters
+    to use an external database. To use an external database, please ensure you provide
+    (at least) the following values:
+        externalDatabase.host=DB_SERVER_HOST
+        externalDatabase.database=DB_NAME
+        externalDatabase.port=DB_SERVER_PORT
 {{- end -}}
 {{- end -}}
