@@ -68,8 +68,8 @@ To access your YOURLS site from outside the cluster follow the steps below:
 
 3. Login with the following credentials below to see your app:
 
-   echo Username: $(kubectl get secret --namespace {{ .Release.Namespace }} {{ template "common.names.fullname" . }} -o jsonpath="{.data.username}" | base64 --decode)
-   echo Password: $(kubectl get secret --namespace {{ .Release.Namespace }} {{ template "common.names.fullname" . }} -o jsonpath="{.data.password}" | base64 --decode)
+    echo Username: $(kubectl get secret --namespace {{ .Release.Namespace }} {{ template "common.names.fullname" . }} -o jsonpath="{.data.username}" | base64 --decode)
+    echo Password: $(kubectl get secret --namespace {{ .Release.Namespace }} {{ template "common.names.fullname" . }} -o jsonpath="{.data.password}" | base64 --decode)
 
 {{- if .Values.metrics.enabled }}
 
