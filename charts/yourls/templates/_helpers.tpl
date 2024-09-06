@@ -89,15 +89,9 @@ Return the MariaDB Secret Name
 */}}
 {{- define "yourls.databaseSecretName" -}}
 {{- if .Values.mariadb.enabled }}
-    {{- if .Values.mariadb.auth.existingSecret -}}
-        {{- printf "%s" .Values.mariadb.auth.existingSecret -}}
-    {{- else -}}
-        {{- printf "%s" (include "yourls.mariadb.fullname" .) -}}
-    {{- end -}}
-{{- else if .Values.externalDatabase.existingSecret -}}
-    {{- printf "%s" .Values.externalDatabase.existingSecret -}}
+    {{- include "mariadb.secretName" .Subcharts.mariadb -}}
 {{- else -}}
-    {{- printf "%s-externaldb" (include "common.names.fullname" .) -}}
+    {{- include "common.secrets.name" (dict "existingSecret" .Values.externalDatabase.existingSecret "defaultNameSuffix" "externaldb" "context" $) }}
 {{- end -}}
 {{- end -}}
 
