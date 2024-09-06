@@ -91,14 +91,11 @@ You can access Apache Prometheus metrics following the steps below:
 {{- include "common.warnings.rollingTag" .Values.volumePermissions.image }}
 {{- $passwordValidationErrors := list -}}
 {{- if not .Values.yourls.existingSecret -}}
-    {{- $yourlsSecretName := include "yourls.secretName" . -}}
-    {{- $yourlsPassword := dict "valueKey" "yourls.password" "secret" $yourlsSecretName "field" "password" "context" $ -}}
-    {{- $yourlsPasswordValidationErrors := include "common.validations.values.single.empty" $yourlsPassword -}}
+    {{- $yourlsPasswordValidationErrors := include "common.validations.values.single.empty" (dict "valueKey" "yourls.password" "secret" (include "yourls.secretName" .) "field" "password" "context" $) -}}
     {{- $passwordValidationErrors = append $passwordValidationErrors $yourlsPasswordValidationErrors -}}
 {{- end }}
 {{- if .Values.mariadb.enabled }}
-    {{- $mariadbSecretName := include "yourls.databaseSecretName" . -}}
-    {{- $mariadbPasswordValidationErrors := include "common.validations.values.mariadb.passwords" (dict "secret" $mariadbSecretName "subchart" true "context" $) -}}
+    {{- $mariadbPasswordValidationErrors := include "common.validations.values.mariadb.passwords" (dict "secret" (include "yourls.databaseSecretName" .) "subchart" true "context" $) -}}
     {{- $passwordValidationErrors = append $passwordValidationErrors $mariadbPasswordValidationErrors -}}
 {{- end }}
 {{- include "common.errors.upgrade.passwords.empty" (dict "validationErrors" $passwordValidationErrors "context" $) -}}
