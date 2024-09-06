@@ -130,12 +130,11 @@ Compile all warnings into a single message.
 {{- define "yourls.validateValues.database" -}}
 {{- if and (not .Values.mariadb.enabled) (or (empty .Values.externalDatabase.host) (empty .Values.externalDatabase.port) (empty .Values.externalDatabase.database)) -}}
 yourls: database
-   You disable the MariaDB installation but you did not provide the required parameters
-   to use an external database. To use an external database, please ensure you provide
-   (at least) the following values:
-
-       externalDatabase.host=DB_SERVER_HOST
-       externalDatabase.database=DB_NAME
-       externalDatabase.port=DB_SERVER_PORT
+    You disable the MariaDB installation but you did not provide the required parameters
+    to use an external database. To use an external database, please ensure you provide
+    (at least) the following values:
+        externalDatabase.host=DB_SERVER_HOST
+        externalDatabase.database=DB_NAME
+        externalDatabase.port=DB_SERVER_PORT
 {{- end -}}
 {{- end -}}
