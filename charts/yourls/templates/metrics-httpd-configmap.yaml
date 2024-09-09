@@ -1,0 +1,14 @@
+{{- if and .Values.metrics.enabled .Values.metrics.apacheVhost }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ printf "%s-apache-metrics" (include "common.names.fullname" .) | trunc 63 | trimSuffix "-" }}
+  namespace: {{ .Release.Namespace | quote }}
+  labels: {{- include "common.labels.standard" ( dict "customLabels" .Values.commonLabels "context" $ ) | nindent 4 }}
+  {{- if .Values.commonAnnotations }}
+  annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
+  {{- end }}
+data:
+  00_status-vhost.conf: |-
+    {{- .Files.Get "files/00_status-vhost.conf" | nindent 4 }}
+{{- end }}
