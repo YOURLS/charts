@@ -210,6 +210,11 @@ spec:
             - mountPath: /docker-entrypoint-init.d
               name: custom-postinit
             {{- end }}
+            {{- if and .Values.metrics.enabled .Values.metrics.apacheVhost }}
+            - name: apache-metrics
+              mountPath: /etc/apache2/sites-available/00_status-vhost.conf
+              subPath: 00_status-vhost.conf
+            {{- end }}
             {{- if .Values.extraVolumeMounts }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumeMounts "context" $) | nindent 12 }}
             {{- end }}
@@ -274,6 +279,12 @@ spec:
           configMap:
             name: {{ printf "%s-postinit" (include "common.names.fullname" .) }}
             defaultMode: 0755
+        {{- end }}
+        {{- if and .Values.metrics.enabled .Values.metrics.apacheVhost }}
+        - name: apache-metrics
+          configMap:
+            name: {{ printf "%s-apache-metrics" (include "common.names.fullname" .) | trunc 63 | trimSuffix "-" }}
+            defaultMode: 0644
         {{- end }}
         - name: yourls-data
           {{- if .Values.persistence.enabled }}

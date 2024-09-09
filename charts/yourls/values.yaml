@@ -672,6 +672,9 @@ metrics:
   ## @param metrics.enabled Start a sidecar prometheus exporter to expose metrics
   ##
   enabled: false
+  ## @param metrics.apacheVhost Create a virtual host to enable Apache httpd to serve metrics
+  ##
+  apacheVhost: true
   ## Bitnami Apache Exporter image
   ## ref: https://hub.docker.com/r/bitnami/apache-exporter/tags/
   ## @param metrics.image.registry Apache Exporter image registry
