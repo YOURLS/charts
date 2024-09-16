@@ -11,11 +11,17 @@ on:
         default: '["install"]'
         type: string
         description: Matrix of actions to run
+      contains-changes:
+        required: false
+        default: true
+        type: boolean
+        description: The ref contains changes requiring tests
 
 jobs:
   ct:
     name: Run chart-testing
     runs-on: ubuntu-latest
+    if: inputs.contains-changes
     strategy:
       fail-fast: false
       matrix:

@@ -31,17 +31,17 @@ jobs:
         run: |
           changed=$(ct list-changed --config config.yaml)
           if [[ -n "$changed" ]]; then
-            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
   test:
     name: Test
-    if: needs.prepare.outputs.changed == 'true'
     needs:
       - prepare
     uses: ./.github/workflows/test.yml
     with:
       action-matrix: '["lint", "install", "install --upgrade"]'
+      contains-changes: ${{ needs.prepare.outputs.changed == 'true' }}
 
   release:
     name: Release
