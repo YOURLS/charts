@@ -3,6 +3,7 @@
   "extends": [
     "mergeConfidence:all-badges",
     "config:recommended",
+    "customManagers:helmChartYamlAppVersions",
     ":disableDependencyDashboard"
   ],
   "labels": ["dependencies"],
@@ -26,20 +27,6 @@
       "matchUpdateTypes": ["minor", "patch"],
       "matchCurrentVersion": "!/^0/",
       "automerge": true
-    }
-  ],
-  "customManagers": [
-    {
-      "customType": "regex",
-      "fileMatch": ["(^|/)Chart.yaml$"],
-      "matchStrings": [
-        "\\nname: (?<depName>.*?)\\n",
-        "\\nappVersion: \"(?<currentValue>.*?)\"\\n"
-      ],
-      "matchStringsStrategy": "combination",
-      "depNameTemplate": "ghcr.io/yourls/{{{depName}}}",
-      "datasourceTemplate": "docker",
-      "versioningTemplate": "semver-coerced"
     }
   ],
   "github-actions": {
