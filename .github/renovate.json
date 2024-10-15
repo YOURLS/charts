@@ -24,5 +24,8 @@
       "matchCurrentVersion": "!/^0/",
       "automerge": true
     }
-  ]
+  ],
+  "kubernetes": {
+    "fileMatch": ["^charts/.+\\.ya?ml$"]
+  }
 }
