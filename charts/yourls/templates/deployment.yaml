@@ -130,7 +130,7 @@ spec:
             - name: MARIADB_PORT_NUMBER
               value: {{ include "yourls.databasePort" . | quote }}
             - name: YOURLS_DB_HOST
-              value: {{ include "yourls.databaseHost" . | quote }}
+              value: "{{ include "yourls.databaseHost" . }}:{{ include "yourls.databasePort" . }}"
             - name: YOURLS_DB_NAME
               value: {{ include "yourls.databaseName" . | quote }}
             - name: YOURLS_DB_USER
