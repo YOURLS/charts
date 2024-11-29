@@ -231,7 +231,7 @@ spec:
           command:
             - /bin/apache_exporter
             - --scrape_uri
-            - http://status.localhost:8080/server-status/?auto
+            - http://status.localhost:80/server-status/?auto
           {{- end }}
           ports:
             - name: metrics
