@@ -1,0 +1,50 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: {{ include "common.names.fullname" . }}
+  namespace: {{ .Release.Namespace | quote }}
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+    {{- if .Values.commonLabels }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
+    {{- end }}
+  {{- if .Values.commonAnnotations }}
+  annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
+  {{- end }}
+spec:
+  template:
+    metadata:
+      labels: {{- include "common.labels.standard" . | nindent 8 }}
+        {{- if .Values.podLabels }}
+        {{- include "common.tplvalues.render" (dict "value" .Values.podLabels "context" $) | nindent 8 }}
+        {{- end }}
+      {{- if or .Values.podAnnotations }}
+      annotations:
+        {{- if .Values.podAnnotations }}
+        {{- include "common.tplvalues.render" (dict "value" .Values.podAnnotations "context" $) | nindent 8 }}
+        {{- end }}
+      {{- end }}
+    spec:
+      containers:
+        - name: function
+          image: {{ template "function.image" . }}
+          env:
+            {{- if (include "function.redis.auth.enabled" .) }}
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "function.redis.secretName" . }}
+                  key: {{ include "function.redis.secretPasswordKey" . }}
+            {{- end }}
+            - name: YOURLS_ENDPOINT
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "function.secretName" . }}
+                  key: endpoint
+            - name: YOURLS_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "function.secretName" . }}
+                  key: token
+          envFrom:
+            - configMapRef:
+                name: {{ include "common.names.fullname" . }}
