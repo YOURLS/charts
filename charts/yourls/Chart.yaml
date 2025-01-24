@@ -1,5 +1,5 @@
 apiVersion: v2
-version: 7.1.2
+version: 7.1.3
 name: yourls
 description: Your Own URL Shortener
 # renovate: image=ghcr.io/yourls/yourls
@@ -27,7 +27,7 @@ dependencies:
     tags:
       - bitnami-common
   - name: mariadb
-    version: ^20.2.1
+    version: ^20.2.2
     repository: oci://registry-1.docker.io/bitnamicharts
     condition: mariadb.enabled
     tags:
