@@ -1,0 +1,283 @@
+{
+  "$schema": "https://json-schema.org/schema#",
+  "title": "YOURLS Function Chart JSON Schema",
+  "type": "object",
+  "$defs": {
+    "image": {
+      "title": "Container image description",
+      "type": "object",
+      "properties": {
+        "pullPolicy": {
+          "title": "Specify a imagePullPolicy",
+          "description": "Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'",
+          "type": "string",
+          "enum": [
+            "IfNotPresent",
+            "Always",
+            "Never"
+          ]
+        },
+        "pullSecrets": {
+          "title": "Optionally specify an array of imagePullSecrets",
+          "description": "https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/",
+          "type": "array"
+        },
+        "registry": {
+          "type": "string"
+        },
+        "repository": {
+          "type": "string"
+        },
+        "tag": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "repository",
+        "pullPolicy"
+      ]
+    },
+    "probe": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "failureThreshold": {
+          "type": "integer"
+        },
+        "httpGet": {
+          "type": "object",
+          "properties": {
+            "httpHeaders": {
+              "type": "array"
+            },
+            "path": {
+              "type": "string"
+            },
+            "port": {
+              "type": "string"
+            },
+            "scheme": {
+              "type": "string"
+            }
+          }
+        },
+        "initialDelaySeconds": {
+          "type": "integer"
+        },
+        "periodSeconds": {
+          "type": "integer"
+        },
+        "successThreshold": {
+          "type": "integer"
+        },
+        "timeoutSeconds": {
+          "type": "integer"
+        }
+      }
+    },
+    "resources": {
+      "type": "object",
+      "title": "Required Resources",
+      "description": "Configure resource requests",
+      "form": true,
+      "properties": {
+        "requests": {
+          "type": "object",
+          "properties": {
+            "memory": {
+              "type": "string",
+              "form": true,
+              "render": "slider",
+              "title": "Memory Request",
+              "sliderMin": 10,
+              "sliderMax": 2048,
+              "sliderUnit": "Mi"
+            },
+            "cpu": {
+              "type": "string",
+              "form": true,
+              "render": "slider",
+              "title": "CPU Request",
+              "sliderMin": 10,
+              "sliderMax": 2000,
+              "sliderUnit": "m"
+            }
+          }
+        },
+        "limits": {
+          "type": "object",
+          "properties": {
+            "memory": {
+              "type": "string",
+              "form": true,
+              "render": "slider",
+              "title": "Memory Request",
+              "sliderMin": 10,
+              "sliderMax": 2048,
+              "sliderUnit": "Mi"
+            },
+            "cpu": {
+              "type": "string",
+              "form": true,
+              "render": "slider",
+              "title": "CPU Request",
+              "sliderMin": 10,
+              "sliderMax": 2000,
+              "sliderUnit": "m"
+            }
+          }
+        }
+      }
+    }
+  },
+  "properties": {
+    "function": {
+      "type": "object",
+      "title": "Function Configuration parameters",
+      "description": "https://github.com/YOURLS/function",
+      "form": true,
+      "properties": {
+        "endpoint": {
+          "type": "string",
+          "title": "YOURLS API endpoint name for the function",
+          "examples": [
+            "https://exemple.com"
+          ],
+          "form": true
+        },
+        "token": {
+          "type": "string",
+          "title": "YOURLS API token for the function",
+          "form": true
+        },
+        "existingSecret": {
+          "type": "string"
+        }
+      }
+    },
+    "redis": {
+      "title": "Redis chart configuration",
+      "description": "https://artifacthub.io/packages/helm/bitnami/redis",
+      "allOf": [
+        {
+          "$ref": "https://raw.githubusercontent.com/bitnami/charts/master/bitnami/redis/values.schema.json"
+        },
+        {
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "default": true,
+              "description": "Deploy a Redis server to satisfy the application database"
+            }
+          }
+        }
+      ]
+    },
+    "externalDatabase": {
+      "type": "object",
+      "title": "External Database Details",
+      "description": "If Redis is disabled. Use this section to specify the external database details",
+      "form": true,
+      "properties": {
+        "host": {
+          "type": "string",
+          "form": true,
+          "title": "Database Host",
+          "hidden": "redis/enabled"
+        },
+        "password": {
+          "type": "string",
+          "form": true,
+          "title": "Database Password",
+          "hidden": "redis/enabled"
+        },
+        "port": {
+          "type": "integer",
+          "form": true,
+          "title": "Database Port",
+          "hidden": "redis/enabled"
+        },
+        "existingSecret": {
+          "type": "string"
+        }
+      }
+    },
+    "commonAnnotations": {
+      "type": "object"
+    },
+    "commonLabels": {
+      "type": "object"
+    },
+    "diagnosticMode": {
+      "type": "object",
+      "properties": {
+        "args": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "command": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "enabled": {
+          "type": "boolean"
+        }
+      }
+    },
+    "extraDeploy": {
+      "type": "array"
+    },
+    "fullnameOverride": {
+      "type": "string"
+    },
+    "global": {
+      "type": "object",
+      "properties": {
+        "imagePullSecrets": {
+          "type": "array"
+        },
+        "imageRegistry": {
+          "type": "string"
+        },
+        "storageClass": {
+          "type": "string"
+        }
+      }
+    },
+    "image": {
+      "title": "Function container image",
+      "allOf": [
+        {
+          "$ref": "#/$defs/image"
+        },
+        {
+          "properties": {
+            "debug": {
+              "title": "Enable image debug mode",
+              "default": false,
+              "type": "boolean"
+            }
+          }
+        }
+      ]
+    },
+    "kubeVersion": {
+      "type": "string"
+    },
+    "nameOverride": {
+      "type": "string"
+    },
+    "podAnnotations": {
+      "type": "object"
+    },
+    "podLabels": {
+      "type": "object"
+    }
+  }
+}
