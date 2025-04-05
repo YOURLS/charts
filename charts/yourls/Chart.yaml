@@ -1,5 +1,5 @@
 apiVersion: v2
-version: 7.1.24
+version: 7.1.25
 name: yourls
 description: Your Own URL Shortener
 # renovate: image=ghcr.io/yourls/yourls
