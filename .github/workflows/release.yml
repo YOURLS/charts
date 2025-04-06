@@ -42,8 +42,8 @@ jobs:
       - name: Install Helm
         uses: azure/setup-helm@v4.3.0
 
-      - name: Add Helm repos
-        run: helm repo add bitnami https://charts.bitnami.com/bitnami
+      - name: Add Helm plugins
+        run: helm plugin install https://github.com/sigstore/helm-sigstore
 
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.7.0
@@ -67,4 +67,5 @@ jobs:
               break
             fi
             helm push "${pkg}" "oci://ghcr.io/${GITHUB_REPOSITORY@L}"
+            helm sigstore upload --keyring="$CR_KEYRING" "${pkg}"
           done
