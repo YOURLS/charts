@@ -650,7 +650,7 @@
             },
             "appPath": {
               "title": "Specify app files path",
-              "default": "/var/www/html",
+              "default": "/var/www/html/user",
               "type": "string"
             }
           }

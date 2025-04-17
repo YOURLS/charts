@@ -49,10 +49,6 @@ The `mariadb` parameters map to [MariaDB sub-chart](https://artifacthub.io/packa
 
 _For more information please refer to the [MariaDB parameters](https://artifacthub.io/packages/helm/bitnami/mariadb#parameters) documentation._
 
-## Persistence
-
-The [YOURLS](https://hub.docker.com/_/yourls) image stores the YOURLS data and configurations at the `/yourls` path of the container.
-
 ## Using an external database
 
 Sometimes you may want to have YOURLS connect to an external database rather than installing one inside your cluster, e.g.
