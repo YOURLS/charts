@@ -8,3 +8,6 @@ mariadb:
 
 service:
   type: ClusterIP
+
+persistence:
+  enabled: true
