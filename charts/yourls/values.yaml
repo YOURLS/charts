@@ -91,7 +91,7 @@ image:
   ## Enable debug mode
   ##
   debug: false
-  appPath: /var/www/html
+  appPath: /var/www/html/user
 
 ## @section YOURLS Configuration parameters
 ## YOURLS settings based on environment variables
@@ -564,7 +564,7 @@ ingress:
 persistence:
   ## @param persistence.enabled Enable persistence using Persistent Volume Claims
   ##
-  enabled: true
+  enabled: false
   ## @param persistence.storageClass Persistent Volume storage class
   ## If defined, storageClassName: <storageClass>
   ## If set to "-", storageClassName: "", which disables dynamic provisioning

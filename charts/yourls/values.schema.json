@@ -11,11 +11,7 @@
           "title": "Specify a imagePullPolicy",
           "description": "Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'",
           "type": "string",
-          "enum": [
-            "IfNotPresent",
-            "Always",
-            "Never"
-          ]
+          "enum": ["IfNotPresent", "Always", "Never"]
         },
         "pullSecrets": {
           "title": "Optionally specify an array of imagePullSecrets",
@@ -35,10 +31,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "repository",
-        "pullPolicy"
-      ]
+      "required": ["repository", "pullPolicy"]
     },
     "probe": {
       "type": "object",
@@ -141,26 +134,19 @@
       "title": "YOURLS Configuration parameters",
       "description": "https://hub.docker.com/_/yourls",
       "form": true,
-      "required": [
-        "domain"
-      ],
+      "required": ["domain"],
       "properties": {
         "domain": {
           "type": "string",
           "title": "Domain name for YOURLS",
-          "examples": [
-            "exemple.com"
-          ],
+          "examples": ["exemple.com"],
           "form": true
         },
         "scheme": {
           "type": "string",
           "title": "HTTP Scheme for YOURLS",
           "default": "http",
-          "enum": [
-            "http",
-            "https"
-          ],
+          "enum": ["http", "https"],
           "form": true
         },
         "username": {
@@ -650,7 +636,7 @@
             },
             "appPath": {
               "title": "Specify app files path",
-              "default": "/var/www/html",
+              "default": "/var/www/html/user",
               "type": "string"
             }
           }
@@ -755,10 +741,7 @@
         },
         "type": {
           "type": "string",
-          "enum": [
-            "Recreate",
-            "RollingUpdate"
-          ]
+          "enum": ["Recreate", "RollingUpdate"]
         }
       }
     }
