@@ -20,12 +20,19 @@
       "bumpVersion": "minor"
     },
     {
-      "matchUpdateTypes": ["minor", "patch"],
-      "matchCurrentVersion": "!/^0/",
+      "matchUpdateTypes": ["!major"],
       "automerge": true
+    },
+    {
+      "matchFileNames": ["charts/**"],
+      "bumpVersions": {
+        "filePatterns": "{{packageFileDir}}/Chart.{yaml,yml}",
+        "matchStrings": ["version:\\s(?<version>[^\\s]+)"],
+        "bumpType": "{{#if isMajor}}minor{{else}}patch{{/if}}"
+      }
     }
   ],
   "kubernetes": {
-    "fileMatch": ["^charts/.+\\.ya?ml$"]
+    "managerFilePatterns": ["/^charts/.+\\.ya?ml$/"]
   }
 }
