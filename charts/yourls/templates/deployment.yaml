@@ -212,8 +212,8 @@ spec:
             {{- end }}
             {{- if and .Values.metrics.enabled .Values.metrics.apacheVhost }}
             - name: apache-metrics
-              mountPath: /etc/apache2/sites-available/00_status-vhost.conf
-              subPath: 00_status-vhost.conf
+              mountPath: /etc/apache2/sites-enabled/001-status-vhost.conf
+              subPath: 001-status-vhost.conf
             {{- end }}
             {{- if .Values.extraVolumeMounts }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumeMounts "context" $) | nindent 12 }}
