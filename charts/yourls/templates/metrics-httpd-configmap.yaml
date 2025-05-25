@@ -9,6 +9,6 @@ metadata:
   annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
   {{- end }}
 data:
-  00_status-vhost.conf: |-
-    {{- .Files.Get "files/00_status-vhost.conf" | nindent 4 }}
+  001-status-vhost.conf: |-
+    {{- .Files.Get "files/001-status-vhost.conf" | nindent 4 }}
 {{- end }}
