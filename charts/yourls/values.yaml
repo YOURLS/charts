@@ -91,7 +91,7 @@ image:
   ## Enable debug mode
   ##
   debug: false
-  appPath: /var/www/html/user
+  appPath: /var/www/html
 
 ## @section YOURLS Configuration parameters
 ## YOURLS settings based on environment variables
