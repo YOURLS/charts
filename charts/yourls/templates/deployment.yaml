@@ -97,6 +97,8 @@ spec:
           {{- end }}
           volumeMounts:
             - mountPath: {{ .Values.image.appPath }}
+              name: yourls-root
+            - mountPath: {{ printf "%s/user" .Values.image.appPath }}
               name: yourls-data
         {{- end }}
         {{- if .Values.initContainers }}
@@ -205,6 +207,8 @@ spec:
           {{- end }}
           volumeMounts:
             - mountPath: {{ .Values.image.appPath }}
+              name: yourls-root
+            - mountPath: {{ printf "%s/user" .Values.image.appPath }}
               name: yourls-data
             {{- if .Values.customPostInitScripts }}
             - mountPath: /docker-entrypoint-init.d
@@ -286,6 +290,8 @@ spec:
             name: {{ printf "%s-apache-metrics" (include "common.names.fullname" .) | trunc 63 | trimSuffix "-" }}
             defaultMode: 0644
         {{- end }}
+        - name: yourls-root
+          emptyDir: {}
         - name: yourls-data
           {{- if .Values.persistence.enabled }}
           persistentVolumeClaim:
