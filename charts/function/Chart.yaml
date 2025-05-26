@@ -1,0 +1,44 @@
+apiVersion: v2
+version: 0.0.1
+name: function
+description: Serverless Function
+appVersion: "1.0.0"
+type: application
+keywords:
+  - shortener
+  - url
+  - bitly
+home: https://yourls.org
+icon: https://yourls.org/images/yourls-logo.png
+sources:
+  - https://github.com/YOURLS/function
+  - https://github.com/YOURLS/charts
+maintainers:
+  - name: YOURLS
+    email: yourls@yourls.org
+  - name: LeoColomb
+    email: git@colombaro.fr
+kubeVersion: ">=1.20.0-0"
+dependencies:
+  - name: common
+    repository: https://charts.bitnami.com/bitnami
+    version: ^1.11.1
+    tags:
+      - bitnami-common
+  - condition: redis.enabled
+    name: redis
+    repository: https://charts.bitnami.com/bitnami
+    version: ^16.4.0
+    tags:
+      - function-database
+annotations:
+  artifacthub.io/license: MIT
+  artifacthub.io/links: |
+    - name: Upstream Project
+      url: https://github.com/YOURLS/function
+  artifacthub.io/signKey: |
+    fingerprint: 6FCD850E18E4A4FF76DD1184A3A42A61961E423F
+    url: https://yourls.org/.well-known/openpgpkey/hu/6e4gbtp15q1znf3unweeducn7urty4mr
+  artifacthub.io/changes: |
+    - kind: added
+      description: First version
