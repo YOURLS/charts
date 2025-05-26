@@ -285,13 +285,6 @@ resources:
   requests:
     memory: 512Mi
     cpu: 300m
-## Container ports
-## @param containerPorts.http YOURLS HTTP container port
-## @param containerPorts.https YOURLS HTTPS container port
-##
-containerPorts:
-  http: 80
-  https: 443
 ## Configure Pods Security Context
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
 ## @param podSecurityContext.enabled Enabled YOURLS pods' Security Context

@@ -512,17 +512,6 @@
     "commonLabels": {
       "type": "object"
     },
-    "containerPorts": {
-      "type": "object",
-      "properties": {
-        "http": {
-          "type": "integer"
-        },
-        "https": {
-          "type": "integer"
-        }
-      }
-    },
     "containerSecurityContext": {
       "type": "object",
       "properties": {

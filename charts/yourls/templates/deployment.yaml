@@ -156,10 +156,6 @@ spec:
                 secretKeyRef:
                   name: {{ include "yourls.secretName" . }}
                   key: password
-            - name: APACHE_HTTP_PORT_NUMBER
-              value: {{ .Values.containerPorts.http | quote }}
-            - name: APACHE_HTTPS_PORT_NUMBER
-              value: {{ .Values.containerPorts.https | quote }}
             {{- if .Values.extraEnvVars }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 12 }}
             {{- end }}
@@ -174,9 +170,11 @@ spec:
             {{- end }}
           ports:
             - name: http
-              containerPort: {{ .Values.containerPorts.http }}
+              containerPort: 8080
+              protocol: TCP
             - name: https
-              containerPort: {{ .Values.containerPorts.https }}
+              containerPort: 8443
+              protocol: TCP
             {{- if .Values.extraContainerPorts }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraContainerPorts "context" $) | nindent 12 }}
             {{- end }}
@@ -235,7 +233,7 @@ spec:
           command:
             - /bin/apache_exporter
             - --scrape_uri
-            - http://status.localhost:80/server-status/?auto
+            - http://status.localhost:8080/server-status/?auto
           {{- end }}
           ports:
             - name: metrics
