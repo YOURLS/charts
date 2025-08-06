@@ -14,6 +14,64 @@ entries:
         - name: os-shell
           image: docker.io/bitnami/os-shell:12-debian-12-r49
         - name: apache-exporter
+          image: docker.io/bitnami/apache-exporter:1.0.10-debian-12-r14
+      artifacthub.io/license: MIT
+      artifacthub.io/links: |
+        - name: Upstream Project
+          url: https://github.com/YOURLS/YOURLS
+      artifacthub.io/signKey: |
+        fingerprint: 6FCD850E18E4A4FF76DD1184A3A42A61961E423F
+        url: https://yourls.org/.well-known/openpgpkey/hu/6e4gbtp15q1znf3unweeducn7urty4mr
+    apiVersion: v2
+    appVersion: 1.10.2
+    created: "2025-08-06T21:39:56.426116222Z"
+    dependencies:
+    - name: common
+      repository: oci://registry-1.docker.io/bitnamicharts
+      tags:
+      - bitnami-common
+      version: ^2.31.3
+    - condition: mariadb.enabled
+      name: mariadb
+      repository: oci://registry-1.docker.io/bitnamicharts
+      tags:
+      - yourls-database
+      version: ^21.0.3
+    description: Your Own URL Shortener
+    digest: 89a8bdcf54957a70c465cce86ce4b9f61f6a6b6a802171278ba4d75aa100c1a3
+    home: https://yourls.org
+    icon: https://yourls.org/images/yourls-logo.svg
+    keywords:
+    - shortener
+    - url
+    - bitly
+    kubeVersion: ^1.23.0-0
+    maintainers:
+    - name: YOURLS
+      url: https://github.com/YOURLS
+    - name: LeoColomb
+      url: https://github.com/LeoColomb
+    name: yourls
+    sources:
+    - https://github.com/YOURLS/YOURLS
+    - https://github.com/YOURLS/charts
+    type: application
+    urls:
+    - https://github.com/YOURLS/charts/releases/download/yourls-8.3.9/yourls-8.3.9.tgz
+    version: 8.3.9
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: New release
+          links:
+            - name: Changelog on GitHub Releases
+              url: https://github.com/YOURLS/charts/releases?q=yourls-
+      artifacthub.io/images: |
+        - name: yourls
+          image: ghcr.io/yourls/yourls:1.10.2
+        - name: os-shell
+          image: docker.io/bitnami/os-shell:12-debian-12-r49
+        - name: apache-exporter
           image: docker.io/bitnami/apache-exporter:1.0.10-debian-12-r13
       artifacthub.io/license: MIT
       artifacthub.io/links: |
@@ -19181,4 +19239,4 @@ entries:
     urls:
     - https://github.com/YOURLS/charts/releases/download/yourls-1.0.0/yourls-1.0.0.tgz
     version: 1.0.0
-generated: "2025-07-31T22:38:21.754516414Z"
+generated: "2025-08-06T21:39:56.426895591Z"
