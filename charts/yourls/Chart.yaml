@@ -1,5 +1,5 @@
 apiVersion: v2
-version: 8.3.10
+version: 8.3.11
 name: yourls
 description: Your Own URL Shortener
 # renovate: image=ghcr.io/yourls/yourls
@@ -37,7 +37,7 @@ annotations:
     - name: yourls
       image: ghcr.io/yourls/yourls:1.10.2
     - name: os-shell
-      image: docker.io/bitnami/os-shell:12-debian-12-r49
+      image: docker.io/bitnami/os-shell:12-debian-12-r50
     - name: apache-exporter
       image: docker.io/bitnami/apache-exporter:1.0.10-debian-12-r14
   artifacthub.io/license: MIT
