@@ -10,7 +10,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: '43 2 * * 6'
+    - cron: "43 2 * * 6"
   workflow_dispatch:
 
 jobs:
@@ -22,7 +22,7 @@ jobs:
       contents: read
       security-events: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Run Checkov scanner
         id: checkov
