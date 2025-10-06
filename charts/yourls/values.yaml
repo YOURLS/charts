@@ -668,8 +668,8 @@ metrics:
   ## @param metrics.apacheVhost Create a virtual host to enable Apache httpd to serve metrics
   ##
   apacheVhost: true
-  ## Bitnami Apache Exporter image
-  ## ref: https://hub.docker.com/r/bitnami/apache-exporter/tags/
+  ## Apache Exporter for Prometheus image
+  ## ref: https://hub.docker.com/r/lusotycoon/apache-exporter/tags
   ## @param metrics.image.registry Apache Exporter image registry
   ## @param metrics.image.repository Apache Exporter image repository
   ## @param metrics.image.tag Apache Exporter image tag (immutable tags are recommended)
@@ -679,8 +679,8 @@ metrics:
   ##
   image:
     registry: docker.io
-    repository: bitnami/apache-exporter
-    tag: 1.0.10-debian-12-r55
+    repository: lusotycoon/apache-exporter
+    tag: v1.0.10
     digest: ""
     pullPolicy: Always
     ## Optionally specify an array of imagePullSecrets.
