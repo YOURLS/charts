@@ -1,5 +1,5 @@
 apiVersion: v2
-version: 8.5.4
+version: 8.5.5
 name: yourls
 description: Your Own URL Shortener
 # renovate: image=ghcr.io/yourls/yourls
@@ -39,7 +39,7 @@ annotations:
     - name: busybox
       image: docker.io/busybox:1.37.0
     - name: apache-exporter
-      image: docker.io/lusotycoon/apache-exporter:v1.0.10
+      image: docker.io/lusotycoon/apache-exporter:v1.0.11
   artifacthub.io/license: MIT
   artifacthub.io/links: |
     - name: Upstream Project
