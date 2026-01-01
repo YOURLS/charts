@@ -43,7 +43,7 @@ jobs:
         uses: azure/setup-helm@v4.3.1
 
       - name: Add Helm plugins
-        run: helm plugin install https://github.com/sigstore/helm-sigstore
+        run: helm plugin install --verify=false https://github.com/sigstore/helm-sigstore
 
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.7.0
