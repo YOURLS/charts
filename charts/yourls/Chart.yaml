@@ -1,5 +1,5 @@
 apiVersion: v2
-version: 8.6.4
+version: 8.6.5
 name: yourls
 description: Your Own URL Shortener
 # renovate: image=ghcr.io/yourls/yourls
@@ -23,7 +23,7 @@ kubeVersion: ^1.23.0-0
 dependencies:
   - name: common
     repository: oci://registry-1.docker.io/bitnamicharts
-    version: ^2.31.4
+    version: ^2.34.0
     tags:
       - bitnami-common
   - name: mariadb
