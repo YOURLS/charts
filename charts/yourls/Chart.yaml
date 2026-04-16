@@ -1,5 +1,5 @@
 apiVersion: v2
-version: 8.7.10
+version: 8.7.11
 name: yourls
 description: Your Own URL Shortener
 # renovate: image=ghcr.io/yourls/yourls
@@ -12,8 +12,8 @@ keywords:
 home: https://yourls.org
 icon: https://yourls.org/images/yourls-logo.svg
 sources:
-  - https://github.com/YOURLS/YOURLS
   - https://github.com/YOURLS/charts
+  - https://github.com/YOURLS/YOURLS
 maintainers:
   - name: YOURLS
     url: https://github.com/YOURLS
