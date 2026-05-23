@@ -1,9 +1,9 @@
 apiVersion: v2
-version: 8.7.19
+version: 8.7.20
 name: yourls
 description: Your Own URL Shortener
 # renovate: image=ghcr.io/yourls/yourls
-appVersion: "1.10.3"
+appVersion: "1.10.4"
 type: application
 keywords:
   - shortener
@@ -35,7 +35,7 @@ dependencies:
 annotations:
   artifacthub.io/images: |
     - name: yourls
-      image: ghcr.io/yourls/yourls:1.10.3
+      image: ghcr.io/yourls/yourls:1.10.4
     - name: busybox
       image: docker.io/busybox:1.38.0
     - name: apache-exporter
