@@ -601,7 +601,7 @@ volumePermissions:
   image:
     registry: docker.io
     repository: busybox
-    tag: 1.37.0
+    tag: 1.38.0
     digest: ""
     pullPolicy: Always
     ## Optionally specify an array of imagePullSecrets.
