@@ -680,7 +680,7 @@ metrics:
   image:
     registry: docker.io
     repository: lusotycoon/apache-exporter
-    tag: v1.1.0
+    tag: v1.1.1
     digest: ""
     pullPolicy: Always
     ## Optionally specify an array of imagePullSecrets.
